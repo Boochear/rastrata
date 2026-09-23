@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>Растрата</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="titlebar">
+        <span id="titlebar-label">Растрата</span>
+        <div id="titlebar-controls">
+            <img src="media/dot.svg" alt="Свернуть" id="btn-minimize" class="titlebar-btn" role="button">
+            <img src="media/dot.svg" alt="Закрыть" id="btn-close" class="titlebar-btn" role="button">
+        </div>
+    </div>
+
+    <div id="period-selector">
+        <div id="toolbar-row">
+            <button id="period-btn" class="btn">Сегодня ▾</button>
+            <button id="btn-settings" class="btn">Настройки</button>
+        </div>
+        <div id="period-dropdown" class="dropdown-menu hidden">
+            <div class="dropdown-item" data-period="today" data-label="Сегодня">Сегодня</div>
+            <div class="dropdown-item" data-period="yesterday" data-label="Вчера">Вчера</div>
+            <div class="dropdown-item" data-period="last7" data-label="Последние 7 дней">Последние 7 дней</div>
+            <div class="dropdown-item" data-period="last30" data-label="Последние 30 дней">Последние 30 дней</div>
+            <div class="dropdown-item" data-period="lastyear" data-label="Последний год">Последний год</div>
+            <div class="dropdown-item" data-period="all" data-label="За всё время">За всё время</div>
+        </div>
+    </div>
+
+    <div id="list"></div>
+    <script src="renderer.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,436 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat/static/Montserrat-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat/static/Montserrat-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat/static/Montserrat-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat/static/Montserrat-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat/static/Montserrat-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+}
+
+:root,
+body[data-theme="white"] {
+    --bg: #ffffff;
+    --fg: #000000;
+    --border: #000000;
+    --border-soft: #6d6d6d;
+    --row-active-bg: #e9e9e9;
+    --icon-filter: none;
+}
+
+body[data-theme="black"] {
+    --bg: #000000;
+    --fg: #ffffff;
+    --border: #ffffff;
+    --border-soft: #6d6d6d;
+    --row-active-bg: #161616;
+    --icon-filter: invert(1);
+}
+
+body[data-theme="sepia"] {
+    --bg: #f4ecd8;
+    --fg: #3b2f1e;
+    --border: #3b2f1e;
+    --border-soft: #8a7a5c;
+    --row-active-bg: #e6d9b8;
+    --icon-filter: none;
+}
+
+body[data-theme="midnight"] {
+    --bg: #0d1b2a;
+    --fg: #e0e6ed;
+    --border: #e0e6ed;
+    --border-soft: #46607a;
+    --row-active-bg: #1b2f42;
+    --icon-filter: invert(1);
+}
+
+body[data-theme="forest"] {
+    --bg: #101b12;
+    --fg: #d8f0d0;
+    --border: #d8f0d0;
+    --border-soft: #3f5a3f;
+    --row-active-bg: #1c2e1c;
+    --icon-filter: invert(1);
+}
+
+body[data-theme="crimson"] {
+    --bg: #150505;
+    --fg: #f2caca;
+    --border: #f2caca;
+    --border-soft: #5a2a2a;
+    --row-active-bg: #2a0e0e;
+    --icon-filter: invert(1);
+}
+
+body[data-theme="lavender"] {
+    --bg: #f1ecf9;
+    --fg: #2e1f47;
+    --border: #2e1f47;
+    --border-soft: #9b86c2;
+    --row-active-bg: #e0d4f5;
+    --icon-filter: none;
+}
+
+body[data-theme="ocean"] {
+    --bg: #06222b;
+    --fg: #cdeef2;
+    --border: #cdeef2;
+    --border-soft: #2c5a66;
+    --row-active-bg: #0f3540;
+    --icon-filter: invert(1);
+}
+
+body[data-theme="sunset"] {
+    --bg: #2b1418;
+    --fg: #ffd7b5;
+    --border: #ffd7b5;
+    --border-soft: #7a3f3a;
+    --row-active-bg: #3d1e22;
+    --icon-filter: invert(1);
+}
+
+body[data-theme="graphite"] {
+    --bg: #e4e4e4;
+    --fg: #1a1a1a;
+    --border: #1a1a1a;
+    --border-soft: #7d7d7d;
+    --row-active-bg: #cfcfcf;
+    --icon-filter: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, filter 0.2s ease;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 14px;
+    user-select: none;
+}
+
+#titlebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 34px;
+    padding: 0 10px;
+    background: var(--bg);
+    -webkit-app-region: drag;
+    border-bottom: 2px solid var(--border);
+}
+
+#titlebar-label {
+    font-size: 15px;
+    font-weight: 700;
+    -webkit-app-region: drag;
+}
+
+#titlebar-controls {
+    display: flex;
+    gap: 10px;
+    -webkit-app-region: no-drag;
+}
+
+.titlebar-btn {
+    width: 13px;
+    height: 13px;
+    opacity: 1;
+    -webkit-app-region: no-drag;
+    border-radius: 50%;
+    box-shadow: 0px 0px 8px rgb(0, 0, 0);
+    display: block;
+    object-fit: contain;
+    filter: var(--icon-filter);
+    transition: transform 0.15s ease, filter 0.2s ease;
+}
+
+.titlebar-btn:hover {
+    transform: scale(1.25);
+}
+
+.titlebar-btn:active {
+    transform: scale(0.9);
+}
+
+#list {
+    padding: 10px;
+}
+
+@keyframes row-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#toolbar-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+}
+
+.row-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.row.active {
+    border-color: var(--border);
+    background: var(--row-active-bg);
+    font-weight: bold;
+}
+
+.row-number {
+    color: var(--fg);
+    margin-right: 4px;
+}
+
+.row-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.row-new {
+    animation: row-in 0.25s ease;
+}
+
+.btn {
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 13px;
+    padding: 6px 14px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--fg);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background: var(--fg);
+    color: var(--bg);
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+.checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 17px;
+    height: 17px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    background: var(--bg);
+    position: relative;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.checkbox:active {
+    transform: scale(0.9);
+}
+
+.checkbox:checked {
+    background: var(--fg);
+}
+
+.checkbox:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
+    border: solid var(--bg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    animation: checkmark-in 0.15s ease forwards;
+}
+
+@keyframes checkmark-in {
+    from {
+        transform: rotate(45deg) scale(0);
+    }
+
+    to {
+        transform: rotate(45deg) scale(1);
+    }
+}
+
+.dev-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 16px;
+    margin-top: 12px;
+    border-top: 1px solid var(--border-soft);
+}
+
+.dev-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    object-fit: cover;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease;
+}
+
+.dev-avatar:hover {
+    transform: scale(1.05);
+}
+
+.dev-quote {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--fg);
+    margin-bottom: 14px;
+    max-width: 280px;
+}
+
+.dev-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.dev-contact {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--fg);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.dev-contact:hover {
+    background: var(--row-active-bg);
+    transform: translateX(2px);
+}
+
+.contact-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    filter: var(--icon-filter);
+}
+
+#app-footer {
+    text-align: center;
+    font-size: 14px;
+    color: var(--fg);
+    padding: 10px;
+    border-top: 1px solid var(--border-soft);
+}
+
+#period-selector {
+    position: relative;
+    padding: 10px 10px 0;
+}
+
+@keyframes dropdown-in {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 10px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    margin-top: 4px;
+    overflow: hidden;
+    z-index: 10;
+    min-width: 200px;
+    animation: dropdown-in 0.15s ease;
+    transform-origin: top;
+}
+
+.dropdown-menu.hidden {
+    display: none;
+}
+
+.dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--fg);
+    transition: background-color 0.12s ease, padding-left 0.12s ease;
+}
+
+.dropdown-item:hover {
+    background: var(--row-active-bg);
+    padding-left: 16px;
+}
+
+#theme-selector {
+    position: relative;
+}
+
+#theme-selector .dropdown-menu {
+    left: auto;
+    right: 10px;
+}

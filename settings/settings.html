@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>Настройки</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <div id="titlebar">
+        <div id="titlebar-label">Настройки</div>
+        <div id="titlebar-controls">
+            <img src="../media/dot.svg" alt="Закрыть" id="btn-close" class="titlebar-btn" role="button">
+        </div>
+    </div>
+
+    <div style="padding: 12px;">
+        <div class="row">
+            <span>1. Автозапуск с системой</span>
+            <input type="checkbox" id="setting-autostart" class="checkbox">
+        </div>
+        <div class="row">
+            <span>2. Сворачивать в трей при автозапуске</span>
+            <input type="checkbox" id="setting-tray" class="checkbox">
+        </div>
+        <div class="row">
+            <span>3. Создать ярлык на рабочем столе</span>
+            <button id="setting-shortcut" class="btn">Создать</button>
+        </div>
+        <div class="row" id="theme-selector">
+            <span>4. Тема оформления</span>
+            <button id="theme-btn" class="btn">Белая ▾</button>
+            <div id="theme-dropdown" class="dropdown-menu hidden">
+                <div class="dropdown-item" data-theme="white" data-label="Белая">Белая</div>
+                <div class="dropdown-item" data-theme="black" data-label="Чёрная">Чёрная</div>
+                <div class="dropdown-item" data-theme="sepia" data-label="Сепия">Сепия</div>
+                <div class="dropdown-item" data-theme="midnight" data-label="Полночь">Полночь</div>
+                <div class="dropdown-item" data-theme="forest" data-label="Лес">Лес</div>
+                <div class="dropdown-item" data-theme="crimson" data-label="Багрянец">Багрянец</div>
+                <div class="dropdown-item" data-theme="lavender" data-label="Лаванда">Лаванда</div>
+                <div class="dropdown-item" data-theme="ocean" data-label="Океан">Океан</div>
+                <div class="dropdown-item" data-theme="sunset" data-label="Закат">Закат</div>
+                <div class="dropdown-item" data-theme="graphite" data-label="Графит">Графит</div>
+            </div>
+        </div>
+        <div class="row">
+            <span>5. Показывать иконки приложений</span>
+            <input type="checkbox" id="setting-icons" class="checkbox">
+        </div>
+    </div>
+
+    <div class="dev-info">
+        <img src="../media/avatar.jpg" alt="avatar" class="dev-avatar">
+        <div class="dev-quote">я хочу смерти людям</div>
+        <div class="dev-contacts">
+            <a href="#" class="dev-contact" id="contact-telegram">
+                <img src="../media/telegram.svg" class="contact-icon" alt="telegram">
+                <span>Telegram · @boochear</span>
+            </a>
+            <a href="#" class="dev-contact" id="contact-email">
+                <img src="../media/gmail.svg" class="contact-icon" alt="email">
+                <span>Email · b0ochear2208@gmail.com</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="app-footer">2026 · Rastrata</div>
+
+    <script src="settings.js" defer></script>
+</body>
+
+</html>
