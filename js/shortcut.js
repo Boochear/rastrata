@@ -22,7 +22,9 @@ $Shortcut.Save()
 `.trim();
 
         const tmpFile = path.join(os.tmpdir(), 'create-shortcut.ps1');
-        fs.writeFileSync(tmpFile, psScript, 'utf-8');
+        const BOM = Buffer.from([0xEF, 0xBB, 0xBF]);
+        const contentBuffer = Buffer.concat([BOM, Buffer.from(psScript, 'utf-8')]);
+        fs.writeFileSync(tmpFile, contentBuffer);
 
         exec(`powershell -NoProfile -ExecutionPolicy Bypass -File "${tmpFile}"`, (err, stdout, stderr) => {
             fs.unlink(tmpFile, () => { });
