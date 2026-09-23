@@ -1,0 +1,63 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: package.nw
+
+      - name: Extract version from tag
+        id: version
+        shell: bash
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Download NW.js runtime
+        shell: powershell
+        run: |
+          $nwVersion = "0.115.0"
+          $url = "https://dl.nwjs.io/v$nwVersion/nwjs-v$nwVersion-win-x64.zip"
+          Invoke-WebRequest -Uri $url -OutFile nwjs.zip
+          Expand-Archive -Path nwjs.zip -DestinationPath nwjs-extracted
+
+      - name: Clean user data from package.nw
+        shell: powershell
+        run: |
+          $files = @('stats.json','settings.json','names.json','icons.json','tray.flag','debug-tray.log')
+          foreach ($f in $files) {
+            $path = "package.nw\$f"
+            if (Test-Path $path) { Remove-Item $path }
+          }
+
+      - name: Build update archive
+        shell: powershell
+        run: |
+          Compress-Archive -Path package.nw -DestinationPath "Rastrata-${{ steps.version.outputs.VERSION }}-update.zip"
+
+      - name: Build full archive
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path staging
+          $nwFolder = Get-ChildItem -Path nwjs-extracted -Directory | Select-Object -First 1
+          Copy-Item -Path "$($nwFolder.FullName)\*" -Destination staging -Recurse -Force
+          Rename-Item -Path "staging\nw.exe" -NewName "Rastrata.exe"
+          Copy-Item -Path package.nw -Destination staging\package.nw -Recurse
+          Compress-Archive -Path staging\* -DestinationPath "Rastrata-${{ steps.version.outputs.VERSION }}-win-x64-full.zip"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Rastrata ${{ steps.version.outputs.VERSION }}
+          files: |
+            Rastrata-${{ steps.version.outputs.VERSION }}-update.zip
+            Rastrata-${{ steps.version.outputs.VERSION }}-win-x64-full.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
