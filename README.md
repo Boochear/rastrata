@@ -25,17 +25,7 @@
 
 ## Скриншоты
 
-<img width="804" height="627" alt="2026_09_23_12_35_22_explorer" src="https://github.com/user-attachments/assets/5641550f-7fbb-48e1-88cd-5bbe19d98d0e" />
 <img width="814" height="633" alt="2026_09_23_12_37_14_explorer" src="https://github.com/user-attachments/assets/655e3118-c337-492d-ada3-7c13c3df2af2" />
-<img width="816" height="637" alt="2026_09_23_12_37_02_explorer" src="https://github.com/user-attachments/assets/a3b35fee-e7c0-4bb3-b043-7ce0eb7d70f6" />
-<img width="819" height="637" alt="2026_09_23_12_36_45_explorer" src="https://github.com/user-attachments/assets/25b61ff3-4a54-406a-aeda-c11941e30112" />
-<img width="814" height="637" alt="2026_09_23_12_36_30_explorer" src="https://github.com/user-attachments/assets/425782e4-17f9-43e1-8036-e44eff4ef730" />
-<img width="808" height="628" alt="2026_09_23_12_36_19_explorer" src="https://github.com/user-attachments/assets/6dee907b-8dc9-4ae7-a007-f6b8c3bf2ecd" />
-<img width="808" height="626" alt="2026_09_23_12_36_09_explorer" src="https://github.com/user-attachments/assets/4b8ee103-3a17-4f29-9b85-2ec9a2919155" />
-<img width="807" height="630" alt="2026_09_23_12_35_59_explorer" src="https://github.com/user-attachments/assets/a2968db6-6ced-4e26-bea3-8f5e635aabad" />
-<img width="810" height="629" alt="2026_09_23_12_35_44_explorer" src="https://github.com/user-attachments/assets/bada40e2-476f-415b-b84f-2e1954da7bc7" />
-<img width="809" height="630" alt="2026_09_23_12_35_34_explorer" src="https://github.com/user-attachments/assets/8d575d0d-0cb2-48e0-8245-49c7a6c4cd90" />
-
 
 ## Установка
 
