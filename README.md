@@ -50,7 +50,7 @@ All data is stored locally as JSON files next to the app. There is no telemetry 
 
 ## Changelog
 
-### Almost last update
+### v1.0.2: October 3, 2026
 
 - 17 new themes
 <img width="620" height="705" alt="2026_10_03_23_17_02_Rastrata" src="https://github.com/user-attachments/assets/6e066acd-7c07-4d98-9190-5b0402374444" />
@@ -89,6 +89,13 @@ All data is stored locally as JSON files next to the app. There is no telemetry 
 - Removed developer options
 - Removed the protection module, since this is now a release build
 
+### v1.0.1: September 23, 2026
+
+- Fixed a bug where the desktop shortcut icon disappeared if the app was located in a folder with a Cyrillic name
+
+### v1.0: September 23, 2026
+
+- Initial release
 
 ## Data export
 
