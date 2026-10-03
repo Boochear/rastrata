@@ -8,7 +8,8 @@ const { todayKey, loadStats, saveStats, addTime, getStatsForPeriod, periodInclud
 const { startWatcher } = require('./js/watcher-client');
 const { setupTray } = require('./js/tray');
 const { checkForUpdates, applyUpdateAndRestart } = require('./js/updater');
-const { installDevToolsGuard } = require('./js/devtools-guard');
+const { applyFont } = require('./js/fonts');
+const { setLanguage, t, applyTranslations } = require('./js/i18n');
 
 const APP_NAME = 'Rastrata';
 const SAVE_INTERVAL = 10000;
@@ -23,6 +24,7 @@ let currentApp = null;
 let sessionStart = Date.now();
 let selectedPeriod = 'today';
 let settingsWin = null;
+let vizWin = null;
 let tray = null;
 
 const win = nw.Window.get();
@@ -33,8 +35,6 @@ const isTrayLaunch = fs.existsSync(TRAY_FLAG_PATH);
 if (!isTrayLaunch) {
     win.show();
 }
-
-installDevToolsGuard();
 
 function applyTheme(theme) {
     document.body.setAttribute('data-theme', theme);
@@ -122,7 +122,10 @@ startWatcher({
     }
 });
 
+setLanguage(settings.language);
+applyTranslations(document);
 applyTheme(settings.theme);
+applyFont(settings.fontFamily, document);
 renderList();
 
 setInterval(renderList, 1000);
@@ -143,6 +146,7 @@ document.getElementById('btn-close').addEventListener('click', () => {
         win.hide();
     } else {
         if (settingsWin) settingsWin.close();
+        if (vizWin) vizWin.close();
         win.close(true);
     }
 });
@@ -152,6 +156,7 @@ win.on('close', function () {
         this.hide();
     } else {
         if (settingsWin) settingsWin.close();
+        if (vizWin) vizWin.close();
         this.close(true);
     }
 });
@@ -168,7 +173,7 @@ document.getElementById('btn-settings').addEventListener('click', () => {
     }
     nw.Window.open('settings/settings.html', {
         width: 360,
-        height: 580,
+        height: 720,
         frame: false,
         position: 'center',
         resizable: false
@@ -179,14 +184,64 @@ document.getElementById('btn-settings').addEventListener('click', () => {
     });
 });
 
+document.getElementById('btn-viz').addEventListener('click', () => {
+    if (vizWin) {
+        vizWin.focus();
+        return;
+    }
+    nw.Window.open('visualization/visualization.html', {
+        width: 720,
+        height: 600,
+        min_width: 520,
+        min_height: 420,
+        frame: false,
+        position: 'center'
+    }, (createdWin) => {
+        vizWin = createdWin;
+        createdWin.window.mainWindowRef = window;
+        vizWin.on('closed', () => { vizWin = null; });
+    });
+});
+
+window.getVizData = function () {
+    const snapshot = JSON.parse(JSON.stringify(stats));
+    if (currentApp) addTime(snapshot, currentApp, Date.now() - sessionStart);
+    return { stats: snapshot, names: friendlyNames };
+};
+
 window.updateThemeFromSettings = function (theme) {
     settings.theme = theme;
     applyTheme(theme);
+    if (vizWin && vizWin.window.onAppearanceChanged) vizWin.window.onAppearanceChanged();
+};
+
+window.updateFontFromSettings = function (fontFamily) {
+    settings.fontFamily = fontFamily;
+    applyFont(fontFamily, document);
+    if (vizWin && vizWin.window.onAppearanceChanged) vizWin.window.onAppearanceChanged();
 };
 
 window.updateShowIconsFromSettings = function (showIcons) {
     settings.showIcons = showIcons;
     renderList();
+};
+
+window.updateLanguageFromSettings = function (language) {
+    settings.language = language;
+    setLanguage(language);
+    applyTranslations(document);
+    updatePeriodLabel();
+    if (tray) tray.rebuildMenu();
+    if (vizWin && vizWin.window.onAppearanceChanged) vizWin.window.onAppearanceChanged();
+};
+
+window.flushDataToDisk = function () {
+    if (currentApp) {
+        addTime(stats, currentApp, Date.now() - sessionStart);
+        sessionStart = Date.now();
+    }
+    saveStats(stats);
+    saveFriendlyNames(friendlyNames);
 };
 
 if (isTrayLaunch && settings.minimizeToTrayOnAutostart) {
@@ -198,12 +253,17 @@ if (isTrayLaunch && settings.minimizeToTrayOnAutostart) {
 const periodBtn = document.getElementById('period-btn');
 const periodDropdown = document.getElementById('period-dropdown');
 
+function updatePeriodLabel() {
+    periodBtn.textContent = t('period.' + selectedPeriod) + ' ▾';
+}
+updatePeriodLabel();
+
 periodBtn.addEventListener('click', () => periodDropdown.classList.toggle('hidden'));
 
 periodDropdown.querySelectorAll('.dropdown-item').forEach((item) => {
     item.addEventListener('click', () => {
         selectedPeriod = item.dataset.period;
-        periodBtn.textContent = item.dataset.label + ' ▾';
+        updatePeriodLabel();
         periodDropdown.classList.add('hidden');
         renderList();
     });

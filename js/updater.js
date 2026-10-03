@@ -18,7 +18,8 @@ function checkForUpdates(owner, repo, currentVersion) {
                 try {
                     const json = JSON.parse(data);
                     const latestVersion = (json.tag_name || '').replace(/^v/, '');
-                    const asset = (json.assets || []).find(a => a.name.endsWith('.zip'));
+                    const assets = json.assets || [];
+                    const asset = assets.find(a => a.name.endsWith('-update.zip')) || assets.find(a => a.name.endsWith('.zip'));
                     if (latestVersion && asset && isNewer(latestVersion, currentVersion)) {
                         resolve({ available: true, version: latestVersion, downloadUrl: asset.browser_download_url });
                     } else {

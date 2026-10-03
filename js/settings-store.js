@@ -6,8 +6,10 @@ const SETTINGS_FILE = path.join(process.cwd(), 'settings.json');
 const DEFAULT_SETTINGS = {
     autostart: false,
     minimizeToTrayOnAutostart: true,
-    theme: 'white', // 'white' | 'black' | 'sepia' | 'midnight' | 'forest' | 'crimson' | 'lavender' | 'ocean' | 'sunset' | 'graphite'
-    showIcons: true
+    theme: '1',
+    showIcons: true,
+    fontFamily: '',
+    language: 'auto'
 };
 
 function loadSettings() {

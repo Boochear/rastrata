@@ -4,21 +4,31 @@ const path = require('path');
 const { loadSettings, saveSettings } = require('./js/settings-store');
 const { setAutostart } = require('./js/autostart');
 const { createDesktopShortcut } = require('./js/shortcut');
-const { installDevToolsGuard } = require('./js/devtools-guard');
+const { getSystemFonts, applyFont } = require('./js/fonts');
+const { exportData } = require('./js/export');
+const { LANGUAGES, setLanguage, t, applyTranslations } = require('./js/i18n');
 
 const THEME_LABELS = {
-    white: 'Белая',
-    black: 'Чёрная',
-    sepia: 'Сепия',
-    midnight: 'Полночь',
-    forest: 'Лес',
-    crimson: 'Багрянец',
-    lavender: 'Лаванда',
-    ocean: 'Океан',
-    sunset: 'Закат',
-    graphite: 'Графит'
+    1: 'Nightmare W',
+    2: 'Nightmare B',
+    3: 'Dreamcore 1',
+    4: 'Dreamcore 2',
+    5: 'Windows XP',
+    6: 'Makima',
+    7: 'Rebecca',
+    8: 'Psychopomp',
+    9: 'Arcane',
+    10: 'Glitchcore',
+    11: 'L',
+    12: 'Evangelion',
+    13: 'Acid Bath',
+    14: 'Soft Void',
+    15: 'Soft Ember',
+    16: 'Soft Fog',
+    17: 'Soft Dusk',
+    18: 'Soft Moss',
+    19: 'Soft Ash'
 };
-
 const TRAY_FLAG_PATH = path.join(process.cwd(), 'tray.flag');
 
 function updateTrayFlag() {
@@ -31,6 +41,8 @@ function updateTrayFlag() {
 
 const win = nw.Window.get();
 let settings = loadSettings();
+setLanguage(settings.language);
+applyTranslations(document);
 
 document.getElementById('btn-close').addEventListener('click', () => win.close());
 
@@ -40,13 +52,11 @@ const iconsEl = document.getElementById('setting-icons');
 const themeBtn = document.getElementById('theme-btn');
 const themeDropdown = document.getElementById('theme-dropdown');
 
-installDevToolsGuard();
-
 autostartEl.checked = settings.autostart;
 trayEl.checked = settings.minimizeToTrayOnAutostart;
 iconsEl.checked = settings.showIcons;
 
-themeBtn.textContent = (THEME_LABELS[settings.theme] || 'Белая') + ' ▾';
+themeBtn.textContent = (THEME_LABELS[settings.theme] || 'Nightmare W') + ' ▾';
 document.body.setAttribute('data-theme', settings.theme);
 
 autostartEl.addEventListener('change', async () => {
@@ -64,6 +74,21 @@ trayEl.addEventListener('change', async () => {
 
 document.getElementById('setting-shortcut').addEventListener('click', async () => {
     const ok = await createDesktopShortcut();
+});
+
+const exportBtn = document.getElementById('setting-export');
+
+exportBtn.addEventListener('click', () => {
+    try {
+        if (window.mainWindowRef) window.mainWindowRef.flushDataToDisk();
+        const { exportDir, copied } = exportData();
+        exportBtn.textContent = copied.length ? t('btn.done') + ' ✓' : t('btn.nodata');
+        if (copied.length) nw.Shell.openItem(exportDir);
+    } catch (err) {
+        console.error('export failed:', err.message);
+        exportBtn.textContent = t('btn.error');
+    }
+    setTimeout(() => { exportBtn.textContent = t('btn.export'); }, 2000);
 });
 
 themeBtn.addEventListener('click', () => {
@@ -89,6 +114,12 @@ document.addEventListener('click', (e) => {
     if (!themeBtn.contains(e.target) && !themeDropdown.contains(e.target)) {
         themeDropdown.classList.add('hidden');
     }
+    if (!fontBtn.contains(e.target) && !fontDropdown.contains(e.target)) {
+        fontDropdown.classList.add('hidden');
+    }
+    if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+        langDropdown.classList.add('hidden');
+    }
 });
 
 iconsEl.addEventListener('change', () => {
@@ -100,6 +131,100 @@ iconsEl.addEventListener('change', () => {
     }
 });
 
+const fontBtn = document.getElementById('font-btn');
+const fontDropdown = document.getElementById('font-dropdown');
+const DEFAULT_FONT_LABEL = 'Montserrat';
+
+fontBtn.textContent = (settings.fontFamily || DEFAULT_FONT_LABEL) + ' ▾';
+applyFont(settings.fontFamily, document);
+
+const fontObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const font = el.dataset.font;
+        if (font) {
+            el.style.setProperty('font-family', `"${font.replace(/["\\]/g, '')}"`, 'important');
+        }
+        fontObserver.unobserve(el);
+    });
+}, { root: fontDropdown, rootMargin: '60px' });
+
+function createFontItem(label, value) {
+    const item = document.createElement('div');
+    item.className = 'dropdown-item';
+    item.textContent = label;
+    item.dataset.font = value;
+    fontObserver.observe(item);
+    return item;
+}
+
+const defaultFontItem = createFontItem(t('font.default'), '');
+defaultFontItem.dataset.i18n = 'font.default';
+fontDropdown.appendChild(defaultFontItem);
+
+getSystemFonts().then((fonts) => {
+    const frag = document.createDocumentFragment();
+    fonts.forEach((f) => frag.appendChild(createFontItem(f, f)));
+    fontDropdown.appendChild(frag);
+});
+
+fontBtn.addEventListener('click', () => fontDropdown.classList.toggle('hidden'));
+
+fontDropdown.addEventListener('click', (e) => {
+    const item = e.target.closest('.dropdown-item');
+    if (!item) return;
+    const font = item.dataset.font;
+
+    settings.fontFamily = font;
+    fontBtn.textContent = (font || DEFAULT_FONT_LABEL) + ' ▾';
+    fontDropdown.classList.add('hidden');
+    applyFont(font, document);
+    saveSettings(settings);
+
+    if (window.mainWindowRef) {
+        window.mainWindowRef.updateFontFromSettings(font);
+    }
+});
+
+const langBtn = document.getElementById('lang-btn');
+const langDropdown = document.getElementById('lang-dropdown');
+
+function langLabel(code) {
+    if (code === 'auto') return t('lang.auto');
+    const l = LANGUAGES.find((x) => x.code === code);
+    return l ? l.name : code;
+}
+
+function refreshLangButton() {
+    langBtn.textContent = langLabel(settings.language) + ' ▾';
+}
+
+['auto', ...LANGUAGES.map((l) => l.code)].forEach((code) => {
+    const item = document.createElement('div');
+    item.className = 'dropdown-item';
+    item.dataset.lang = code;
+    if (code === 'auto') item.dataset.i18n = 'lang.auto';
+    else item.textContent = langLabel(code);
+    langDropdown.appendChild(item);
+});
+applyTranslations(document);
+refreshLangButton();
+
+langBtn.addEventListener('click', () => langDropdown.classList.toggle('hidden'));
+
+langDropdown.addEventListener('click', (e) => {
+    const item = e.target.closest('.dropdown-item');
+    if (!item) return;
+    settings.language = item.dataset.lang;
+    langDropdown.classList.add('hidden');
+    saveSettings(settings);
+    setLanguage(settings.language);
+    applyTranslations(document);
+    refreshLangButton();
+    if (window.mainWindowRef) window.mainWindowRef.updateLanguageFromSettings(settings.language);
+});
+
 document.getElementById('contact-telegram').addEventListener('click', (e) => {
     e.preventDefault();
     nw.Shell.openExternal('https://t.me/boochear');
@@ -108,10 +233,4 @@ document.getElementById('contact-telegram').addEventListener('click', (e) => {
 document.getElementById('contact-email').addEventListener('click', (e) => {
     e.preventDefault();
     nw.Shell.openExternal('mailto:b0ochear2208@gmail.com');
-});
-
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))) {
-        e.preventDefault();
-    }
 });

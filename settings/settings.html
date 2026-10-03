@@ -9,7 +9,7 @@
 
 <body>
     <div id="titlebar">
-        <div id="titlebar-label">Настройки</div>
+        <div id="titlebar-label" data-i18n="settings.title">Настройки</div>
         <div id="titlebar-controls">
             <img src="../media/dot.svg" alt="Закрыть" id="btn-close" class="titlebar-btn" role="button">
         </div>
@@ -17,36 +17,59 @@
 
     <div style="padding: 12px;">
         <div class="row">
-            <span>1. Автозапуск с системой</span>
+            <span>1. <span data-i18n="settings.autostart"></span></span>
             <input type="checkbox" id="setting-autostart" class="checkbox">
         </div>
         <div class="row">
-            <span>2. Сворачивать в трей при автозапуске</span>
+            <span>2. <span data-i18n="settings.tray"></span></span>
             <input type="checkbox" id="setting-tray" class="checkbox">
         </div>
         <div class="row">
-            <span>3. Создать ярлык на рабочем столе</span>
-            <button id="setting-shortcut" class="btn">Создать</button>
-        </div>
-        <div class="row" id="theme-selector">
-            <span>4. Тема оформления</span>
-            <button id="theme-btn" class="btn">Белая ▾</button>
-            <div id="theme-dropdown" class="dropdown-menu hidden">
-                <div class="dropdown-item" data-theme="white" data-label="Белая">Белая</div>
-                <div class="dropdown-item" data-theme="black" data-label="Чёрная">Чёрная</div>
-                <div class="dropdown-item" data-theme="sepia" data-label="Сепия">Сепия</div>
-                <div class="dropdown-item" data-theme="midnight" data-label="Полночь">Полночь</div>
-                <div class="dropdown-item" data-theme="forest" data-label="Лес">Лес</div>
-                <div class="dropdown-item" data-theme="crimson" data-label="Багрянец">Багрянец</div>
-                <div class="dropdown-item" data-theme="lavender" data-label="Лаванда">Лаванда</div>
-                <div class="dropdown-item" data-theme="ocean" data-label="Океан">Океан</div>
-                <div class="dropdown-item" data-theme="sunset" data-label="Закат">Закат</div>
-                <div class="dropdown-item" data-theme="graphite" data-label="Графит">Графит</div>
-            </div>
+            <span>3. <span data-i18n="settings.shortcut"></span></span>
+            <button id="setting-shortcut" class="btn" data-i18n="btn.create"></button>
         </div>
         <div class="row">
-            <span>5. Показывать иконки приложений</span>
+            <span>4. <span data-i18n="settings.icons"></span></span>
             <input type="checkbox" id="setting-icons" class="checkbox">
+        </div>
+        <div class="row" id="theme-selector">
+            <span>5. <span data-i18n="settings.theme"></span></span>
+            <button id="theme-btn" class="btn">Белая ▾</button>
+            <div id="theme-dropdown" class="dropdown-menu hidden">
+                <div class="dropdown-item" data-theme="1" data-label="Nightmare W">Nightmare W</div>
+                <div class="dropdown-item" data-theme="2" data-label="Nightmare B">Nightmare B</div>
+                <div class="dropdown-item" data-theme="3" data-label="Dreamcore 1">Dreamcore 1</div>
+                <div class="dropdown-item" data-theme="4" data-label="Dreamcore 2">Dreamcore 2</div>
+                <div class="dropdown-item" data-theme="5" data-label="Windows XP">Windows XP</div>
+                <div class="dropdown-item" data-theme="6" data-label="Makima">Makima</div>
+                <div class="dropdown-item" data-theme="7" data-label="Rebecca">Rebecca</div>
+                <div class="dropdown-item" data-theme="8" data-label="Psychopomp">Psychopomp</div>
+                <div class="dropdown-item" data-theme="9" data-label="Arcane">Arcane</div>
+                <div class="dropdown-item" data-theme="10" data-label="Glitchcore">Glitchcore</div>
+                <div class="dropdown-item" data-theme="11" data-label="L">L</div>
+                <div class="dropdown-item" data-theme="12" data-label="Evangelion">Evangelion</div>
+                <div class="dropdown-item" data-theme="13" data-label="Acid Bath">Acid Bath</div>
+                <div class="dropdown-item" data-theme="14" data-label="Soft Void">Soft Void</div>
+                <div class="dropdown-item" data-theme="15" data-label="Soft Ember">Soft Ember</div>
+                <div class="dropdown-item" data-theme="16" data-label="Soft Fog">Soft Fog</div>
+                <div class="dropdown-item" data-theme="17" data-label="Soft Dusk">Soft Dusk</div>
+                <div class="dropdown-item" data-theme="18" data-label="Soft Moss">Soft Moss</div>
+                <div class="dropdown-item" data-theme="19" data-label="Soft Ash">Soft Ash</div>
+            </div>
+        </div>
+        <div class="row" id="font-selector">
+            <span>6. <span data-i18n="settings.font"></span></span>
+            <button id="font-btn" class="btn">Montserrat ▾</button>
+            <div id="font-dropdown" class="dropdown-menu hidden"></div>
+        </div>
+        <div class="row">
+            <span>7. <span data-i18n="settings.export"></span></span>
+            <button id="setting-export" class="btn" data-i18n="btn.export"></button>
+        </div>
+        <div class="row" id="lang-selector">
+            <span>8. <span data-i18n="settings.language"></span></span>
+            <button id="lang-btn" class="btn"></button>
+            <div id="lang-dropdown" class="dropdown-menu hidden"></div>
         </div>
     </div>
 

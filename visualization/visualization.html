@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>Визуализация</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="viz-body">
+    <div id="titlebar">
+        <div id="titlebar-label" data-i18n="viz.title">Визуализация</div>
+        <div id="titlebar-controls">
+            <img src="../media/dot.svg" alt="Закрыть" id="btn-close" class="titlebar-btn" role="button">
+        </div>
+    </div>
+
+    <div class="viz-toolbar">
+        <button class="btn" data-mode="apps" data-i18n="viz.apps"></button>
+        <button class="btn" data-mode="days" data-i18n="viz.days"></button>
+    </div>
+    <div class="viz-toolbar">
+        <button class="btn" data-period="last7" data-i18n="viz.7d"></button>
+        <button class="btn" data-period="last30" data-i18n="viz.30d"></button>
+        <button class="btn" data-period="lastyear" data-i18n="viz.year"></button>
+        <button class="btn" data-period="all" data-i18n="viz.all"></button>
+    </div>
+    <div class="viz-toolbar">
+        <button id="viz-back" class="btn hidden" data-i18n="viz.back"></button>
+        <span id="viz-crumb"></span>
+    </div>
+
+    <div id="viz-chart"></div>
+
+    <script src="visualization.js" defer></script>
+</body>
+
+</html>

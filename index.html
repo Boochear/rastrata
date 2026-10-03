@@ -9,7 +9,7 @@
 
 <body>
     <div id="titlebar">
-        <span id="titlebar-label">Растрата</span>
+        <span id="titlebar-label" data-i18n="app.title">Растрата</span>
         <div id="titlebar-controls">
             <img src="media/dot.svg" alt="Свернуть" id="btn-minimize" class="titlebar-btn" role="button">
             <img src="media/dot.svg" alt="Закрыть" id="btn-close" class="titlebar-btn" role="button">
@@ -19,15 +19,16 @@
     <div id="period-selector">
         <div id="toolbar-row">
             <button id="period-btn" class="btn">Сегодня ▾</button>
-            <button id="btn-settings" class="btn">Настройки</button>
+            <button id="btn-viz" class="btn" data-i18n="main.viz">Визуализация</button>
+            <button id="btn-settings" class="btn" data-i18n="main.settings">Настройки</button>
         </div>
         <div id="period-dropdown" class="dropdown-menu hidden">
-            <div class="dropdown-item" data-period="today" data-label="Сегодня">Сегодня</div>
-            <div class="dropdown-item" data-period="yesterday" data-label="Вчера">Вчера</div>
-            <div class="dropdown-item" data-period="last7" data-label="Последние 7 дней">Последние 7 дней</div>
-            <div class="dropdown-item" data-period="last30" data-label="Последние 30 дней">Последние 30 дней</div>
-            <div class="dropdown-item" data-period="lastyear" data-label="Последний год">Последний год</div>
-            <div class="dropdown-item" data-period="all" data-label="За всё время">За всё время</div>
+            <div class="dropdown-item" data-period="today" data-i18n="period.today"></div>
+            <div class="dropdown-item" data-period="yesterday" data-i18n="period.yesterday"></div>
+            <div class="dropdown-item" data-period="last7" data-i18n="period.last7"></div>
+            <div class="dropdown-item" data-period="last30" data-i18n="period.last30"></div>
+            <div class="dropdown-item" data-period="lastyear" data-i18n="period.lastyear"></div>
+            <div class="dropdown-item" data-period="all" data-i18n="period.all"></div>
         </div>
     </div>
 

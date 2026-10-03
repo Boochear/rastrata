@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+  permissions:
+    contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -19,6 +22,17 @@ jobs:
         shell: bash
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
+      - name: Sync version in package.json
+        shell: bash
+        run: |
+          node -e "const fs=require('fs');const f='package.nw/package.json';const p=JSON.parse(fs.readFileSync(f,'utf8'));p.version='${{ steps.version.outputs.VERSION }}';fs.writeFileSync(f,JSON.stringify(p,null,2));"
+
+      - name: Prepare release notes
+        shell: bash
+        run: |
+          NOTES="package.nw/.github/release-notes/${{ steps.version.outputs.VERSION }}.md"
+          if [ -f "$NOTES" ]; then cp "$NOTES" release-notes.md; else echo "Rastrata ${{ steps.version.outputs.VERSION }}" > release-notes.md; fi
+
       - name: Download NW.js runtime
         shell: powershell
         run: |
@@ -30,10 +44,14 @@ jobs:
       - name: Clean user data from package.nw
         shell: powershell
         run: |
-          $files = @('stats.json','settings.json','names.json','icons.json','tray.flag','debug-tray.log')
+          $files = @('stats.json','settings.json','names.json','icons.json','fonts.json','tray.flag','debug-tray.log','.gitignore','.gitattributes')
           foreach ($f in $files) {
             $path = "package.nw\$f"
-            if (Test-Path $path) { Remove-Item $path }
+            if (Test-Path $path) { Remove-Item $path -Force }
+          }
+          foreach ($d in @('.git','.github')) {
+            $path = "package.nw\$d"
+            if (Test-Path $path) { Remove-Item $path -Recurse -Force }
           }
 
       - name: Build update archive
@@ -56,6 +74,8 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: Rastrata ${{ steps.version.outputs.VERSION }}
+          body_path: release-notes.md
+          draft: true
           files: |
             Rastrata-${{ steps.version.outputs.VERSION }}-update.zip
             Rastrata-${{ steps.version.outputs.VERSION }}-win-x64-full.zip
