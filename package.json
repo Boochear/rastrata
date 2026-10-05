@@ -1,6 +1,6 @@
 {
   "name": "Rastrata",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.html",
   "description": "App time tracker",
   "node-remote": "<all_urls>",
