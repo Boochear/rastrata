@@ -1,7 +1,6 @@
 *.dll
 *.exe
 *.pak
-locales/
 swiftshader/
 icudtl.dat
 v8_context_snapshot.bin
