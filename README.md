@@ -29,9 +29,9 @@ Rastrata is a lightweight desktop app that tracks how much time you spend in eac
 - **Auto-update**: the app checks GitHub for new versions and updates itself
 - **Privacy**: all statistics are stored locally and nothing is sent to any server
 
-## Screenshots
+## Screenshot
+<img width="1920" height="1080" alt="2026_10_05_13_49_52" src="https://github.com/user-attachments/assets/c295e1aa-65e8-4d64-8e52-18fb10386cbc" />
 
-<img width="814" height="633" alt="2026_09_23_12_37_14_explorer" src="https://github.com/user-attachments/assets/655e3118-c337-492d-ada3-7c13c3df2af2" />
 
 ## Installation
 
