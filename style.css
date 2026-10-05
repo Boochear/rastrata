@@ -326,7 +326,13 @@ body {
     unicode-bidi: isolate;
 }
 
+.row-icon-slot {
+    display: flex;
+    align-items: center;
+}
+
 .row-icon {
+    display: block;
     width: 25px;
     height: 25px;
 }
