@@ -29,9 +29,9 @@
 - **Автообновление**: приложение само проверяет новые версии на GitHub и обновляется
 - **Приватность**: вся статистика хранится локально, ничего не отправляется на сервер
 
-## Скриншоты
+## Скриншот
+<img width="1920" height="1080" alt="2026_10_05_13_49_43" src="https://github.com/user-attachments/assets/83d2ff6b-4867-484a-9aa8-8b380584ba4d" />
 
-<img width="814" height="633" alt="2026_09_23_12_37_14_explorer" src="https://github.com/user-attachments/assets/655e3118-c337-492d-ada3-7c13c3df2af2" />
 
 ## Установка
 
