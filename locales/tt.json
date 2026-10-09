@@ -41,5 +41,11 @@
   "viz.nodata": "Мәгълүмат юк",
   "unit.sec": "сек",
   "unit.min": "мин",
-  "unit.hour": "сәг"
+  "unit.hour": "сәг",
+  "settings.seasonal": "Мизгел темалары",
+  "settings.autonight": "Төнлә теманы алыштыру",
+  "settings.nighttheme": "Төнге тема",
+  "settings.nighthours": "Төн сәгатьләре",
+  "settings.holiday": "Бәйрәм темалары",
+  "settings.blur": "Фонны томанлау"
 }

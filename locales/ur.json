@@ -41,5 +41,11 @@
   "viz.nodata": "کوئی ڈیٹا نہیں",
   "unit.sec": "سیک",
   "unit.min": "منٹ",
-  "unit.hour": "گھنٹے"
+  "unit.hour": "گھنٹے",
+  "settings.seasonal": "موسمی تھیمز",
+  "settings.autonight": "رات کو تھیم بدلیں",
+  "settings.nighttheme": "رات کی تھیم",
+  "settings.nighthours": "رات کے اوقات",
+  "settings.holiday": "تہواری تھیمز",
+  "settings.blur": "پس منظر دھندلا"
 }

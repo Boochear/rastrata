@@ -41,5 +41,11 @@
   "viz.nodata": "ဒေတာ မရှိပါ",
   "unit.sec": "စက္ကန့်",
   "unit.min": "မိနစ်",
-  "unit.hour": "နာရီ"
+  "unit.hour": "နာရီ",
+  "settings.seasonal": "ရာသီအလိုက် အပြင်အဆင်",
+  "settings.autonight": "ညအချိန် အပြင်အဆင်ပြောင်းရန်",
+  "settings.nighttheme": "ညအပြင်အဆင်",
+  "settings.nighthours": "ညအချိန်",
+  "settings.holiday": "ပွဲတော်အပြင်အဆင်",
+  "settings.blur": "နောက်ခံ မှုန်ဝါးခြင်း"
 }

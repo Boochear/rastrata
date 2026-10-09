@@ -41,5 +41,11 @@
   "viz.nodata": "ഡാറ്റ ഇല്ല",
   "unit.sec": "സെ.",
   "unit.min": "മി.",
-  "unit.hour": "മ."
+  "unit.hour": "മ.",
+  "settings.seasonal": "സീസണൽ തീമുകൾ",
+  "settings.autonight": "രാത്രിയിൽ തീം മാറ്റുക",
+  "settings.nighttheme": "രാത്രി തീം",
+  "settings.nighthours": "രാത്രി സമയം",
+  "settings.holiday": "ഉത്സവ തീമുകൾ",
+  "settings.blur": "പശ്ചാത്തല മങ്ങൽ"
 }

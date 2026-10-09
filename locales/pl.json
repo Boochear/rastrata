@@ -41,5 +41,11 @@
   "viz.nodata": "Brak danych",
   "unit.sec": "s",
   "unit.min": "min",
-  "unit.hour": "godz."
+  "unit.hour": "godz.",
+  "settings.seasonal": "Motywy sezonowe",
+  "settings.autonight": "Zmiana motywu na noc",
+  "settings.nighttheme": "Motyw nocny",
+  "settings.nighthours": "Godziny nocy",
+  "settings.holiday": "Motywy świąteczne",
+  "settings.blur": "Rozmycie tła"
 }

@@ -41,5 +41,11 @@
   "viz.nodata": "Keine Daten",
   "unit.sec": "Sek.",
   "unit.min": "Min.",
-  "unit.hour": "Std."
+  "unit.hour": "Std.",
+  "settings.seasonal": "Saisonale Designs",
+  "settings.autonight": "Nachts Design wechseln",
+  "settings.nighttheme": "Nacht-Design",
+  "settings.nighthours": "Nachtstunden",
+  "settings.holiday": "Feiertags-Designs",
+  "settings.blur": "Hintergrundunschärfe"
 }

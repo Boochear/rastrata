@@ -41,5 +41,11 @@
   "viz.nodata": "Маълумот нест",
   "unit.sec": "сон",
   "unit.min": "дақ",
-  "unit.hour": "соат"
+  "unit.hour": "соат",
+  "settings.seasonal": "Мавзӯъҳои фасл",
+  "settings.autonight": "Иваз кардани мавзӯъ шабона",
+  "settings.nighttheme": "Мавзӯи шаб",
+  "settings.nighthours": "Соатҳои шаб",
+  "settings.holiday": "Мавзӯъҳои ид",
+  "settings.blur": "Хира кардани замина"
 }

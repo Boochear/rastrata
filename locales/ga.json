@@ -41,5 +41,11 @@
   "viz.nodata": "Gan sonraí",
   "unit.sec": "soic",
   "unit.min": "nóim",
-  "unit.hour": "uair"
+  "unit.hour": "uair",
+  "settings.seasonal": "Téamaí séasúracha",
+  "settings.autonight": "Athraigh téama san oíche",
+  "settings.nighttheme": "Téama oíche",
+  "settings.nighthours": "Uaireanta na hoíche",
+  "settings.holiday": "Téamaí féile",
+  "settings.blur": "Doiléiriú cúlra"
 }

@@ -41,5 +41,11 @@
   "viz.nodata": "Маалымат жок",
   "unit.sec": "сек",
   "unit.min": "мүн",
-  "unit.hour": "саат"
+  "unit.hour": "саат",
+  "settings.seasonal": "Сезондук темалар",
+  "settings.autonight": "Түнкүсүн теманы алмаштыруу",
+  "settings.nighttheme": "Түнкү тема",
+  "settings.nighthours": "Түнкү сааттар",
+  "settings.holiday": "Майрам темалары",
+  "settings.blur": "Фондун бүдөмүктүгү"
 }

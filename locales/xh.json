@@ -41,5 +41,11 @@
   "viz.nodata": "Akukho datha",
   "unit.sec": "isek",
   "unit.min": "imin",
-  "unit.hour": "iyure"
+  "unit.hour": "iyure",
+  "settings.seasonal": "Iitimu zexesha lonyaka",
+  "settings.autonight": "Tshintsha itimu ebusuku",
+  "settings.nighttheme": "Itimu yasebusuku",
+  "settings.nighthours": "Iiyure zasebusuku",
+  "settings.holiday": "Iitimu zemisitho",
+  "settings.blur": "Ukufiphaza umva"
 }

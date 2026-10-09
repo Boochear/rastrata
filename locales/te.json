@@ -41,5 +41,11 @@
   "viz.nodata": "డేటా లేదు",
   "unit.sec": "సెక",
   "unit.min": "నిమి",
-  "unit.hour": "గం"
+  "unit.hour": "గం",
+  "settings.seasonal": "సీజనల్ థీమ్‌లు",
+  "settings.autonight": "రాత్రి థీమ్ మార్చు",
+  "settings.nighttheme": "రాత్రి థీమ్",
+  "settings.nighthours": "రాత్రి సమయం",
+  "settings.holiday": "పండుగ థీమ్‌లు",
+  "settings.blur": "నేపథ్య అస్పష్టత"
 }

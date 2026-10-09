@@ -41,5 +41,11 @@
   "viz.nodata": "કોઈ ડેટા નથી",
   "unit.sec": "સે.",
   "unit.min": "મિ.",
-  "unit.hour": "કલાક"
+  "unit.hour": "કલાક",
+  "settings.seasonal": "મોસમી થીમ",
+  "settings.autonight": "રાત્રે થીમ બદલો",
+  "settings.nighttheme": "રાત્રિની થીમ",
+  "settings.nighthours": "રાત્રિના કલાકો",
+  "settings.holiday": "તહેવારની થીમ",
+  "settings.blur": "પૃષ્ઠભૂમિ ઝાંખી"
 }

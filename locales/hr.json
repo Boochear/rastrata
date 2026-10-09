@@ -41,5 +41,11 @@
   "viz.nodata": "Nema podataka",
   "unit.sec": "s",
   "unit.min": "min",
-  "unit.hour": "h"
+  "unit.hour": "h",
+  "settings.seasonal": "Sezonske teme",
+  "settings.autonight": "Promjena teme noću",
+  "settings.nighttheme": "Noćna tema",
+  "settings.nighthours": "Noćni sati",
+  "settings.holiday": "Blagdanske teme",
+  "settings.blur": "Zamućenje pozadine"
 }

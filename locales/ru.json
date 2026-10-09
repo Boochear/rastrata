@@ -41,5 +41,11 @@
     "viz.nodata": "Нет данных",
     "unit.sec": "сек",
     "unit.min": "мин",
-    "unit.hour": "ч"
+    "unit.hour": "ч",
+    "settings.seasonal": "Сезонные темы",
+    "settings.autonight": "Ночная тема по времени",
+    "settings.nighttheme": "Тема на ночь",
+    "settings.nighthours": "Часы ночи",
+    "settings.holiday": "Праздничные темы",
+    "settings.blur": "Размытие фона"
 }

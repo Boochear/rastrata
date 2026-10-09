@@ -41,5 +41,11 @@
   "viz.nodata": "Немає даних",
   "unit.sec": "с",
   "unit.min": "хв",
-  "unit.hour": "год"
+  "unit.hour": "год",
+  "settings.seasonal": "Сезонні теми",
+  "settings.autonight": "Нічна тема за часом",
+  "settings.nighttheme": "Тема на ніч",
+  "settings.nighthours": "Години ночі",
+  "settings.holiday": "Святкові теми",
+  "settings.blur": "Розмиття тла"
 }

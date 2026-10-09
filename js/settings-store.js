@@ -9,12 +9,22 @@ const DEFAULT_SETTINGS = {
     theme: '1',
     showIcons: true,
     fontFamily: '',
-    language: 'auto'
+    language: 'auto',
+    seasonalThemes: false,
+    autoNight: false,
+    nightTheme: '14',
+    nightFrom: '21:00',
+    nightTo: '07:00',
+    backgroundBlur: 0,
 };
 
 function loadSettings() {
     try {
         const parsed = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf-8'));
+        if (!('holidayThemes' in parsed) && 'seasonalThemes' in parsed) {
+            parsed.holidayThemes = parsed.seasonalThemes;
+            parsed.seasonalThemes = false;
+        }
         return { ...DEFAULT_SETTINGS, ...parsed };
     } catch {
         return { ...DEFAULT_SETTINGS };

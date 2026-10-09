@@ -41,5 +41,11 @@
   "viz.nodata": "Sem dados",
   "unit.sec": "s",
   "unit.min": "min",
-  "unit.hour": "h"
+  "unit.hour": "h",
+  "settings.seasonal": "Temas sazonais",
+  "settings.autonight": "Trocar de tema à noite",
+  "settings.nighttheme": "Tema noturno",
+  "settings.nighthours": "Horário da noite",
+  "settings.holiday": "Temas festivos",
+  "settings.blur": "Desfoque do fundo"
 }

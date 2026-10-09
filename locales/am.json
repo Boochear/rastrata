@@ -41,5 +41,11 @@
   "viz.nodata": "ምንም ውሂብ የለም",
   "unit.sec": "ሰከ",
   "unit.min": "ደቂ",
-  "unit.hour": "ሰዓ"
+  "unit.hour": "ሰዓ",
+  "settings.seasonal": "ወቅታዊ ገጽታዎች",
+  "settings.autonight": "በሌሊት ገጽታ ቀይር",
+  "settings.nighttheme": "የሌሊት ገጽታ",
+  "settings.nighthours": "የሌሊት ሰዓታት",
+  "settings.holiday": "የበዓል ገጽታዎች",
+  "settings.blur": "የጀርባ ማደብዘዝ"
 }

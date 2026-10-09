@@ -41,5 +41,11 @@
   "viz.nodata": "سانلىق مەلۇمات يوق",
   "unit.sec": "سېك",
   "unit.min": "مىنۇت",
-  "unit.hour": "سائەت"
+  "unit.hour": "سائەت",
+  "settings.seasonal": "پەسىللىك تېمىلار",
+  "settings.autonight": "كېچىدە تېما ئالماشتۇرۇش",
+  "settings.nighttheme": "كېچىلىك تېما",
+  "settings.nighthours": "كېچە سائەتلىرى",
+  "settings.holiday": "بايرام تېمىلىرى",
+  "settings.blur": "ئارقا كۆرۈنۈشنى سۇس قىلىش"
 }

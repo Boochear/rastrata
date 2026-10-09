@@ -41,5 +41,11 @@
   "viz.nodata": "Kò sí dátà",
   "unit.sec": "ìṣ",
   "unit.min": "ìṣẹ́",
-  "unit.hour": "wák"
+  "unit.hour": "wák",
+  "settings.seasonal": "Àkòrí àsìkò",
+  "settings.autonight": "Yí àkòrí padà ní alẹ́",
+  "settings.nighttheme": "Àkòrí alẹ́",
+  "settings.nighthours": "Wákàtí alẹ́",
+  "settings.holiday": "Àkòrí àjọyọ̀",
+  "settings.blur": "Blur ẹ̀yìn"
 }

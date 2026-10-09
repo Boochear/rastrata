@@ -4,6 +4,7 @@ const path = require('path');
 const { loadSettings } = require('./js/settings-store');
 const { applyFont } = require('./js/fonts');
 const { setLanguage, t, applyTranslations } = require('./js/i18n');
+const { resolveTheme } = require('./js/theme-scheduler');
 
 new Function('module', 'exports', 'define',
     fs.readFileSync(path.join(process.cwd(), 'lib', 'echarts.min.js'), 'utf-8'))();
@@ -14,8 +15,9 @@ function applyAppearance() {
     const s = loadSettings();
     setLanguage(s.language);
     applyTranslations(document);
-    document.body.setAttribute('data-theme', s.theme);
+    document.body.setAttribute('data-theme', resolveTheme(s));
     applyFont(s.fontFamily, document);
+    document.body.style.setProperty('--bg-blur', Number(s.backgroundBlur) || 0);
 }
 applyAppearance();
 
@@ -125,6 +127,7 @@ function buildView() {
 }
 
 function draw(view) {
+    const accent = cssVar('--accent') || fg;
     const fg = cssVar('--fg');
     const soft = cssVar('--border-soft');
     const bg = cssVar('--bg');
@@ -180,8 +183,8 @@ function draw(view) {
             data,
             barMaxWidth: 28,
             cursor: view.drillable ? 'pointer' : 'default',
-            itemStyle: { color: fg, borderRadius: 4 },
-            emphasis: { itemStyle: { color: soft } }
+            itemStyle: { color: accent, borderRadius: 4 },
+            emphasis: { itemStyle: { color: fg } }
         }]
     }, true);
 }

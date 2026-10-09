@@ -41,5 +41,11 @@
   "viz.nodata": "Өгөгдөл алга",
   "unit.sec": "сек",
   "unit.min": "мин",
-  "unit.hour": "цаг"
+  "unit.hour": "цаг",
+  "settings.seasonal": "Улирлын загварууд",
+  "settings.autonight": "Шөнө загвар солих",
+  "settings.nighttheme": "Шөнийн загвар",
+  "settings.nighthours": "Шөнийн цаг",
+  "settings.holiday": "Баярын загварууд",
+  "settings.blur": "Дэвсгэр бүдэгрүүлэх"
 }

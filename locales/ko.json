@@ -41,5 +41,11 @@
   "viz.nodata": "데이터 없음",
   "unit.sec": "초",
   "unit.min": "분",
-  "unit.hour": "시간"
+  "unit.hour": "시간",
+  "settings.seasonal": "계절 테마",
+  "settings.autonight": "밤에 테마 자동 전환",
+  "settings.nighttheme": "야간 테마",
+  "settings.nighthours": "야간 시간대",
+  "settings.holiday": "명절 테마",
+  "settings.blur": "배경 흐림"
 }

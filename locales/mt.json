@@ -41,5 +41,11 @@
   "viz.nodata": "M’hemm l-ebda data",
   "unit.sec": "sek",
   "unit.min": "min",
-  "unit.hour": "sig."
+  "unit.hour": "sig.",
+  "settings.seasonal": "Temi staġjonali",
+  "settings.autonight": "Biddel it-tema bil-lejl",
+  "settings.nighttheme": "Tema tal-lejl",
+  "settings.nighthours": "Sigħat tal-lejl",
+  "settings.holiday": "Temi tal-festi",
+  "settings.blur": "Blur tal-isfond"
 }

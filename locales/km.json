@@ -41,5 +41,11 @@
   "viz.nodata": "គ្មានទិន្នន័យ",
   "unit.sec": "វិ.",
   "unit.min": "នាទី",
-  "unit.hour": "ម៉ោង"
+  "unit.hour": "ម៉ោង",
+  "settings.seasonal": "រចនាប័ទ្មតាមរដូវ",
+  "settings.autonight": "ប្តូររចនាប័ទ្មពេលយប់",
+  "settings.nighttheme": "រចនាប័ទ្មពេលយប់",
+  "settings.nighthours": "ម៉ោងយប់",
+  "settings.holiday": "រចនាប័ទ្មបុណ្យ",
+  "settings.blur": "ព្រិលផ្ទៃខាងក្រោយ"
 }

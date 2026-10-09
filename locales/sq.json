@@ -41,5 +41,11 @@
   "viz.nodata": "Nuk ka të dhëna",
   "unit.sec": "sek",
   "unit.min": "min",
-  "unit.hour": "orë"
+  "unit.hour": "orë",
+  "settings.seasonal": "Tema sezonale",
+  "settings.autonight": "Ndrysho temën natën",
+  "settings.nighttheme": "Tema e natës",
+  "settings.nighthours": "Orët e natës",
+  "settings.holiday": "Tema festive",
+  "settings.blur": "Turbullimi i sfondit"
 }

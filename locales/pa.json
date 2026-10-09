@@ -41,5 +41,11 @@
   "viz.nodata": "ਕੋਈ ਡਾਟਾ ਨਹੀਂ",
   "unit.sec": "ਸਕਿੰ",
   "unit.min": "ਮਿੰ",
-  "unit.hour": "ਘੰ"
+  "unit.hour": "ਘੰ",
+  "settings.seasonal": "ਮੌਸਮੀ ਥੀਮ",
+  "settings.autonight": "ਰਾਤ ਨੂੰ ਥੀਮ ਬਦਲੋ",
+  "settings.nighttheme": "ਰਾਤ ਦੀ ਥੀਮ",
+  "settings.nighthours": "ਰਾਤ ਦੇ ਘੰਟੇ",
+  "settings.holiday": "ਤਿਉਹਾਰੀ ਥੀਮ",
+  "settings.blur": "ਪਿਛੋਕੜ ਧੁੰਦਲਾ"
 }

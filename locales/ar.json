@@ -41,5 +41,11 @@
   "viz.nodata": "لا توجد بيانات",
   "unit.sec": "ث",
   "unit.min": "د",
-  "unit.hour": "س"
+  "unit.hour": "س",
+  "settings.seasonal": "سمات موسمية",
+  "settings.autonight": "تبديل السمة ليلًا",
+  "settings.nighttheme": "سمة الليل",
+  "settings.nighthours": "ساعات الليل",
+  "settings.holiday": "سمات الأعياد",
+  "settings.blur": "تمويه الخلفية"
 }

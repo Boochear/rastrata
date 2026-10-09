@@ -41,5 +41,11 @@
   "viz.nodata": "Fără date",
   "unit.sec": "s",
   "unit.min": "min",
-  "unit.hour": "h"
+  "unit.hour": "h",
+  "settings.seasonal": "Teme sezoniere",
+  "settings.autonight": "Schimbă tema noaptea",
+  "settings.nighttheme": "Tema de noapte",
+  "settings.nighthours": "Ore de noapte",
+  "settings.holiday": "Teme de sărbători",
+  "settings.blur": "Estomparea fundalului"
 }

@@ -41,5 +41,11 @@
   "viz.nodata": "Žiadne údaje",
   "unit.sec": "s",
   "unit.min": "min",
-  "unit.hour": "h"
+  "unit.hour": "h",
+  "settings.seasonal": "Sezónne motívy",
+  "settings.autonight": "Zmena motívu v noci",
+  "settings.nighttheme": "Nočný motív",
+  "settings.nighthours": "Nočné hodiny",
+  "settings.holiday": "Sviatočné motívy",
+  "settings.blur": "Rozmazanie pozadia"
 }

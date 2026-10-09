@@ -41,5 +41,11 @@
   "viz.nodata": "Δεν υπάρχουν δεδομένα",
   "unit.sec": "δλ",
   "unit.min": "λ",
-  "unit.hour": "ώ"
+  "unit.hour": "ώ",
+  "settings.seasonal": "Εποχικά θέματα",
+  "settings.autonight": "Αλλαγή θέματος τη νύχτα",
+  "settings.nighttheme": "Νυχτερινό θέμα",
+  "settings.nighthours": "Ώρες νύχτας",
+  "settings.holiday": "Εορταστικά θέματα",
+  "settings.blur": "Θάμπωμα φόντου"
 }

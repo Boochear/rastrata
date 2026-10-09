@@ -41,5 +41,11 @@
   "viz.nodata": "Daturik ez",
   "unit.sec": "s",
   "unit.min": "min",
-  "unit.hour": "h"
+  "unit.hour": "h",
+  "settings.seasonal": "Denboraldiko gaiak",
+  "settings.autonight": "Aldatu gaia gauez",
+  "settings.nighttheme": "Gau-gaia",
+  "settings.nighthours": "Gaueko orduak",
+  "settings.holiday": "Jai-gaiak",
+  "settings.blur": "Atzeko plano lausoa"
 }

@@ -41,5 +41,11 @@
   "viz.nodata": "Nincs adat",
   "unit.sec": "mp",
   "unit.min": "perc",
-  "unit.hour": "óra"
+  "unit.hour": "óra",
+  "settings.seasonal": "Szezonális témák",
+  "settings.autonight": "Téma váltása éjszaka",
+  "settings.nighttheme": "Éjszakai téma",
+  "settings.nighthours": "Éjszakai órák",
+  "settings.holiday": "Ünnepi témák",
+  "settings.blur": "Háttér elmosása"
 }

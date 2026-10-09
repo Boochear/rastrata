@@ -41,5 +41,11 @@
   "viz.nodata": "Dim data",
   "unit.sec": "eil",
   "unit.min": "mun",
-  "unit.hour": "awr"
+  "unit.hour": "awr",
+  "settings.seasonal": "Themâu tymhorol",
+  "settings.autonight": "Newid thema yn y nos",
+  "settings.nighttheme": "Thema nos",
+  "settings.nighthours": "Oriau’r nos",
+  "settings.holiday": "Themâu gwyliau",
+  "settings.blur": "Aneglurder cefndir"
 }

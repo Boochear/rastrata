@@ -41,5 +41,11 @@
   "viz.nodata": "データなし",
   "unit.sec": "秒",
   "unit.min": "分",
-  "unit.hour": "時間"
+  "unit.hour": "時間",
+  "settings.seasonal": "季節テーマ",
+  "settings.autonight": "夜間にテーマを切り替え",
+  "settings.nighttheme": "夜間テーマ",
+  "settings.nighthours": "夜間の時間帯",
+  "settings.holiday": "ホリデーテーマ",
+  "settings.blur": "背景のぼかし"
 }

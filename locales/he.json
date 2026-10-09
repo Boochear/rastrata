@@ -41,5 +41,11 @@
   "viz.nodata": "אין נתונים",
   "unit.sec": "שנ׳",
   "unit.min": "דק׳",
-  "unit.hour": "שע׳"
+  "unit.hour": "שע׳",
+  "settings.seasonal": "ערכות נושא עונתיות",
+  "settings.autonight": "החלפת ערכת נושא בלילה",
+  "settings.nighttheme": "ערכת נושא ללילה",
+  "settings.nighthours": "שעות הלילה",
+  "settings.holiday": "ערכות נושא לחגים",
+  "settings.blur": "טשטוש רקע"
 }

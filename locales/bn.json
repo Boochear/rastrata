@@ -41,5 +41,11 @@
   "viz.nodata": "কোনো ডেটা নেই",
   "unit.sec": "সে.",
   "unit.min": "মি.",
-  "unit.hour": "ঘ."
+  "unit.hour": "ঘ.",
+  "settings.seasonal": "মৌসুমি থিম",
+  "settings.autonight": "রাতে থিম পরিবর্তন",
+  "settings.nighttheme": "রাতের থিম",
+  "settings.nighthours": "রাতের সময়",
+  "settings.holiday": "উৎসবের থিম",
+  "settings.blur": "ব্যাকগ্রাউন্ড ঝাপসা"
 }

@@ -41,5 +41,11 @@
   "viz.nodata": "Tidak ada data",
   "unit.sec": "dtk",
   "unit.min": "mnt",
-  "unit.hour": "jam"
+  "unit.hour": "jam",
+  "settings.seasonal": "Tema musiman",
+  "settings.autonight": "Ganti tema saat malam",
+  "settings.nighttheme": "Tema malam",
+  "settings.nighthours": "Jam malam",
+  "settings.holiday": "Tema hari raya",
+  "settings.blur": "Keburaman latar"
 }

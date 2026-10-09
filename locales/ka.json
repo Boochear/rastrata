@@ -41,5 +41,11 @@
   "viz.nodata": "მონაცემები არ არის",
   "unit.sec": "წმ",
   "unit.min": "წთ",
-  "unit.hour": "სთ"
+  "unit.hour": "სთ",
+  "settings.seasonal": "სეზონური თემები",
+  "settings.autonight": "ღამის თემა დროის მიხედვით",
+  "settings.nighttheme": "ღამის თემა",
+  "settings.nighthours": "ღამის საათები",
+  "settings.holiday": "სადღესასწაულო თემები",
+  "settings.blur": "ფონის გაბუნდოვანება"
 }

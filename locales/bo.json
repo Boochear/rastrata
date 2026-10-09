@@ -41,5 +41,11 @@
   "viz.nodata": "གཞི་གྲངས་མེད།",
   "unit.sec": "སྐར་ཆ།",
   "unit.min": "སྐར་མ།",
-  "unit.hour": "ཆུ་ཚོད།"
+  "unit.hour": "ཆུ་ཚོད།",
+  "settings.seasonal": "དུས་བབས་ཀྱི་བརྗོད་དོན།",
+  "settings.autonight": "མཚན་མོ་བརྗོད་དོན་བརྗེ།",
+  "settings.nighttheme": "མཚན་མོའི་བརྗོད་དོན།",
+  "settings.nighthours": "མཚན་མོའི་དུས་ཚོད།",
+  "settings.holiday": "དུས་ཆེན་གྱི་བརྗོད་དོན།",
+  "settings.blur": "རྒྱབ་ལྗོངས་འཐོམས་པོ།"
 }

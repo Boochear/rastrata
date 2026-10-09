@@ -41,5 +41,11 @@
   "viz.nodata": "ไม่มีข้อมูล",
   "unit.sec": "วิ",
   "unit.min": "นาที",
-  "unit.hour": "ชม."
+  "unit.hour": "ชม.",
+  "settings.seasonal": "ธีมตามฤดูกาล",
+  "settings.autonight": "เปลี่ยนธีมตอนกลางคืน",
+  "settings.nighttheme": "ธีมกลางคืน",
+  "settings.nighthours": "ช่วงเวลากลางคืน",
+  "settings.holiday": "ธีมเทศกาล",
+  "settings.blur": "เบลอพื้นหลัง"
 }

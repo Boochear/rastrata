@@ -41,5 +41,11 @@
   "viz.nodata": "Məlumat yoxdur",
   "unit.sec": "san",
   "unit.min": "dəq",
-  "unit.hour": "saat"
+  "unit.hour": "saat",
+  "settings.seasonal": "Mövsümi mövzular",
+  "settings.autonight": "Vaxta görə gecə mövzusu",
+  "settings.nighttheme": "Gecə mövzusu",
+  "settings.nighthours": "Gecə saatları",
+  "settings.holiday": "Bayram mövzuları",
+  "settings.blur": "Fonun bulanıqlaşdırılması"
 }

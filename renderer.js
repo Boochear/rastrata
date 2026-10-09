@@ -10,6 +10,7 @@ const { setupTray } = require('./js/tray');
 const { checkForUpdates, applyUpdateAndRestart } = require('./js/updater');
 const { applyFont } = require('./js/fonts');
 const { setLanguage, t, applyTranslations } = require('./js/i18n');
+const { resolveTheme } = require('./js/theme-scheduler');
 
 const APP_NAME = 'Rastrata';
 const SAVE_INTERVAL = 10000;
@@ -38,6 +39,17 @@ if (!isTrayLaunch) {
 
 function applyTheme(theme) {
     document.body.setAttribute('data-theme', theme);
+}
+
+let appliedTheme = null;
+
+function refreshTheme() {
+    const theme = resolveTheme(settings);
+    if (theme === appliedTheme) return;
+    appliedTheme = theme;
+    applyTheme(theme);
+    if (settingsWin) settingsWin.window.document.body.setAttribute('data-theme', theme);
+    if (vizWin && vizWin.window.onAppearanceChanged) vizWin.window.onAppearanceChanged();
 }
 
 function formatMs(ms) {
@@ -124,7 +136,8 @@ startWatcher({
 
 setLanguage(settings.language);
 applyTranslations(document);
-applyTheme(settings.theme);
+refreshTheme();
+document.body.style.setProperty('--bg-blur', Number(settings.backgroundBlur) || 0);
 applyFont(settings.fontFamily, document);
 renderList();
 
@@ -133,6 +146,7 @@ setInterval(() => {
     saveStats(stats);
     saveFriendlyNames(friendlyNames);
 }, SAVE_INTERVAL);
+setInterval(refreshTheme, 30000);
 
 window.addEventListener('beforeunload', () => {
     if (currentApp) addTime(stats, currentApp, Date.now() - sessionStart);
@@ -172,11 +186,13 @@ document.getElementById('btn-settings').addEventListener('click', () => {
         return;
     }
     nw.Window.open('settings/settings.html', {
-        width: 360,
-        height: 720,
+        width: 420,
+        height: Math.min(600, screen.availHeight - 60),
+        min_width: 340,
+        min_height: 300,
         frame: false,
         position: 'center',
-        resizable: false
+        resizable: true
     }, (createdWin) => {
         settingsWin = createdWin;
         createdWin.window.mainWindowRef = window;
@@ -211,14 +227,24 @@ window.getVizData = function () {
 
 window.updateThemeFromSettings = function (theme) {
     settings.theme = theme;
-    applyTheme(theme);
-    if (vizWin && vizWin.window.onAppearanceChanged) vizWin.window.onAppearanceChanged();
+    refreshTheme();
+};
+
+window.updateThemeScheduleFromSettings = function () {
+    Object.assign(settings, loadSettings());
+    refreshTheme();
 };
 
 window.updateFontFromSettings = function (fontFamily) {
     settings.fontFamily = fontFamily;
     applyFont(fontFamily, document);
     if (vizWin && vizWin.window.onAppearanceChanged) vizWin.window.onAppearanceChanged();
+};
+
+window.updateBlurFromSettings = function (px) {
+    settings.backgroundBlur = px;
+    document.body.style.setProperty('--bg-blur', px);
+    if (vizWin) vizWin.window.document.body.style.setProperty('--bg-blur', px);
 };
 
 window.updateShowIconsFromSettings = function (showIcons) {

@@ -41,5 +41,11 @@
   "viz.nodata": "Geen gegevens",
   "unit.sec": "sec",
   "unit.min": "min",
-  "unit.hour": "u"
+  "unit.hour": "u",
+  "settings.seasonal": "Seizoensthema’s",
+  "settings.autonight": "Thema wisselen ’s nachts",
+  "settings.nighttheme": "Nachtthema",
+  "settings.nighthours": "Nachturen",
+  "settings.holiday": "Feestdagthema’s",
+  "settings.blur": "Achtergrondonscherpte"
 }

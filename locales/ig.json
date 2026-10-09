@@ -41,5 +41,11 @@
   "viz.nodata": "Enweghị data",
   "unit.sec": "sek",
   "unit.min": "nkeji",
-  "unit.hour": "elekere"
+  "unit.hour": "elekere",
+  "settings.seasonal": "Isiokwu oge",
+  "settings.autonight": "Gbanwee isiokwu n’abalị",
+  "settings.nighttheme": "Isiokwu abalị",
+  "settings.nighthours": "Awa abalị",
+  "settings.holiday": "Isiokwu ememe",
+  "settings.blur": "Blur ndabere"
 }

@@ -41,5 +41,11 @@
   "viz.nodata": "Ingen data",
   "unit.sec": "sek.",
   "unit.min": "min.",
-  "unit.hour": "t"
+  "unit.hour": "t",
+  "settings.seasonal": "Sæsontemaer",
+  "settings.autonight": "Skift tema om natten",
+  "settings.nighttheme": "Natstema",
+  "settings.nighthours": "Nattetimer",
+  "settings.holiday": "Højtidstemaer",
+  "settings.blur": "Sløring af baggrund"
 }

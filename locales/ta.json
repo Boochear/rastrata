@@ -41,5 +41,11 @@
   "viz.nodata": "தரவு இல்லை",
   "unit.sec": "வி",
   "unit.min": "நிமி",
-  "unit.hour": "ம"
+  "unit.hour": "ம",
+  "settings.seasonal": "பருவகால தீம்கள்",
+  "settings.autonight": "இரவில் தீமை மாற்று",
+  "settings.nighttheme": "இரவு தீம்",
+  "settings.nighthours": "இரவு நேரம்",
+  "settings.holiday": "பண்டிகை தீம்கள்",
+  "settings.blur": "பின்னணி மங்கலாக்கு"
 }

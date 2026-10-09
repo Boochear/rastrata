@@ -41,5 +41,11 @@
   "viz.nodata": "داده‌ای وجود ندارد",
   "unit.sec": "ث",
   "unit.min": "د",
-  "unit.hour": "س"
+  "unit.hour": "س",
+  "settings.seasonal": "پوسته‌های فصلی",
+  "settings.autonight": "تغییر پوسته در شب",
+  "settings.nighttheme": "پوسته شب",
+  "settings.nighthours": "ساعت‌های شب",
+  "settings.holiday": "پوسته‌های جشن",
+  "settings.blur": "محوسازی پس‌زمینه"
 }

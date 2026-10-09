@@ -41,5 +41,11 @@
   "viz.nodata": "Nėra duomenų",
   "unit.sec": "s",
   "unit.min": "min.",
-  "unit.hour": "val."
+  "unit.hour": "val.",
+  "settings.seasonal": "Sezoninės temos",
+  "settings.autonight": "Keisti temą naktį",
+  "settings.nighttheme": "Nakties tema",
+  "settings.nighthours": "Nakties valandos",
+  "settings.holiday": "Šventinės temos",
+  "settings.blur": "Fono suliejimas"
 }

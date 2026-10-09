@@ -41,5 +41,11 @@
   "viz.nodata": "Walang data",
   "unit.sec": "seg",
   "unit.min": "min",
-  "unit.hour": "oras"
+  "unit.hour": "oras",
+  "settings.seasonal": "Mga temang pang-season",
+  "settings.autonight": "Palitan ang tema sa gabi",
+  "settings.nighttheme": "Tema sa gabi",
+  "settings.nighthours": "Oras ng gabi",
+  "settings.holiday": "Mga temang pang-pista",
+  "settings.blur": "Blur ng background"
 }

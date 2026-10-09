@@ -41,5 +41,11 @@
   "viz.nodata": "Нема података",
   "unit.sec": "сек",
   "unit.min": "мин",
-  "unit.hour": "ч"
+  "unit.hour": "ч",
+  "settings.seasonal": "Сезонске теме",
+  "settings.autonight": "Промена теме ноћу",
+  "settings.nighttheme": "Ноћна тема",
+  "settings.nighthours": "Ноћни сати",
+  "settings.holiday": "Празничне теме",
+  "settings.blur": "Замућење позадине"
 }

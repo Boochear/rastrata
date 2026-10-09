@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="../style.css">
 </head>
 
-<body>
+<body class="settings-body">
     <div id="titlebar">
         <div id="titlebar-label" data-i18n="settings.title">Настройки</div>
         <div id="titlebar-controls">
-            <img src="../media/dot.svg" alt="Закрыть" id="btn-close" class="titlebar-btn" role="button">
+            <span id="btn-close" class="titlebar-btn" role="button" title="Закрыть"></span>
         </div>
     </div>
 
@@ -35,27 +35,7 @@
         <div class="row" id="theme-selector">
             <span>5. <span data-i18n="settings.theme"></span></span>
             <button id="theme-btn" class="btn">Белая ▾</button>
-            <div id="theme-dropdown" class="dropdown-menu hidden">
-                <div class="dropdown-item" data-theme="1" data-label="Nightmare W">Nightmare W</div>
-                <div class="dropdown-item" data-theme="2" data-label="Nightmare B">Nightmare B</div>
-                <div class="dropdown-item" data-theme="3" data-label="Dreamcore 1">Dreamcore 1</div>
-                <div class="dropdown-item" data-theme="4" data-label="Dreamcore 2">Dreamcore 2</div>
-                <div class="dropdown-item" data-theme="5" data-label="Windows XP">Windows XP</div>
-                <div class="dropdown-item" data-theme="6" data-label="Makima">Makima</div>
-                <div class="dropdown-item" data-theme="7" data-label="Rebecca">Rebecca</div>
-                <div class="dropdown-item" data-theme="8" data-label="Psychopomp">Psychopomp</div>
-                <div class="dropdown-item" data-theme="9" data-label="Arcane">Arcane</div>
-                <div class="dropdown-item" data-theme="10" data-label="Glitchcore">Glitchcore</div>
-                <div class="dropdown-item" data-theme="11" data-label="L">L</div>
-                <div class="dropdown-item" data-theme="12" data-label="Evangelion">Evangelion</div>
-                <div class="dropdown-item" data-theme="13" data-label="Acid Bath">Acid Bath</div>
-                <div class="dropdown-item" data-theme="14" data-label="Soft Void">Soft Void</div>
-                <div class="dropdown-item" data-theme="15" data-label="Soft Ember">Soft Ember</div>
-                <div class="dropdown-item" data-theme="16" data-label="Soft Fog">Soft Fog</div>
-                <div class="dropdown-item" data-theme="17" data-label="Soft Dusk">Soft Dusk</div>
-                <div class="dropdown-item" data-theme="18" data-label="Soft Moss">Soft Moss</div>
-                <div class="dropdown-item" data-theme="19" data-label="Soft Ash">Soft Ash</div>
-            </div>
+            <div id="theme-dropdown" class="dropdown-menu hidden"></div>
         </div>
         <div class="row" id="font-selector">
             <span>6. <span data-i18n="settings.font"></span></span>
@@ -71,26 +51,69 @@
             <button id="lang-btn" class="btn"></button>
             <div id="lang-dropdown" class="dropdown-menu hidden"></div>
         </div>
-    </div>
-
-    <div class="dev-info">
-        <img src="../media/avatar.jpg" alt="avatar" class="dev-avatar">
-        <div class="dev-quote">я хочу смерти людям</div>
-        <div class="dev-contacts">
-            <a href="#" class="dev-contact" id="contact-telegram">
-                <img src="../media/telegram.svg" class="contact-icon" alt="telegram">
-                <span>Telegram · @boochear</span>
-            </a>
-            <a href="#" class="dev-contact" id="contact-email">
-                <img src="../media/gmail.svg" class="contact-icon" alt="email">
-                <span>Email · b0ochear2208@gmail.com</span>
-            </a>
+        <div class="row">
+            <span>9. <span data-i18n="settings.holiday"></span></span>
+            <input type="checkbox" id="setting-holiday" class="checkbox">
         </div>
-    </div>
+        <div class="row">
+            <span>10. <span data-i18n="settings.seasonal"></span></span>
+            <input type="checkbox" id="setting-seasonal" class="checkbox">
+        </div>
+        <div class="row">
+            <span>11. <span data-i18n="settings.autonight"></span></span>
+            <input type="checkbox" id="setting-autonight" class="checkbox">
+        </div>
+        <div class="row" id="night-theme-selector">
+            <span>12. <span data-i18n="settings.nighttheme"></span></span>
+            <button id="night-theme-btn" class="btn"></button>
+            <div id="night-theme-dropdown" class="dropdown-menu hidden"></div>
+        </div>
+        <div class="row">
+            <span>13. <span data-i18n="settings.nighthours"></span></span>
+            <span class="time-range">
+                <span class="time-picker">
+                    <button id="night-from-btn" class="btn time-btn"></button>
+                    <div id="night-from-pop" class="dropdown-menu time-pop hidden">
+                        <div class="time-col" data-col="h"></div>
+                        <div class="time-col" data-col="m"></div>
+                    </div>
+                </span>
+                <span>–</span>
+                <span class="time-picker">
+                    <button id="night-to-btn" class="btn time-btn"></button>
+                    <div id="night-to-pop" class="dropdown-menu time-pop hidden">
+                        <div class="time-col" data-col="h"></div>
+                        <div class="time-col" data-col="m"></div>
+                    </div>
+                </span>
+            </span>
+        </div>
+        <div class="row">
+            <span>14. <span data-i18n="settings.blur"></span></span>
+            <span class="range-wrap">
+                <input type="range" id="setting-blur" class="range" min="0" max="30" step="1">
+                <span id="blur-value" class="range-value"></span>
+            </span>
+        </div>
 
-    <div id="app-footer">2026 · Rastrata</div>
+        <div class="dev-info">
+            <img src="../media/avatar.jpg" alt="avatar" class="dev-avatar">
+            <div class="dev-quote">я хочу смерти людям</div>
+            <div class="dev-contacts">
+                <a href="#" class="dev-contact" id="contact-telegram">
+                    <img src="../media/telegram.svg" class="contact-icon" alt="telegram">
+                    <span>Telegram · @boochear</span>
+                </a>
+                <a href="#" class="dev-contact" id="contact-email">
+                    <img src="../media/gmail.svg" class="contact-icon" alt="email">
+                    <span>Email · b0ochear2208@gmail.com</span>
+                </a>
+            </div>
+        </div>
 
-    <script src="settings.js" defer></script>
+        <div id="app-footer">2026 · Rastrata</div>
+
+        <script src="settings.js" defer></script>
 </body>
 
 </html>

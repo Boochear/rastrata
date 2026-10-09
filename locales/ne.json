@@ -41,5 +41,11 @@
   "viz.nodata": "डाटा छैन",
   "unit.sec": "से.",
   "unit.min": "मि.",
-  "unit.hour": "घण्टा"
+  "unit.hour": "घण्टा",
+  "settings.seasonal": "मौसमी थिम",
+  "settings.autonight": "राति थिम बदल्नुहोस्",
+  "settings.nighttheme": "रातिको थिम",
+  "settings.nighthours": "रातका घण्टा",
+  "settings.holiday": "चाडपर्वका थिम",
+  "settings.blur": "पृष्ठभूमि धमिलो"
 }

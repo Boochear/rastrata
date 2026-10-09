@@ -41,5 +41,11 @@
   "viz.nodata": "ບໍ່ມີຂໍ້ມູນ",
   "unit.sec": "ວິ",
   "unit.min": "ນາທີ",
-  "unit.hour": "ຊມ"
+  "unit.hour": "ຊມ",
+  "settings.seasonal": "ຮູບແບບຕາມລະດູ",
+  "settings.autonight": "ປ່ຽນຮູບແບບຕອນກາງຄືນ",
+  "settings.nighttheme": "ຮູບແບບກາງຄືນ",
+  "settings.nighthours": "ເວລາກາງຄືນ",
+  "settings.holiday": "ຮູບແບບບຸນ",
+  "settings.blur": "ເບລີພື້ນຫຼັງ"
 }

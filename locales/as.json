@@ -41,5 +41,11 @@
   "viz.nodata": "কোনো ডাটা নাই",
   "unit.sec": "ছে.",
   "unit.min": "মি.",
-  "unit.hour": "ঘ."
+  "unit.hour": "ঘ.",
+  "settings.seasonal": "ঋতুভিত্তিক থীম",
+  "settings.autonight": "ৰাতি থীম সলনি কৰক",
+  "settings.nighttheme": "ৰাতিৰ থীম",
+  "settings.nighthours": "ৰাতিৰ সময়",
+  "settings.holiday": "উৎসৱৰ থীম",
+  "settings.blur": "পটভূমি অস্পষ্ট"
 }

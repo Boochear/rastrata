@@ -41,5 +41,11 @@
   "viz.nodata": "ډاټا نشته",
   "unit.sec": "ثانیې",
   "unit.min": "دقیقې",
-  "unit.hour": "ساعتونه"
+  "unit.hour": "ساعتونه",
+  "settings.seasonal": "موسمي تیمونه",
+  "settings.autonight": "په شپه کې تیم بدلول",
+  "settings.nighttheme": "د شپې تیم",
+  "settings.nighthours": "د شپې ساعتونه",
+  "settings.holiday": "د لمانځنې تیمونه",
+  "settings.blur": "د شالید غیرواضح کول"
 }

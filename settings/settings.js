@@ -7,28 +7,9 @@ const { createDesktopShortcut } = require('./js/shortcut');
 const { getSystemFonts, applyFont } = require('./js/fonts');
 const { exportData } = require('./js/export');
 const { LANGUAGES, setLanguage, t, applyTranslations } = require('./js/i18n');
+const { THEMES, themeLabel } = require('./js/themes');
+const { resolveTheme } = require('./js/theme-scheduler');
 
-const THEME_LABELS = {
-    1: 'Nightmare W',
-    2: 'Nightmare B',
-    3: 'Dreamcore 1',
-    4: 'Dreamcore 2',
-    5: 'Windows XP',
-    6: 'Makima',
-    7: 'Rebecca',
-    8: 'Psychopomp',
-    9: 'Arcane',
-    10: 'Glitchcore',
-    11: 'L',
-    12: 'Evangelion',
-    13: 'Acid Bath',
-    14: 'Soft Void',
-    15: 'Soft Ember',
-    16: 'Soft Fog',
-    17: 'Soft Dusk',
-    18: 'Soft Moss',
-    19: 'Soft Ash'
-};
 const TRAY_FLAG_PATH = path.join(process.cwd(), 'tray.flag');
 
 function updateTrayFlag() {
@@ -56,8 +37,33 @@ autostartEl.checked = settings.autostart;
 trayEl.checked = settings.minimizeToTrayOnAutostart;
 iconsEl.checked = settings.showIcons;
 
-themeBtn.textContent = (THEME_LABELS[settings.theme] || 'Nightmare W') + ' ▾';
-document.body.setAttribute('data-theme', settings.theme);
+function showEffectiveTheme() {
+    document.body.setAttribute('data-theme', resolveTheme(settings));
+}
+
+function fillThemeMenu(menu, onPick) {
+    THEMES.forEach(({ id, label }) => {
+        const item = document.createElement('div');
+        item.className = 'dropdown-item';
+        item.textContent = label;
+        item.addEventListener('click', () => onPick(id));
+        menu.appendChild(item);
+    });
+}
+
+themeBtn.textContent = themeLabel(settings.theme) + ' ▾';
+showEffectiveTheme();
+
+fillThemeMenu(themeDropdown, (id) => {
+    settings.theme = id;
+    themeBtn.textContent = themeLabel(id) + ' ▾';
+    themeDropdown.classList.add('hidden');
+    saveSettings(settings);
+    showEffectiveTheme();
+    if (window.mainWindowRef) window.mainWindowRef.updateThemeFromSettings(id);
+});
+
+themeBtn.addEventListener('click', () => themeDropdown.classList.toggle('hidden'));
 
 autostartEl.addEventListener('change', async () => {
     settings.autostart = autostartEl.checked;
@@ -89,25 +95,6 @@ exportBtn.addEventListener('click', () => {
         exportBtn.textContent = t('btn.error');
     }
     setTimeout(() => { exportBtn.textContent = t('btn.export'); }, 2000);
-});
-
-themeBtn.addEventListener('click', () => {
-    themeDropdown.classList.toggle('hidden');
-});
-
-themeDropdown.querySelectorAll('.dropdown-item').forEach((item) => {
-    item.addEventListener('click', () => {
-        const theme = item.dataset.theme;
-        settings.theme = theme;
-        themeBtn.textContent = item.dataset.label + ' ▾';
-        themeDropdown.classList.add('hidden');
-        document.body.setAttribute('data-theme', theme);
-        saveSettings(settings);
-
-        if (window.mainWindowRef) {
-            window.mainWindowRef.updateThemeFromSettings(theme);
-        }
-    });
 });
 
 document.addEventListener('click', (e) => {
@@ -224,6 +211,157 @@ langDropdown.addEventListener('click', (e) => {
     refreshLangButton();
     if (window.mainWindowRef) window.mainWindowRef.updateLanguageFromSettings(settings.language);
 });
+
+const seasonalEl = document.getElementById('setting-seasonal');
+const autoNightEl = document.getElementById('setting-autonight');
+const nightThemeBtn = document.getElementById('night-theme-btn');
+const nightThemeDropdown = document.getElementById('night-theme-dropdown');
+const holidayEl = document.getElementById('setting-holiday');
+holidayEl.checked = settings.holidayThemes;
+
+holidayEl.addEventListener('change', () => {
+    settings.holidayThemes = holidayEl.checked;
+    onScheduleChanged();
+});
+
+seasonalEl.checked = settings.seasonalThemes;
+autoNightEl.checked = settings.autoNight;
+nightThemeBtn.textContent = themeLabel(settings.nightTheme) + ' ▾';
+
+function onScheduleChanged() {
+    saveSettings(settings);
+    showEffectiveTheme();
+    if (window.mainWindowRef) window.mainWindowRef.updateThemeScheduleFromSettings();
+}
+
+seasonalEl.addEventListener('change', () => {
+    settings.seasonalThemes = seasonalEl.checked;
+    onScheduleChanged();
+});
+
+autoNightEl.addEventListener('change', () => {
+    settings.autoNight = autoNightEl.checked;
+    onScheduleChanged();
+});
+
+fillThemeMenu(nightThemeDropdown, (id) => {
+    settings.nightTheme = id;
+    nightThemeBtn.textContent = themeLabel(id) + ' ▾';
+    nightThemeDropdown.classList.add('hidden');
+    onScheduleChanged();
+});
+
+nightThemeBtn.addEventListener('click', () => nightThemeDropdown.classList.toggle('hidden'));
+
+const pad2 = (n) => String(n).padStart(2, '0');
+const timePickers = [];
+
+function createTimePicker(btn, pop, key) {
+    const cols = { h: pop.querySelector('[data-col="h"]'), m: pop.querySelector('[data-col="m"]') };
+    const items = { h: [], m: [] };
+
+    function build(name, count) {
+        for (let i = 0; i < count; i++) {
+            const item = document.createElement('div');
+            item.className = 'dropdown-item';
+            item.textContent = pad2(i);
+            cols[name].appendChild(item);
+            items[name].push(item);
+        }
+    }
+    build('h', 24);
+    build('m', 60);
+
+    function current() {
+        const [h, m] = String(settings[key]).split(':').map(Number);
+        return { h: h || 0, m: m || 0 };
+    }
+
+    function refresh() {
+        const { h, m } = current();
+        btn.textContent = pad2(h) + ':' + pad2(m);
+        items.h.forEach((el, i) => el.classList.toggle('selected', i === h));
+        items.m.forEach((el, i) => el.classList.toggle('selected', i === m));
+    }
+
+    function scrollToSelected() {
+        const { h, m } = current();
+        [['h', h], ['m', m]].forEach(([name, idx]) => {
+            const col = cols[name];
+            const el = items[name][idx];
+            col.scrollTop = el.offsetTop - col.clientHeight / 2 + el.offsetHeight / 2;
+        });
+    }
+
+    function close() { pop.classList.add('hidden'); }
+
+    btn.addEventListener('click', () => {
+        const willOpen = pop.classList.contains('hidden');
+        timePickers.forEach((p) => p.close());
+        if (willOpen) {
+            pop.classList.remove('hidden');
+            scrollToSelected();
+        }
+    });
+
+    pop.addEventListener('click', (e) => {
+        const item = e.target.closest('.dropdown-item');
+        if (!item) return;
+        const name = item.parentElement.dataset.col;
+        const cur = current();
+        const value = Number(item.textContent);
+        const h = name === 'h' ? value : cur.h;
+        const m = name === 'm' ? value : cur.m;
+        settings[key] = pad2(h) + ':' + pad2(m);
+        refresh();
+        onScheduleChanged();
+        if (name === 'm') close();
+    });
+
+    refresh();
+    const picker = { close, root: btn.parentElement };
+    timePickers.push(picker);
+    return picker;
+}
+
+createTimePicker(document.getElementById('night-from-btn'), document.getElementById('night-from-pop'), 'nightFrom');
+createTimePicker(document.getElementById('night-to-btn'), document.getElementById('night-to-pop'), 'nightTo');
+
+document.addEventListener('click', (e) => {
+    if (!nightThemeBtn.contains(e.target) && !nightThemeDropdown.contains(e.target)) {
+        nightThemeDropdown.classList.add('hidden');
+    }
+    timePickers.forEach((p) => {
+        if (!p.root.contains(e.target)) p.close();
+    });
+});
+
+document.addEventListener('click', (e) => {
+    if (!nightThemeBtn.contains(e.target) && !nightThemeDropdown.contains(e.target)) {
+        nightThemeDropdown.classList.add('hidden');
+    }
+});
+
+const blurEl = document.getElementById('setting-blur');
+const blurValueEl = document.getElementById('blur-value');
+
+function applyBlurLocal(px) {
+    document.body.style.setProperty('--bg-blur', px);
+    blurEl.style.setProperty('--fill', (px / Number(blurEl.max) * 100) + '%');
+    blurValueEl.textContent = px;
+}
+
+blurEl.value = settings.backgroundBlur;
+applyBlurLocal(Number(settings.backgroundBlur) || 0);
+
+blurEl.addEventListener('input', () => {
+    const px = Number(blurEl.value);
+    settings.backgroundBlur = px;
+    applyBlurLocal(px);
+    if (window.mainWindowRef) window.mainWindowRef.updateBlurFromSettings(px);
+});
+
+blurEl.addEventListener('change', () => saveSettings(settings));
 
 document.getElementById('contact-telegram').addEventListener('click', (e) => {
     e.preventDefault();

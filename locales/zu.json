@@ -41,5 +41,11 @@
   "viz.nodata": "Alikho idatha",
   "unit.sec": "isek",
   "unit.min": "imin",
-  "unit.hour": "ihora"
+  "unit.hour": "ihora",
+  "settings.seasonal": "Amatimu esizini",
+  "settings.autonight": "Shintsha itimu ebusuku",
+  "settings.nighttheme": "Itimu yasebusuku",
+  "settings.nighthours": "Amahora ebusuku",
+  "settings.holiday": "Amatimu emikhosi",
+  "settings.blur": "Ukufiphaza isendlalelo"
 }

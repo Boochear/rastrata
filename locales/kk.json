@@ -41,5 +41,11 @@
   "viz.nodata": "Деректер жоқ",
   "unit.sec": "сек",
   "unit.min": "мин",
-  "unit.hour": "сағ"
+  "unit.hour": "сағ",
+  "settings.seasonal": "Маусымдық тақырыптар",
+  "settings.autonight": "Түнгі тақырып уақыт бойынша",
+  "settings.nighttheme": "Түнгі тақырып",
+  "settings.nighthours": "Түн сағаттары",
+  "settings.holiday": "Мерекелік тақырыптар",
+  "settings.blur": "Фонды бұлдырату"
 }

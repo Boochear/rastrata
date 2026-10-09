@@ -41,5 +41,11 @@
   "viz.nodata": "Hakuna data",
   "unit.sec": "sek",
   "unit.min": "dak",
-  "unit.hour": "saa"
+  "unit.hour": "saa",
+  "settings.seasonal": "Mandhari za msimu",
+  "settings.autonight": "Badilisha mandhari usiku",
+  "settings.nighttheme": "Mandhari ya usiku",
+  "settings.nighthours": "Saa za usiku",
+  "settings.holiday": "Mandhari za sikukuu",
+  "settings.blur": "Ukungu wa mandharinyuma"
 }

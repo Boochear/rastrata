@@ -41,5 +41,11 @@
   "viz.nodata": "Tsy misy angona",
   "unit.sec": "seg",
   "unit.min": "min",
-  "unit.hour": "ora"
+  "unit.hour": "ora",
+  "settings.seasonal": "Lohahevitra arakaraka ny vanim-potoana",
+  "settings.autonight": "Ovay ny lohahevitra amin’ny alina",
+  "settings.nighttheme": "Lohahevitra alina",
+  "settings.nighthours": "Ora alina",
+  "settings.holiday": "Lohahevitra fankalazana",
+  "settings.blur": "Blur ny sary ambadika"
 }

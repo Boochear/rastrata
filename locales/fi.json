@@ -41,5 +41,11 @@
   "viz.nodata": "Ei tietoja",
   "unit.sec": "s",
   "unit.min": "min",
-  "unit.hour": "t"
+  "unit.hour": "t",
+  "settings.seasonal": "Kausiteemat",
+  "settings.autonight": "Vaihda teema yöksi",
+  "settings.nighttheme": "Yöteema",
+  "settings.nighthours": "Yötunnit",
+  "settings.holiday": "Juhlateemat",
+  "settings.blur": "Taustan sumennus"
 }

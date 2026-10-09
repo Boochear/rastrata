@@ -41,5 +41,11 @@
   "viz.nodata": "Nta makuru",
   "unit.sec": "sek",
   "unit.min": "min",
-  "unit.hour": "sa"
+  "unit.hour": "sa",
+  "settings.seasonal": "Insanganyamatsiko z’ibihe",
+  "settings.autonight": "Hindura insanganyamatsiko nijoro",
+  "settings.nighttheme": "Insanganyamatsiko y’ijoro",
+  "settings.nighthours": "Amasaha y’ijoro",
+  "settings.holiday": "Insanganyamatsiko z’iminsi mikuru",
+  "settings.blur": "Blur y’inyuma"
 }

@@ -41,5 +41,11 @@
   "viz.nodata": "Տվյալներ չկան",
   "unit.sec": "վրկ",
   "unit.min": "րոպե",
-  "unit.hour": "ժ"
+  "unit.hour": "ժ",
+  "settings.seasonal": "Սեզոնային թեմաներ",
+  "settings.autonight": "Գիշերային թեմա ըստ ժամանակի",
+  "settings.nighttheme": "Գիշերային թեմա",
+  "settings.nighthours": "Գիշերվա ժամերը",
+  "settings.holiday": "Տոնական թեմաներ",
+  "settings.blur": "Ֆոնի լղոզում"
 }

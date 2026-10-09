@@ -41,5 +41,11 @@
   "viz.nodata": "डेटा नाही",
   "unit.sec": "से.",
   "unit.min": "मि.",
-  "unit.hour": "तास"
+  "unit.hour": "तास",
+  "settings.seasonal": "हंगामी थीम",
+  "settings.autonight": "रात्री थीम बदला",
+  "settings.nighttheme": "रात्रीची थीम",
+  "settings.nighthours": "रात्रीचे तास",
+  "settings.holiday": "सणांच्या थीम",
+  "settings.blur": "पार्श्वभूमी अस्पष्ट"
 }

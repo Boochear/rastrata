@@ -41,5 +41,11 @@
   "viz.nodata": "هیچ داتایەک نییە",
   "unit.sec": "چرکە",
   "unit.min": "خولەک",
-  "unit.hour": "کاتژمێر"
+  "unit.hour": "کاتژمێر",
+  "settings.seasonal": "ڕووکارە وەرزییەکان",
+  "settings.autonight": "گۆڕینی ڕووکار لە شەودا",
+  "settings.nighttheme": "ڕووکاری شەو",
+  "settings.nighthours": "کاتژمێرەکانی شەو",
+  "settings.holiday": "ڕووکارەکانی ئاهەنگ",
+  "settings.blur": "لێڵکردنی پاشبنەما"
 }

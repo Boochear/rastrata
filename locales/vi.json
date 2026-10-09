@@ -41,5 +41,11 @@
   "viz.nodata": "Không có dữ liệu",
   "unit.sec": "giây",
   "unit.min": "phút",
-  "unit.hour": "giờ"
+  "unit.hour": "giờ",
+  "settings.seasonal": "Giao diện theo mùa",
+  "settings.autonight": "Đổi giao diện vào ban đêm",
+  "settings.nighttheme": "Giao diện ban đêm",
+  "settings.nighthours": "Giờ ban đêm",
+  "settings.holiday": "Giao diện ngày lễ",
+  "settings.blur": "Làm mờ nền"
 }

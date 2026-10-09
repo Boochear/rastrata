@@ -41,5 +41,11 @@
   "viz.nodata": "Engin gögn",
   "unit.sec": "sek.",
   "unit.min": "mín.",
-  "unit.hour": "klst."
+  "unit.hour": "klst.",
+  "settings.seasonal": "Árstíðaþemu",
+  "settings.autonight": "Skipta um þema á nóttunni",
+  "settings.nighttheme": "Næturþema",
+  "settings.nighthours": "Næturtímar",
+  "settings.holiday": "Hátíðarþemu",
+  "settings.blur": "Óskýr bakgrunnur"
 }

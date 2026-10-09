@@ -41,5 +41,11 @@
   "viz.nodata": "Veri yok",
   "unit.sec": "sn",
   "unit.min": "dk",
-  "unit.hour": "sa"
+  "unit.hour": "sa",
+  "settings.seasonal": "Mevsimlik temalar",
+  "settings.autonight": "Geceleri tema değiştir",
+  "settings.nighttheme": "Gece teması",
+  "settings.nighthours": "Gece saatleri",
+  "settings.holiday": "Bayram temaları",
+  "settings.blur": "Arka plan bulanıklığı"
 }

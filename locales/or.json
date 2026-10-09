@@ -41,5 +41,11 @@
   "viz.nodata": "କୌଣସି ଡାଟା ନାହିଁ",
   "unit.sec": "ସେ.",
   "unit.min": "ମି.",
-  "unit.hour": "ଘ."
+  "unit.hour": "ଘ.",
+  "settings.seasonal": "ମୌସୁମୀ ଥିମ୍",
+  "settings.autonight": "ରାତିରେ ଥିମ୍ ବଦଳାନ୍ତୁ",
+  "settings.nighttheme": "ରାତି ଥିମ୍",
+  "settings.nighthours": "ରାତିର ସମୟ",
+  "settings.holiday": "ପର୍ବ ଥିମ୍",
+  "settings.blur": "ପୃଷ୍ଠଭୂମି ଅସ୍ପଷ୍ଟ"
 }

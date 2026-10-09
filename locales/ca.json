@@ -41,5 +41,11 @@
   "viz.nodata": "Sense dades",
   "unit.sec": "s",
   "unit.min": "min",
-  "unit.hour": "h"
+  "unit.hour": "h",
+  "settings.seasonal": "Temes de temporada",
+  "settings.autonight": "Canvia de tema a la nit",
+  "settings.nighttheme": "Tema nocturn",
+  "settings.nighthours": "Hores de nit",
+  "settings.holiday": "Temes festius",
+  "settings.blur": "Desenfocament del fons"
 }

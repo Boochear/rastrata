@@ -41,5 +41,11 @@
   "viz.nodata": "Maʼlumot yoʻq",
   "unit.sec": "s",
   "unit.min": "daq",
-  "unit.hour": "soat"
+  "unit.hour": "soat",
+  "settings.seasonal": "Mavsumiy mavzular",
+  "settings.autonight": "Vaqt boʻyicha tungi mavzu",
+  "settings.nighttheme": "Tungi mavzu",
+  "settings.nighthours": "Tun soatlari",
+  "settings.holiday": "Bayram mavzulari",
+  "settings.blur": "Fonni xiralashtirish"
 }

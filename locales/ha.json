@@ -41,5 +41,11 @@
   "viz.nodata": "Babu bayanai",
   "unit.sec": "daƙ",
   "unit.min": "min",
-  "unit.hour": "awa"
+  "unit.hour": "awa",
+  "settings.seasonal": "Jigogin yanayi",
+  "settings.autonight": "Canja jigo da dare",
+  "settings.nighttheme": "Jigon dare",
+  "settings.nighthours": "Sa’o’in dare",
+  "settings.holiday": "Jigogin bukukuwa",
+  "settings.blur": "Rufe bangon baya"
 }

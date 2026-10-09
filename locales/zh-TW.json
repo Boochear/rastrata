@@ -41,5 +41,11 @@
   "viz.nodata": "沒有資料",
   "unit.sec": "秒",
   "unit.min": "分鐘",
-  "unit.hour": "小時"
+  "unit.hour": "小時",
+  "settings.seasonal": "季節佈景主題",
+  "settings.autonight": "夜間自動切換佈景主題",
+  "settings.nighttheme": "夜間佈景主題",
+  "settings.nighthours": "夜間時段",
+  "settings.holiday": "節日佈景主題",
+  "settings.blur": "背景模糊"
 }

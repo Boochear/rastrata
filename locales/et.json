@@ -41,5 +41,11 @@
   "viz.nodata": "Andmeid pole",
   "unit.sec": "s",
   "unit.min": "min",
-  "unit.hour": "t"
+  "unit.hour": "t",
+  "settings.seasonal": "Hooajateemad",
+  "settings.autonight": "Vaheta teemat öösel",
+  "settings.nighttheme": "Öine teema",
+  "settings.nighthours": "Öötunnid",
+  "settings.holiday": "Pühadeteemad",
+  "settings.blur": "Tausta hägustamine"
 }

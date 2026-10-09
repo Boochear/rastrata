@@ -41,5 +41,11 @@
   "viz.nodata": "Nav datu",
   "unit.sec": "s",
   "unit.min": "min",
-  "unit.hour": "st."
+  "unit.hour": "st.",
+  "settings.seasonal": "Sezonas motīvi",
+  "settings.autonight": "Mainīt motīvu naktī",
+  "settings.nighttheme": "Nakts motīvs",
+  "settings.nighthours": "Nakts stundas",
+  "settings.holiday": "Svētku motīvi",
+  "settings.blur": "Fona izplūdums"
 }

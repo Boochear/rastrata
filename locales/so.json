@@ -41,5 +41,11 @@
   "viz.nodata": "Xog ma jirto",
   "unit.sec": "ilbi",
   "unit.min": "daq",
-  "unit.hour": "saac"
+  "unit.hour": "saac",
+  "settings.seasonal": "Mawduucyada xilliyada",
+  "settings.autonight": "Beddel mawduuca habeenkii",
+  "settings.nighttheme": "Mawduuca habeenka",
+  "settings.nighthours": "Saacadaha habeenka",
+  "settings.holiday": "Mawduucyada ciidaha",
+  "settings.blur": "Blur-ka gadaasha"
 }

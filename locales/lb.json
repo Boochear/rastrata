@@ -41,5 +41,11 @@
   "viz.nodata": "Keng Daten",
   "unit.sec": "Sek.",
   "unit.min": "Min.",
-  "unit.hour": "Std."
+  "unit.hour": "Std.",
+  "settings.seasonal": "Saisonal Themen",
+  "settings.autonight": "Thema an der Nuecht wiesselen",
+  "settings.nighttheme": "Nuetsthema",
+  "settings.nighthours": "Nuetsstonnen",
+  "settings.holiday": "Feierdagsthemen",
+  "settings.blur": "Hannergrondonschärft"
 }

@@ -41,5 +41,11 @@
   "viz.nodata": "ಡೇಟಾ ಇಲ್ಲ",
   "unit.sec": "ಸೆ.",
   "unit.min": "ನಿ.",
-  "unit.hour": "ಗಂ."
+  "unit.hour": "ಗಂ.",
+  "settings.seasonal": "ಋತುಮಾನ ಥೀಮ್‌ಗಳು",
+  "settings.autonight": "ರಾತ್ರಿ ಥೀಮ್ ಬದಲಿಸಿ",
+  "settings.nighttheme": "ರಾತ್ರಿ ಥೀಮ್",
+  "settings.nighthours": "ರಾತ್ರಿ ಸಮಯ",
+  "settings.holiday": "ಹಬ್ಬದ ಥೀಮ್‌ಗಳು",
+  "settings.blur": "ಹಿನ್ನೆಲೆ ಮಸುಕು"
 }

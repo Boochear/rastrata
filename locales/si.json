@@ -41,5 +41,11 @@
   "viz.nodata": "දත්ත නැත",
   "unit.sec": "තත්.",
   "unit.min": "මිනි.",
-  "unit.hour": "පැය"
+  "unit.hour": "පැය",
+  "settings.seasonal": "කාලීන තේමා",
+  "settings.autonight": "රාත්‍රියේ තේමාව වෙනස් කරන්න",
+  "settings.nighttheme": "රාත්‍රී තේමාව",
+  "settings.nighthours": "රාත්‍රී පැය",
+  "settings.holiday": "උත්සව තේමා",
+  "settings.blur": "පසුබිම බොඳ කිරීම"
 }
