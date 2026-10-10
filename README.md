@@ -16,21 +16,27 @@ Rastrata is a lightweight desktop app that tracks how much time you spend in eac
 
 ## Features
 
-- **Real-time tracking**: the active app is detected instantly, with no polling and no extra load on the system
-- **Statistics by period**: today, yesterday, 7 days, 30 days, a year, all time
-- **Data visualization**: interactive charts by app or by day, with drill-down (click an app to see its daily usage, click a day to see its apps)
-- **19 themes**: from classic black and white to Windows XP, Evangelion, Glitchcore and soft dark palettes
-- **Custom fonts**: pick any font installed on your system
-- **93 languages**: the interface follows your system language automatically and can be switched in settings
-- **Data export**: copy your full history to a folder on the desktop as plain JSON
-- **App icons**: the list shows the real icons of your processes
-- **Autostart**: launches with the system, minimized to the tray, with no extra windows at Windows startup
-- **Desktop shortcut**: created in one click from settings
-- **Auto-update**: the app checks GitHub for new versions and updates itself
-- **Privacy**: all statistics are stored locally and nothing is sent to any server
+- **Real-time tracking:** the active app is detected instantly, with no polling and no extra system load
+- **Stats by period:** today, yesterday, 7 days, 30 days, year, all time
+- **Data visualization:** interactive charts by app and by day with drill-down (click an app to see its usage per day, click a day to see the apps used that day)
+- **32 themes:** from the classic black-and-white to Windows XP, Evangelion, Glitchcore, and soft dark palettes
+  - 4 seasonal themes: Spring, Summer, Autumn, Winter
+  - 4 holiday themes: Halloween, New Year, Thanksgiving, Longest Night Day
+- **Automatic theme switching:** during holidays, during seasons, and during the night session
+- **Night session hours:** choose when the night session starts and ends
+- **Background blur**
+- **Resizable settings window:** it now also has the same default size as the main window
+- **Custom fonts:** choose any font installed on your system
+- **93 languages:** the interface adapts to your system language automatically and can be switched in settings
+- **Data export:** your entire history is copied to a folder on your desktop as plain JSON files (stats.json, names.json, icons.json)
+- **App icons:** the list shows the real icons of your processes
+- **Launch on startup:** starts minimized to the tray, with no extra windows when Windows boots
+- **Desktop shortcut:** created in one click from settings
+- **Auto-update:** the app checks GitHub for new versions and updates itself
+- **Privacy:** all statistics are stored locally, nothing is sent to any server
 
 ## Screenshot
-<img width="1920" height="1080" alt="2026_10_05_13_49_52" src="https://github.com/user-attachments/assets/c295e1aa-65e8-4d64-8e52-18fb10386cbc" />
+<img width="1920" height="1080" alt="2026_10_09_23_57_54" src="https://github.com/user-attachments/assets/c39cf80b-5d14-44d9-8bee-b5260c8cb357" />
 
 
 ## Installation
