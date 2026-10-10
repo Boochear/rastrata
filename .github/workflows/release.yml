@@ -93,7 +93,13 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: Rastrata v${{ steps.version.outputs.VERSION }}
-          draft: false
+          draft: true
+          body: |
+            ## Apdeytik
+            - 
+            ---
+            ## Апдейтик
+            - 
           files: |
             Rastrata-${{ steps.version.outputs.VERSION }}-update.zip
             Rastrata-${{ steps.version.outputs.VERSION }}-win-x64-full.zip
