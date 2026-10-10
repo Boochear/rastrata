@@ -27,7 +27,15 @@ jobs:
         run: |
           node -e "const fs=require('fs');const f='package.nw/package.json';const p=JSON.parse(fs.readFileSync(f,'utf8'));p.version='${{ steps.version.outputs.VERSION }}';fs.writeFileSync(f,JSON.stringify(p,null,2));"
 
+      - name: Cache NW.js
+        id: nwcache
+        uses: actions/cache@v4
+        with:
+          path: nwjs-extracted
+          key: nwjs-0.115.0-win-x64
+
       - name: Download NW.js runtime
+        if: steps.nwcache.outputs.cache-hit != 'true'
         shell: powershell
         run: |
           $nwVersion = "0.115.0"
@@ -65,18 +73,15 @@ jobs:
       - name: Set exe metadata and icon
         shell: powershell
         run: |
-          choco install rcedit -y --no-progress
-          choco install imagemagick -y --no-progress
+          Invoke-WebRequest -Uri "https://github.com/electron/rcedit/releases/download/v2.0.0/rcedit-x64.exe" -OutFile rcedit.exe
 
-          magick "staging\package.nw\media\icon.png" -define icon:auto-resize=256,128,64,48,32,24,16 "staging\package.nw\media\icon.ico"
-
-          rcedit "staging\Rastrata.exe" --set-version-string "FileDescription" "Rastrata"
-          rcedit "staging\Rastrata.exe" --set-version-string "ProductName" "Rastrata"
-          rcedit "staging\Rastrata.exe" --set-version-string "CompanyName" "boochear"
-          rcedit "staging\Rastrata.exe" --set-version-string "LegalCopyright" "Copyright (c) 2026 boochear"
-          rcedit "staging\Rastrata.exe" --set-file-version "${{ steps.version.outputs.VERSION }}"
-          rcedit "staging\Rastrata.exe" --set-product-version "${{ steps.version.outputs.VERSION }}"
-          rcedit "staging\Rastrata.exe" --set-icon "staging\package.nw\media\icon.ico"
+          .\rcedit.exe "staging\Rastrata.exe" --set-version-string "FileDescription" "Rastrata"
+          .\rcedit.exe "staging\Rastrata.exe" --set-version-string "ProductName" "Rastrata"
+          .\rcedit.exe "staging\Rastrata.exe" --set-version-string "CompanyName" "boochear"
+          .\rcedit.exe "staging\Rastrata.exe" --set-version-string "LegalCopyright" "Copyright (c) 2026 boochear"
+          .\rcedit.exe "staging\Rastrata.exe" --set-file-version "${{ steps.version.outputs.VERSION }}"
+          .\rcedit.exe "staging\Rastrata.exe" --set-product-version "${{ steps.version.outputs.VERSION }}"
+          .\rcedit.exe "staging\Rastrata.exe" --set-icon "staging\package.nw\media\icon.ico"
 
       - name: Compress full archive
         shell: powershell

@@ -17,6 +17,7 @@ names.json
 icons.json
 tray.flag
 debug-tray.log
+release.bat
 
 *.tmp
 node_modules/.gitignore
