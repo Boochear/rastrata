@@ -7,7 +7,7 @@ const { loadFriendlyNames, saveFriendlyNames } = require('./js/friendly-names-st
 const { todayKey, loadStats, saveStats, addTime, getStatsForPeriod, periodIncludesToday } = require('./js/stats-store');
 const { startWatcher } = require('./js/watcher-client');
 const { setupTray } = require('./js/tray');
-const { checkForUpdates, applyUpdateAndRestart } = require('./js/updater');
+const { checkForUpdates, applyUpdateAndRestart, cleanupUpdateFiles } = require('./js/updater');
 const { applyFont } = require('./js/fonts');
 const { setLanguage, t, applyTranslations } = require('./js/i18n');
 const { resolveTheme } = require('./js/theme-scheduler');
@@ -301,10 +301,20 @@ document.addEventListener('click', (e) => {
     }
 });
 
-checkForUpdates('boochear', 'rastrata', pkg.version).then((result) => {
-    if (result.available) {
+setTimeout(cleanupUpdateFiles, 10000);
+
+setTimeout(() => {
+    checkForUpdates('boochear', 'rastrata', pkg.version).then((result) => {
+        if (!result.available) return;
+        window.flushDataToDisk();
+        if (settingsWin) settingsWin.close();
+        if (vizWin) vizWin.close();
+        if (tray) {
+            tray.remove();
+            tray = null;
+        }
         applyUpdateAndRestart(result.downloadUrl).catch((err) => {
             console.error('Ошибка обновления:', err.message);
         });
-    }
-});
+    });
+}, 5000);

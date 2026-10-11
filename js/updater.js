@@ -2,7 +2,7 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const { exec, spawn } = require('child_process');
+const { exec } = require('child_process');
 
 const APP_NAME = 'Rastrata';
 const USER_AGENT = `${APP_NAME}-app`;
@@ -74,47 +74,31 @@ function applyUpdateAndRestart(downloadUrl) {
     const zipPath = path.join(tmpDir, `${APP_NAME}-update.zip`);
     const extractDir = path.join(tmpDir, `${APP_NAME}-update`);
     const packageNwDir = process.cwd();
-    const rootDir = path.dirname(packageNwDir);
-    const exeName = path.basename(process.execPath);
-    const currentPid = process.pid;
-    return downloadFile(downloadUrl, zipPath).then(() => {
-        return new Promise((resolve, reject) => {
-            const psExtract = `Expand-Archive -Path "${zipPath}" -DestinationPath "${extractDir}" -Force`;
-            exec(`powershell -NoProfile -Command "${psExtract}"`, (err, stdout, stderr) => {
-                if (err) {
-                    console.error('extract failed:', stderr || err.message);
-                    return reject(err);
-                }
-                resolve();
-            });
-        });
-    }).then(() => {
-        const batScript = `
-@echo off
-:wait
-tasklist /FI "PID eq ${currentPid}" 2>NUL | find "${currentPid}" >NUL
-if not errorlevel 1 (
-  timeout /t 1 /nobreak >NUL
-  goto wait
-)
-xcopy /E /Y /I "${extractDir}\\package.nw\\*" "${packageNwDir}"
-if errorlevel 1 (
-  echo update copy failed >> "${path.join(tmpDir, APP_NAME + '-update-error.log')}"
-) else (
-  rmdir /S /Q "${extractDir}"
-  del "${zipPath}"
-)
-start "" "${path.join(rootDir, exeName)}"
-del "%~f0"
-`.trim();
 
-        const batPath = path.join(tmpDir, `${APP_NAME}-apply-update.bat`);
-        fs.writeFileSync(batPath, batScript, 'utf-8');
-
-        spawn('cmd.exe', ['/c', batPath], { detached: true, stdio: 'ignore' }).unref();
-
-        nw.App.quit();
+    return downloadFile(downloadUrl, zipPath).then(() => new Promise((resolve, reject) => {
+        fs.rmSync(extractDir, { recursive: true, force: true });
+        const ps = `Expand-Archive -Path "${zipPath}" -DestinationPath "${extractDir}" -Force`;
+        exec(`powershell -NoProfile -Command "${ps}"`, { windowsHide: true }, (err) => err ? reject(err) : resolve());
+    })).then(() => {
+        fs.cpSync(path.join(extractDir, 'package.nw'), packageNwDir, { recursive: true, force: true });
+        fs.rmSync(extractDir, { recursive: true, force: true });
+        fs.rmSync(zipPath, { force: true });
+        nw.Window.get().reload();
     });
 }
 
-module.exports = { checkForUpdates, applyUpdateAndRestart };
+function cleanupUpdateFiles() {
+    const tmpDir = os.tmpdir();
+    const logPath = path.join(tmpDir, `${APP_NAME}-update.log`);
+    const errPath = path.join(tmpDir, `${APP_NAME}-update-error.log`);
+    const rm = (p, opts) => fs.rm(p, { force: true, ...opts }, () => { });
+
+    rm(path.join(tmpDir, `${APP_NAME}-update.zip`));
+    rm(path.join(tmpDir, `${APP_NAME}-apply-update.bat`));
+    rm(path.join(tmpDir, `${APP_NAME}-update.vbs`));
+    rm(path.join(tmpDir, `${APP_NAME}-update`), { recursive: true });
+    rm(logPath);
+    rm(errPath);
+}
+
+module.exports = { checkForUpdates, applyUpdateAndRestart, cleanupUpdateFiles };

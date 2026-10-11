@@ -36,7 +36,7 @@ Rastrata is a lightweight desktop app that tracks how much time you spend in eac
 - **Privacy:** all statistics are stored locally, nothing is sent to any server
 
 ## Screenshot
-<img width="1920" height="1080" alt="2026_10_09_23_57_54" src="https://github.com/user-attachments/assets/c39cf80b-5d14-44d9-8bee-b5260c8cb357" />
+<img width="1920" alt="Rastrata" src="screenshots/en.jpg"/>
 
 
 ## Installation

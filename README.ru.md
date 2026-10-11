@@ -36,7 +36,7 @@
 - **Приватность:** вся статистика хранится локально, ничего не отправляется на сервер
 
 ## Скриншот
-<img width="1920" alt="Rastrata" src="screenshots/ru.png"/>
+<img width="1920" alt="Rastrata" src="screenshots/ru.jpg"/>
 
 
 ## Установка

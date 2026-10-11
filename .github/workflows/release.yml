@@ -27,13 +27,6 @@ jobs:
         run: |
           node -e "const fs=require('fs');const f='package.nw/package.json';const p=JSON.parse(fs.readFileSync(f,'utf8'));p.version='${{ steps.version.outputs.VERSION }}';fs.writeFileSync(f,JSON.stringify(p,null,2));"
 
-      - name: Cache NW.js
-        id: nwcache
-        uses: actions/cache@v4
-        with:
-          path: nwjs-extracted
-          key: nwjs-0.115.0-win-x64
-
       - name: Download NW.js runtime
         if: steps.nwcache.outputs.cache-hit != 'true'
         shell: powershell
