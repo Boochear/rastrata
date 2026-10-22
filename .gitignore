@@ -19,6 +19,7 @@ tray.flag
 debug-tray.log
 release.bat
 sites.json
+siteicons.json
 rastrata-debug.log
 
 *.tmp
