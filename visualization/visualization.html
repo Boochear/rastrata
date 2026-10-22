@@ -18,19 +18,40 @@
     <div class="viz-toolbar">
         <button class="btn" data-mode="apps" data-i18n="viz.apps"></button>
         <button class="btn" data-mode="days" data-i18n="viz.days"></button>
+        <button class="btn" data-mode="calendar" data-i18n="viz.calendar"></button>
+        <button class="btn" data-mode="computer" data-i18n="viz.computer"></button>
+        <button class="btn" data-mode="sites" data-i18n="viz.sites"></button>
+        <button class="btn" data-mode="summary" data-i18n="viz.summary"></button>
     </div>
-    <div class="viz-toolbar">
+    <div class="viz-toolbar" id="viz-period-bar">
         <button class="btn" data-period="last7" data-i18n="viz.7d"></button>
         <button class="btn" data-period="last30" data-i18n="viz.30d"></button>
         <button class="btn" data-period="lastyear" data-i18n="viz.year"></button>
         <button class="btn" data-period="all" data-i18n="viz.all"></button>
+    </div>
+    <div class="viz-toolbar hidden" id="viz-sum-bar">
+        <button class="btn" data-sum="month" data-i18n="sum.month"></button>
+        <button class="btn" data-sum="season" data-i18n="sum.season"></button>
+        <button class="btn" data-sum="year" data-i18n="sum.year"></button>
+        <button id="sum-prev" class="btn">‹</button>
+        <button id="sum-next" class="btn">›</button>
     </div>
     <div class="viz-toolbar">
         <button id="viz-back" class="btn hidden" data-i18n="viz.back"></button>
         <span id="viz-crumb"></span>
     </div>
 
+    <div id="viz-cards" class="hidden"></div>
+    <div id="viz-board" class="hidden">
+        <div class="board-top">
+            <div id="board-donut"></div>
+            <div id="board-stats"></div>
+        </div>
+        <div id="board-list"></div>
+    </div>
+    <div id="viz-calendar" class="hidden"></div>
     <div id="viz-chart"></div>
+    <div id="viz-summary" class="hidden"></div>
 
     <script src="visualization.js" defer></script>
 </body>

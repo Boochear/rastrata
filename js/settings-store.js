@@ -16,6 +16,20 @@ const DEFAULT_SETTINGS = {
     nightFrom: '21:00',
     nightTo: '07:00',
     backgroundBlur: 0,
+    glow: 10,
+    excludedApps: [],
+    themeAnimations: true,
+    windowSize: 'default',
+    windowW: 420,
+    windowH: 600,
+    trackSites: false,
+    summaryNotify: true,
+    lastSummary: {},
+    discordEnabled: false,
+    discordDetails: '',
+    discordState: '',
+    discordShowTimer: true,
+    vizRainbow: false,
 };
 
 function loadSettings() {

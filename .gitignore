@@ -18,6 +18,8 @@ icons.json
 tray.flag
 debug-tray.log
 release.bat
+sites.json
+rastrata-debug.log
 
 *.tmp
 node_modules/.gitignore

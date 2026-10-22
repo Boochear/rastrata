@@ -19,7 +19,7 @@ function checkForUpdates(owner, repo, currentVersion) {
                     const json = JSON.parse(data);
                     const latestVersion = (json.tag_name || '').replace(/^v/, '');
                     const assets = json.assets || [];
-                    const asset = assets.find(a => a.name.endsWith('-update.zip')) || assets.find(a => a.name.endsWith('.zip'));
+                    const asset = assets.find(a => a.name.includes(`-${process.platform}-${process.arch}`) && a.name.endsWith('.zip')) || assets.find(a => a.name.includes(`-${process.platform}`) && a.name.endsWith('.zip')) || assets.find(a => a.name.endsWith('-update.zip')) || assets.find(a => a.name.endsWith('.zip'));
                     if (latestVersion && asset && isNewer(latestVersion, currentVersion)) {
                         resolve({ available: true, version: latestVersion, downloadUrl: asset.browser_download_url });
                     } else {
@@ -77,8 +77,10 @@ function applyUpdateAndRestart(downloadUrl) {
 
     return downloadFile(downloadUrl, zipPath).then(() => new Promise((resolve, reject) => {
         fs.rmSync(extractDir, { recursive: true, force: true });
-        const ps = `Expand-Archive -Path "${zipPath}" -DestinationPath "${extractDir}" -Force`;
-        exec(`powershell -NoProfile -Command "${ps}"`, { windowsHide: true }, (err) => err ? reject(err) : resolve());
+        const cmd = process.platform === 'win32'
+            ? `powershell -NoProfile -Command "Expand-Archive -Path \"${zipPath}\" -DestinationPath \"${extractDir}\" -Force"`
+            : `unzip -o -q "${zipPath}" -d "${extractDir}"`;
+        exec(cmd, { windowsHide: true }, (err) => err ? reject(err) : resolve());
     })).then(() => {
         fs.cpSync(path.join(extractDir, 'package.nw'), packageNwDir, { recursive: true, force: true });
         fs.rmSync(extractDir, { recursive: true, force: true });

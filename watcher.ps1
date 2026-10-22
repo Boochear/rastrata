@@ -11,6 +11,7 @@ public class Watcher {
     delegate void WinEventDelegate(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime);
     static WinEventDelegate procDelegate = new WinEventDelegate(WinEventProc);
     const uint EVENT_SYSTEM_FOREGROUND = 3;
+    const uint EVENT_OBJECT_NAMECHANGE = 0x800C;
     const uint WINEVENT_OUTOFCONTEXT = 0;
 
     static readonly HashSet<string> IgnoredProcesses = new HashSet<string> {
@@ -21,7 +22,12 @@ public class Watcher {
         "ApplicationFrameHost"
     };
 
+    static readonly HashSet<string> Browsers = new HashSet<string> {
+        "chrome", "msedge", "firefox", "opera", "brave", "vivaldi", "browser", "iexplore", "arc", "chromium"
+    };
+
     static string lastEmittedKey = null;
+    static bool lastIsBrowser = false;
 
     [DllImport("user32.dll")]
     static extern IntPtr SetWinEventHook(uint eventMin, uint eventMax, IntPtr hmodWinEventProc, WinEventDelegate lpfnWinEventProc, uint idProcess, uint idThread, uint dwFlags);
@@ -46,11 +52,11 @@ public class Watcher {
         return sb.ToString();
     }
 
-    static void Emit(string key, string name, string desc, string exePath) {
+    static void Emit(string key, string name, string desc, string exePath, string title) {
         if (key == lastEmittedKey) return;
         lastEmittedKey = key;
 
-        string raw = name + "|" + desc + "|" + exePath;
+        string raw = name + "|" + desc + "|" + exePath + "|" + title;
         byte[] bytes = Encoding.UTF8.GetBytes(raw);
         Console.WriteLine(Convert.ToBase64String(bytes));
         Console.Out.Flush();
@@ -59,6 +65,7 @@ public class Watcher {
     static void EmitNone() {
         if (lastEmittedKey == "none") return;
         lastEmittedKey = "none";
+        lastIsBrowser = false;
 
         Console.WriteLine("none");
         Console.Out.Flush();
@@ -96,14 +103,20 @@ public class Watcher {
             }
             if (string.IsNullOrWhiteSpace(desc)) desc = name;
 
-            string key = name + "|" + pid;
-            Emit(key, name, desc, exePath);
+            bool isBrowser = Browsers.Contains(name.ToLower());
+            lastIsBrowser = isBrowser;
+            string winTitle = isBrowser ? GetTitle(hwnd).Replace("|", "/") : "";
+            string key = name + "|" + pid + (isBrowser ? "|" + winTitle : "");
+            Emit(key, name, desc, exePath, winTitle);
         } catch {
             EmitNone();
         }
     }
 
     static void WinEventProc(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime) {
+        if (eventType == EVENT_OBJECT_NAMECHANGE) {
+            if (idObject != 0 || !lastIsBrowser || hwnd != GetForegroundWindow()) return;
+        }
         ProcessWindow(hwnd);
     }
 
@@ -111,6 +124,7 @@ public class Watcher {
         ProcessWindow(GetForegroundWindow());
 
         SetWinEventHook(EVENT_SYSTEM_FOREGROUND, EVENT_SYSTEM_FOREGROUND, IntPtr.Zero, procDelegate, 0, 0, WINEVENT_OUTOFCONTEXT);
+        SetWinEventHook(EVENT_OBJECT_NAMECHANGE, EVENT_OBJECT_NAMECHANGE, IntPtr.Zero, procDelegate, 0, 0, WINEVENT_OUTOFCONTEXT);
         Application.Run();
     }
 }

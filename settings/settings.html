@@ -15,62 +15,82 @@
         </div>
     </div>
 
-    <div style="padding: 12px;">
+    <div class="settings-search">
+        <input type="text" id="settings-search" class="ctl">
+    </div>
+
+    <div class="tabs">
+        <button class="btn tab selected" data-tab="general" data-i18n="tab.general"></button>
+        <button class="btn tab" data-tab="appearance" data-i18n="tab.appearance"></button>
+        <button class="btn tab" data-tab="data" data-i18n="tab.data"></button>
+        <button class="btn tab" data-tab="integrations" data-i18n="tab.integrations"></button>
+        <button class="btn tab" data-tab="about" data-i18n="tab.about"></button>
+    </div>
+
+    <div class="tab-page active" data-page="general">
         <div class="row">
-            <span>1. <span data-i18n="settings.autostart"></span></span>
+            <span data-i18n="settings.autostart"></span>
             <input type="checkbox" id="setting-autostart" class="checkbox">
         </div>
         <div class="row">
-            <span>2. <span data-i18n="settings.tray"></span></span>
+            <span data-i18n="settings.tray"></span>
             <input type="checkbox" id="setting-tray" class="checkbox">
         </div>
         <div class="row">
-            <span>3. <span data-i18n="settings.shortcut"></span></span>
-            <button id="setting-shortcut" class="btn" data-i18n="btn.create"></button>
+            <span data-i18n="settings.shortcut"></span>
+            <button id="setting-shortcut" class="btn ctl" data-i18n="btn.create"></button>
         </div>
-        <div class="row">
-            <span>4. <span data-i18n="settings.icons"></span></span>
-            <input type="checkbox" id="setting-icons" class="checkbox">
+        <div class="row" id="lang-selector">
+            <span data-i18n="settings.language"></span>
+            <button id="lang-btn" class="btn ctl"></button>
+            <div id="lang-dropdown" class="dropdown-menu hidden"></div>
         </div>
+        <div class="row" id="size-selector">
+            <span data-i18n="settings.windowsize"></span>
+            <button id="size-btn" class="btn ctl"></button>
+            <div id="size-dropdown" class="dropdown-menu hidden"></div>
+        </div>
+    </div>
+
+    <div class="tab-page" data-page="appearance">
         <div class="row" id="theme-selector">
-            <span>5. <span data-i18n="settings.theme"></span></span>
-            <button id="theme-btn" class="btn">Белая ▾</button>
+            <span data-i18n="settings.theme"></span>
+            <button id="theme-btn" class="btn ctl">Белая ▾</button>
             <div id="theme-dropdown" class="dropdown-menu hidden"></div>
         </div>
+        <div class="row">
+            <span data-i18n="settings.animations"></span>
+            <input type="checkbox" id="setting-animations" class="checkbox">
+        </div>
         <div class="row" id="font-selector">
-            <span>6. <span data-i18n="settings.font"></span></span>
-            <button id="font-btn" class="btn">Montserrat ▾</button>
+            <span data-i18n="settings.font"></span>
+            <button id="font-btn" class="btn ctl">Montserrat ▾</button>
             <div id="font-dropdown" class="dropdown-menu hidden"></div>
         </div>
         <div class="row">
-            <span>7. <span data-i18n="settings.export"></span></span>
-            <button id="setting-export" class="btn" data-i18n="btn.export"></button>
-        </div>
-        <div class="row" id="lang-selector">
-            <span>8. <span data-i18n="settings.language"></span></span>
-            <button id="lang-btn" class="btn"></button>
-            <div id="lang-dropdown" class="dropdown-menu hidden"></div>
+            <span data-i18n="settings.icons"></span>
+            <input type="checkbox" id="setting-icons" class="checkbox">
         </div>
         <div class="row">
-            <span>9. <span data-i18n="settings.holiday"></span></span>
+            <span data-i18n="settings.holiday"></span>
             <input type="checkbox" id="setting-holiday" class="checkbox">
         </div>
         <div class="row">
-            <span>10. <span data-i18n="settings.seasonal"></span></span>
+            <span data-i18n="settings.seasonal"></span>
             <input type="checkbox" id="setting-seasonal" class="checkbox">
         </div>
         <div class="row">
-            <span>11. <span data-i18n="settings.autonight"></span></span>
+            <span data-i18n="settings.autonight"></span>
             <input type="checkbox" id="setting-autonight" class="checkbox">
         </div>
         <div class="row" id="night-theme-selector">
-            <span>12. <span data-i18n="settings.nighttheme"></span></span>
-            <button id="night-theme-btn" class="btn"></button>
+            <span data-i18n="settings.nighttheme"></span>
+            <button id="night-theme-btn" class="btn ctl"></button>
             <div id="night-theme-dropdown" class="dropdown-menu hidden"></div>
         </div>
         <div class="row">
-            <span>13. <span data-i18n="settings.nighthours"></span></span>
-            <span class="time-range">
+            <span data-i18n="settings.nighthours"></span>
+            <span class="time-range ctl-box">
                 <span class="time-picker">
                     <button id="night-from-btn" class="btn time-btn"></button>
                     <div id="night-from-pop" class="dropdown-menu time-pop hidden">
@@ -89,13 +109,66 @@
             </span>
         </div>
         <div class="row">
-            <span>14. <span data-i18n="settings.blur"></span></span>
-            <span class="range-wrap">
+            <span data-i18n="settings.blur"></span>
+            <span class="range-wrap ctl-box">
                 <input type="range" id="setting-blur" class="range" min="0" max="30" step="1">
                 <span id="blur-value" class="range-value"></span>
             </span>
         </div>
+        <div class="row">
+            <span data-i18n="settings.glow"></span>
+            <span class="range-wrap ctl-box">
+                <input type="range" id="setting-glow" class="range" min="0" max="30" step="1">
+                <span id="glow-value" class="range-value"></span>
+            </span>
+        </div>
+        <div class="row">
+            <span data-i18n="settings.vizrainbow"></span>
+            <input type="checkbox" id="setting-vizrainbow" class="checkbox">
+        </div>
+    </div>
 
+    <div class="tab-page" data-page="data">
+        <div class="row">
+            <span data-i18n="settings.excluded"></span>
+            <input type="text" id="setting-excluded" class="ctl" placeholder="chrome, discord">
+        </div>
+        <div class="row">
+            <span data-i18n="settings.tracksites"></span>
+            <input type="checkbox" id="setting-tracksites" class="checkbox">
+        </div>
+        <div class="hint" data-i18n="settings.sitehint"></div>
+        <div class="row">
+            <span data-i18n="settings.summarynotify"></span>
+            <input type="checkbox" id="setting-summarynotify" class="checkbox">
+        </div>
+        <div class="row">
+            <span data-i18n="settings.export"></span>
+            <button id="setting-export" class="btn ctl" data-i18n="btn.export"></button>
+        </div>
+    </div>
+
+    <div class="tab-page" data-page="integrations">
+        <div class="row">
+            <span data-i18n="settings.discord"></span>
+            <input type="checkbox" id="setting-discord" class="checkbox">
+        </div>
+        <div class="row">
+            <span data-i18n="settings.discorddetails"></span>
+            <input type="text" id="setting-discord-details" class="ctl">
+        </div>
+        <div class="row">
+            <span data-i18n="settings.discordstate"></span>
+            <input type="text" id="setting-discord-state" class="ctl">
+        </div>
+        <div class="row">
+            <span data-i18n="settings.discordtimer"></span>
+            <input type="checkbox" id="setting-discord-timer" class="checkbox">
+        </div>
+        <div class="hint" data-i18n="settings.discordhint"></div>
+    </div>
+
+    <div class="tab-page" data-page="about">
         <div class="dev-info">
             <img src="../media/avatar.jpg" alt="avatar" class="dev-avatar">
             <div class="dev-quote">я хочу смерти людям</div>
@@ -110,10 +183,11 @@
                 </a>
             </div>
         </div>
+    </div>
 
-        <div id="app-footer">2026 · Rastrata</div>
+    <div id="app-footer">2026 · Rastrata</div>
 
-        <script src="settings.js" defer></script>
+    <script src="settings.js" defer></script>
 </body>
 
 </html>

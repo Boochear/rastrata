@@ -1,8 +1,11 @@
 const path = require('path');
 const { spawn } = require('child_process');
 const readline = require('readline');
+const { startPosixWatcher } = require('./watcher-posix');
 
 function startWatcher({ onAppChange, onNone }) {
+    if (process.platform !== 'win32') return startPosixWatcher({ onAppChange, onNone });
+
     const scriptPath = path.join(process.cwd(), 'watcher.ps1');
     const ps = spawn('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', scriptPath], {
         windowsHide: true
@@ -26,9 +29,9 @@ function startWatcher({ onAppChange, onNone }) {
             return;
         }
 
-        const [appName, friendlyName, exePath] = decoded.split('|');
+        const [appName, friendlyName, exePath, ...rest] = decoded.split('|');
         if (!appName) return;
-        onAppChange(appName, friendlyName, exePath);
+        onAppChange(appName, friendlyName, exePath, rest.join('|'));
     });
 
     ps.stderr.on('data', (data) => console.error('watcher error:', data.toString()));

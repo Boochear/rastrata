@@ -7,7 +7,7 @@ const { createDesktopShortcut } = require('./js/shortcut');
 const { getSystemFonts, applyFont } = require('./js/fonts');
 const { exportData } = require('./js/export');
 const { LANGUAGES, setLanguage, t, applyTranslations } = require('./js/i18n');
-const { THEMES, themeLabel } = require('./js/themes');
+const { THEMES, themeLabel, isDark } = require('./js/themes');
 const { resolveTheme } = require('./js/theme-scheduler');
 
 const TRAY_FLAG_PATH = path.join(process.cwd(), 'tray.flag');
@@ -22,10 +22,19 @@ function updateTrayFlag() {
 
 const win = nw.Window.get();
 let settings = loadSettings();
+
+function persist() {
+    const { lastSummary, windowW, windowH, ...mine } = settings;
+    saveSettings({ ...loadSettings(), ...mine });
+}
+
+function notifyMain() {
+    if (window.mainWindowRef) window.mainWindowRef.updateSettingsFromDisk();
+}
 setLanguage(settings.language);
 applyTranslations(document);
 
-document.getElementById('btn-close').addEventListener('click', () => win.close());
+document.getElementById('btn-close').addEventListener('click', () => win.hide());
 
 const autostartEl = document.getElementById('setting-autostart');
 const trayEl = document.getElementById('setting-tray');
@@ -39,15 +48,24 @@ iconsEl.checked = settings.showIcons;
 
 function showEffectiveTheme() {
     document.body.setAttribute('data-theme', resolveTheme(settings));
+    document.body.setAttribute('data-anim', settings.themeAnimations === false ? 'off' : 'on');
 }
 
 function fillThemeMenu(menu, onPick) {
-    THEMES.forEach(({ id, label }) => {
-        const item = document.createElement('div');
-        item.className = 'dropdown-item';
-        item.textContent = label;
-        item.addEventListener('click', () => onPick(id));
-        menu.appendChild(item);
+    [['theme.light', false], ['theme.dark', true]].forEach(([key, dark]) => {
+        const head = document.createElement('div');
+        head.className = 'dropdown-item';
+        head.style.opacity = '0.5';
+        head.style.pointerEvents = 'none';
+        head.dataset.i18n = key;
+        menu.appendChild(head);
+        THEMES.filter(({ id }) => isDark(id) === dark).forEach(({ id, label }) => {
+            const item = document.createElement('div');
+            item.className = 'dropdown-item';
+            item.textContent = label;
+            item.addEventListener('click', () => onPick(id));
+            menu.appendChild(item);
+        });
     });
 }
 
@@ -58,7 +76,7 @@ fillThemeMenu(themeDropdown, (id) => {
     settings.theme = id;
     themeBtn.textContent = themeLabel(id) + ' ▾';
     themeDropdown.classList.add('hidden');
-    saveSettings(settings);
+    persist();
     showEffectiveTheme();
     if (window.mainWindowRef) window.mainWindowRef.updateThemeFromSettings(id);
 });
@@ -69,17 +87,86 @@ autostartEl.addEventListener('change', async () => {
     settings.autostart = autostartEl.checked;
     await setAutostart(settings.autostart);
     updateTrayFlag();
-    saveSettings(settings);
+    persist();
 });
 
 trayEl.addEventListener('change', async () => {
     settings.minimizeToTrayOnAutostart = trayEl.checked;
     updateTrayFlag();
-    saveSettings(settings);
+    persist();
 });
 
 document.getElementById('setting-shortcut').addEventListener('click', async () => {
     const ok = await createDesktopShortcut();
+});
+
+const excludedEl = document.getElementById('setting-excluded');
+excludedEl.value = (settings.excludedApps || []).join(', ');
+excludedEl.addEventListener('change', () => {
+    settings.excludedApps = excludedEl.value.split(',').map((s) => s.trim().replace(/\.exe$/i, '')).filter(Boolean);
+    persist();
+    if (window.mainWindowRef) window.mainWindowRef.updateExcludedFromSettings(settings.excludedApps);
+});
+
+function bindCheck(id, key, after) {
+    const el = document.getElementById(id);
+    el.checked = !!settings[key];
+    el.addEventListener('change', () => {
+        settings[key] = el.checked;
+        persist();
+        if (after) after();
+        notifyMain();
+    });
+}
+
+function bindText(id, key) {
+    const el = document.getElementById(id);
+    el.value = settings[key] || '';
+    el.addEventListener('change', () => {
+        settings[key] = el.value.trim();
+        persist();
+        notifyMain();
+    });
+}
+
+bindCheck('setting-animations', 'themeAnimations', () => {
+    document.body.setAttribute('data-anim', settings.themeAnimations === false ? 'off' : 'on');
+});
+bindCheck('setting-vizrainbow', 'vizRainbow');
+bindCheck('setting-tracksites', 'trackSites');
+bindCheck('setting-summarynotify', 'summaryNotify');
+bindCheck('setting-discord', 'discordEnabled');
+bindCheck('setting-discord-timer', 'discordShowTimer');
+bindText('setting-discord-details', 'discordDetails');
+bindText('setting-discord-state', 'discordState');
+
+const sizeBtn = document.getElementById('size-btn');
+const sizeDropdown = document.getElementById('size-dropdown');
+
+function refreshSizeButton() {
+    sizeBtn.textContent = t('size.' + settings.windowSize) + ' ▾';
+}
+
+['default', 'compact', 'large', 'remember'].forEach((mode) => {
+    const item = document.createElement('div');
+    item.className = 'dropdown-item';
+    item.dataset.size = mode;
+    item.dataset.i18n = 'size.' + mode;
+    sizeDropdown.appendChild(item);
+});
+applyTranslations(document);
+refreshSizeButton();
+
+sizeBtn.addEventListener('click', () => sizeDropdown.classList.toggle('hidden'));
+
+sizeDropdown.addEventListener('click', (e) => {
+    const item = e.target.closest('.dropdown-item');
+    if (!item) return;
+    settings.windowSize = item.dataset.size;
+    sizeDropdown.classList.add('hidden');
+    persist();
+    refreshSizeButton();
+    notifyMain();
 });
 
 const exportBtn = document.getElementById('setting-export');
@@ -107,11 +194,14 @@ document.addEventListener('click', (e) => {
     if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
         langDropdown.classList.add('hidden');
     }
+    if (!sizeBtn.contains(e.target) && !sizeDropdown.contains(e.target)) {
+        sizeDropdown.classList.add('hidden');
+    }
 });
 
 iconsEl.addEventListener('change', () => {
     settings.showIcons = iconsEl.checked;
-    saveSettings(settings);
+    persist();
 
     if (window.mainWindowRef) {
         window.mainWindowRef.updateShowIconsFromSettings(settings.showIcons);
@@ -150,13 +240,22 @@ const defaultFontItem = createFontItem(t('font.default'), '');
 defaultFontItem.dataset.i18n = 'font.default';
 fontDropdown.appendChild(defaultFontItem);
 
-getSystemFonts().then((fonts) => {
-    const frag = document.createDocumentFragment();
-    fonts.forEach((f) => frag.appendChild(createFontItem(f, f)));
-    fontDropdown.appendChild(frag);
-});
+let fontsRequested = false;
 
-fontBtn.addEventListener('click', () => fontDropdown.classList.toggle('hidden'));
+function loadFontList() {
+    if (fontsRequested) return;
+    fontsRequested = true;
+    getSystemFonts().then((fonts) => {
+        const frag = document.createDocumentFragment();
+        fonts.forEach((f) => frag.appendChild(createFontItem(f, f)));
+        fontDropdown.appendChild(frag);
+    });
+}
+
+fontBtn.addEventListener('click', () => {
+    fontDropdown.classList.toggle('hidden');
+    loadFontList();
+});
 
 fontDropdown.addEventListener('click', (e) => {
     const item = e.target.closest('.dropdown-item');
@@ -167,7 +266,7 @@ fontDropdown.addEventListener('click', (e) => {
     fontBtn.textContent = (font || DEFAULT_FONT_LABEL) + ' ▾';
     fontDropdown.classList.add('hidden');
     applyFont(font, document);
-    saveSettings(settings);
+    persist();
 
     if (window.mainWindowRef) {
         window.mainWindowRef.updateFontFromSettings(font);
@@ -205,10 +304,12 @@ langDropdown.addEventListener('click', (e) => {
     if (!item) return;
     settings.language = item.dataset.lang;
     langDropdown.classList.add('hidden');
-    saveSettings(settings);
+    persist();
     setLanguage(settings.language);
     applyTranslations(document);
     refreshLangButton();
+    refreshSizeButton();
+    updatePlaceholders();
     if (window.mainWindowRef) window.mainWindowRef.updateLanguageFromSettings(settings.language);
 });
 
@@ -229,7 +330,7 @@ autoNightEl.checked = settings.autoNight;
 nightThemeBtn.textContent = themeLabel(settings.nightTheme) + ' ▾';
 
 function onScheduleChanged() {
-    saveSettings(settings);
+    persist();
     showEffectiveTheme();
     if (window.mainWindowRef) window.mainWindowRef.updateThemeScheduleFromSettings();
 }
@@ -361,7 +462,28 @@ blurEl.addEventListener('input', () => {
     if (window.mainWindowRef) window.mainWindowRef.updateBlurFromSettings(px);
 });
 
-blurEl.addEventListener('change', () => saveSettings(settings));
+blurEl.addEventListener('change', () => persist());
+
+const glowEl = document.getElementById('setting-glow');
+const glowValueEl = document.getElementById('glow-value');
+
+function applyGlowLocal(px) {
+    document.body.style.setProperty('--glow-size', px + 'px');
+    glowEl.style.setProperty('--fill', (px / Number(glowEl.max) * 100) + '%');
+    glowValueEl.textContent = px;
+}
+
+glowEl.value = settings.glow;
+applyGlowLocal(Number(settings.glow) || 0);
+
+glowEl.addEventListener('input', () => {
+    const px = Number(glowEl.value);
+    settings.glow = px;
+    applyGlowLocal(px);
+    if (window.mainWindowRef) window.mainWindowRef.updateGlowFromSettings(px);
+});
+
+glowEl.addEventListener('change', () => persist());
 
 document.getElementById('contact-telegram').addEventListener('click', (e) => {
     e.preventDefault();
@@ -372,3 +494,41 @@ document.getElementById('contact-email').addEventListener('click', (e) => {
     e.preventDefault();
     nw.Shell.openExternal('mailto:b0ochear2208@gmail.com');
 });
+
+const searchEl = document.getElementById('settings-search');
+const pages = Array.from(document.querySelectorAll('.tab-page'));
+const tabButtons = Array.from(document.querySelectorAll('.tab'));
+
+function updatePlaceholders() {
+    searchEl.placeholder = t('settings.search');
+    document.getElementById('setting-discord-details').placeholder = t('discord.using') + ' {app}';
+    document.getElementById('setting-discord-state').placeholder = t('discord.today') + ': {time}';
+}
+updatePlaceholders();
+
+function showTab(name) {
+    pages.forEach((p) => p.classList.toggle('active', p.dataset.page === name));
+    tabButtons.forEach((b) => b.classList.toggle('selected', b.dataset.tab === name));
+}
+
+tabButtons.forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab)));
+
+searchEl.addEventListener('input', () => {
+    const q = searchEl.value.trim().toLowerCase();
+    document.body.classList.toggle('searching', !!q);
+    pages.forEach((page) => {
+        let visible = 0;
+        page.querySelectorAll('.row').forEach((row) => {
+            const label = row.firstElementChild ? row.firstElementChild.textContent.toLowerCase() : '';
+            const hit = !q || label.includes(q);
+            row.classList.toggle('search-hidden', !hit);
+            if (hit) visible++;
+        });
+        page.classList.toggle('search-empty', !!q && visible === 0);
+    });
+});
+
+if (location.hash !== '#prewarm') {
+    win.show();
+    win.focus();
+}

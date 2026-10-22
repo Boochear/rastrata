@@ -30,12 +30,22 @@ const THEMES = [
     { id: '29', label: 'Spring' },
     { id: '30', label: 'Summer' },
     { id: '31', label: 'Autumn' },
-    { id: '32', label: 'Winter' }
+    { id: '32', label: 'Winter' },
+    { id: '33', label: 'Simpsons' },
+    { id: '34', label: 'Nyan Cat' },
+    { id: '35', label: 'Minecraft' },
+    { id: '36', label: 'osu!' }
 ];
+
+const LIGHT = new Set(['1', '3', '4', '25', '29', '30', '32', '33']);
+
+function isDark(id) {
+    return !LIGHT.has(String(id));
+}
 
 function themeLabel(id) {
     const t = THEMES.find((x) => x.id === String(id));
     return t ? t.label : THEMES[0].label;
 }
 
-module.exports = { THEMES, themeLabel };
+module.exports = { THEMES, themeLabel, isDark };

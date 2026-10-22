@@ -5,7 +5,28 @@ const { exec } = require('child_process');
 
 const APP_NAME = 'Rastrata';
 
+function createPosixShortcut() {
+    try {
+        const desktop = path.join(os.homedir(), 'Desktop');
+        fs.mkdirSync(desktop, { recursive: true });
+        if (process.platform === 'darwin') {
+            const link = path.join(desktop, APP_NAME);
+            fs.rmSync(link, { force: true });
+            fs.symlinkSync(process.execPath, link);
+        } else {
+            const file = path.join(desktop, `${APP_NAME}.desktop`);
+            fs.writeFileSync(file, `[Desktop Entry]\nType=Application\nName=${APP_NAME}\nExec="${process.execPath}"\nTerminal=false\n`);
+            fs.chmodSync(file, 0o755);
+        }
+        return true;
+    } catch (err) {
+        console.error('shortcut creation failed:', err.message);
+        return false;
+    }
+}
+
 function createDesktopShortcut() {
+    if (process.platform !== 'win32') return Promise.resolve(createPosixShortcut());
     return new Promise((resolve) => {
         const exePath = process.execPath;
         const workingDir = path.dirname(exePath);

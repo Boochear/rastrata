@@ -27,6 +27,7 @@ function createIconRequester(icons, onIconReady) {
     const inFlight = new Set();
 
     return function requestIcon(appName, exePath) {
+        if (process.platform !== 'win32') return;
         if (!exePath || icons[appName] || inFlight.has(appName)) return;
         inFlight.add(appName);
 

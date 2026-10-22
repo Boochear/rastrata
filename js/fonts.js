@@ -5,8 +5,27 @@ const { exec } = require('child_process');
 
 let cache = null;
 
+function getPosixFonts() {
+    return new Promise((resolve) => {
+        const done = (list) => {
+            cache = [...new Set(list)].sort((a, b) => a.localeCompare(b));
+            resolve(cache);
+        };
+        if (process.platform === 'linux') {
+            exec('fc-list : family', { maxBuffer: 1024 * 1024 * 10 }, (err, stdout) => {
+                done(err ? [] : stdout.split('\n').map((l) => l.split(',')[0].trim()).filter(Boolean));
+            });
+        } else if (window.queryLocalFonts) {
+            window.queryLocalFonts().then((list) => done(list.map((x) => x.family))).catch(() => done([]));
+        } else {
+            done([]);
+        }
+    });
+}
+
 function getSystemFonts() {
     if (cache) return Promise.resolve(cache);
+    if (process.platform !== 'win32') return getPosixFonts();
 
     return new Promise((resolve) => {
         const psScript = `
