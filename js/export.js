@@ -2,7 +2,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-const FILES = ['stats.json', 'icons.json', 'names.json'];
+const FILES = ['stats.json', 'icons.json', 'names.json', 'sites.json', 'siteicons.json'];
 
 function exportData() {
     const exportDir = path.join(os.homedir(), 'Desktop', 'Rastrata Export');

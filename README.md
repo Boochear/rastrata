@@ -24,7 +24,7 @@ Rastrata is a lightweight desktop app that tracks how much time you spend in eac
 - **Statistics:** top apps, time in apps compared with the 24 hours of a day, and all of it follows the selected theme
 - **Calendar:** the last 12 months with the activity of every day
 - **Summaries:** for a month, a season and a year, with the ability to browse past summaries
-- **36 themes:** from the classic black-and-white to Windows XP, Evangelion, Glitchcore, Terraria, Minecraft, and soft dark palettes
+- **38 themes:** from the classic black-and-white to Windows XP, Evangelion, Glitchcore, Terraria, Minecraft, and soft dark palettes
   - 4 seasonal themes: Spring, Summer, Autumn, Winter
   - 4 holiday themes: Halloween, New Year, Thanksgiving, Longest Night Day
 - **Animation for every theme**
@@ -38,7 +38,7 @@ Rastrata is a lightweight desktop app that tracks how much time you spend in eac
 - **Settings search**
 - **Custom fonts:** choose any font installed on your system
 - **93 languages:** the interface adapts to your system language automatically and can be switched in settings
-- **Data export:** your entire history is copied to a folder on your desktop as plain JSON files (`stats.json`, `names.json`, `icons.json`), see [below](#data-export-and-storage) for details
+- **Data export:** your entire history is copied to a folder on your desktop as plain JSON files (`stats.json`, `names.json`, `icons.json`, `sites.json`, `siteicons.json`), see [below](#data-export-and-storage) for details
 - **App icons:** the list shows the real icons of your processes
 - **Launch on startup:** starts minimized to the tray, with no extra windows when Windows boots
 - **Desktop shortcut:** created in one click from settings
@@ -140,9 +140,9 @@ All files are located next to the app:
 
 ### How to export
 
-Press **Settings → Data → Export data**. Rastrata copies `stats.json`, `names.json` and `icons.json` to the **Rastrata Export** folder on your desktop and opens it. The button shows "Done ✓", or "No data" if there is nothing to export yet.
+Press **Settings → Data → Export data**. Rastrata copies `stats.json`, `names.json`, `icons.json`, `sites.json` and `siteicons.json` to the **Rastrata Export** folder on your desktop and opens it. The button shows "Done ✓", or "No data" if there is nothing to export yet.
 
-The files are copied as they are, without changes. You can open them in any text editor, load them into Excel or Google Sheets, or process them with a script. Website data (`sites.json`) is not part of the export; you can copy it from the app folder manually if you need it.
+The files are copied as they are, without changes. You can open them in any text editor, load them into Excel or Google Sheets, or process them with a script.
 
 ### What the data looks like
 
@@ -188,6 +188,14 @@ Time is stored in milliseconds: `3 600 000` is 1 hour. In the example above `542
     "YouTube": 1200000,
     "SoundCloud": 840000
   }
+}
+```
+
+**`siteicons.json`** is built the same way as `icons.json`, only the key is the website name:
+
+```json
+{
+  "YouTube": "data:image/x-icon;base64,AAABAAEAEBAAAAEAIABo..."
 }
 ```
 
