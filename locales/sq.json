@@ -111,5 +111,7 @@
   "board.other": "Të tjera",
   "settings.vizrainbow": "Vizualizimi ylber",
   "notify.open": "Hap",
-  "settings.glow": "Shkëlqim"
+  "settings.glow": "Shkëlqim",
+  "settings.import": "Importo të dhënat",
+  "btn.import": "Importo"
 }

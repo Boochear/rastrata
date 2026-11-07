@@ -111,5 +111,7 @@
   "board.other": "Outros",
   "settings.vizrainbow": "Visualización arco da vella",
   "notify.open": "Abrir",
-  "settings.glow": "Resplandor"
+  "settings.glow": "Resplandor",
+  "settings.import": "Importar datos",
+  "btn.import": "Importar"
 }

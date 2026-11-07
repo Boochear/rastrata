@@ -111,5 +111,7 @@
   "board.other": "മറ്റുള്ളവ",
   "settings.vizrainbow": "മഴവില്ല് ദൃശ്യവൽക്കരണം",
   "notify.open": "തുറക്കുക",
-  "settings.glow": "തിളക്കം"
+  "settings.glow": "തിളക്കം",
+  "settings.import": "ഡാറ്റ ഇറക്കുമതി ചെയ്യുക",
+  "btn.import": "ഇറക്കുമതി"
 }

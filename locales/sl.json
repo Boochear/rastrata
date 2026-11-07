@@ -111,5 +111,7 @@
   "board.other": "Drugo",
   "settings.vizrainbow": "Mavrična vizualizacija",
   "notify.open": "Odpri",
-  "settings.glow": "Sijaj"
+  "settings.glow": "Sijaj",
+  "settings.import": "Uvozi podatke",
+  "btn.import": "Uvozi"
 }

@@ -111,5 +111,7 @@
   "board.other": "أخرى",
   "settings.vizrainbow": "عرض قوس قزح",
   "notify.open": "فتح",
-  "settings.glow": "التوهج"
+  "settings.glow": "التوهج",
+  "settings.import": "استيراد البيانات",
+  "btn.import": "استيراد"
 }

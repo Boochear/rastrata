@@ -111,5 +111,7 @@
   "board.other": "གཞན།",
   "settings.vizrainbow": "ཁ་དོག་ལྔ་ལྡན་མཐོང་བྱ།",
   "notify.open": "ཁ་ཕྱེ།",
-  "settings.glow": "འོད་ཟེར།"
+  "settings.glow": "འོད་ཟེར།",
+  "settings.import": "གཞི་གྲངས་ནང་འདྲེན།",
+  "btn.import": "ནང་འདྲེན།"
 }

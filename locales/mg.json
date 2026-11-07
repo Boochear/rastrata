@@ -111,5 +111,7 @@
   "board.other": "Hafa",
   "settings.vizrainbow": "Fanehoana loko maro",
   "notify.open": "Sokafy",
-  "settings.glow": "Famirapiratana"
+  "settings.glow": "Famirapiratana",
+  "settings.import": "Ampidiro ny angona",
+  "btn.import": "Ampidiro"
 }

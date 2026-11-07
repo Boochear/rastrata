@@ -111,5 +111,7 @@
   "board.other": "Ndị ọzọ",
   "settings.vizrainbow": "Ngosi ụda ahụ ọkụ",
   "notify.open": "Meghee",
-  "settings.glow": "Ìhè"
+  "settings.glow": "Ìhè",
+  "settings.import": "Bubata data",
+  "btn.import": "Bubata"
 }

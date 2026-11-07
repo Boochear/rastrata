@@ -111,5 +111,7 @@
   "board.other": "इतर",
   "settings.vizrainbow": "इंद्रधनुष्य व्हिज्युअलायझेशन",
   "notify.open": "उघडा",
-  "settings.glow": "चमक"
+  "settings.glow": "चमक",
+  "settings.import": "डेटा इम्पोर्ट करा",
+  "btn.import": "इम्पोर्ट"
 }

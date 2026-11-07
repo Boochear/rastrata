@@ -111,5 +111,7 @@
   "board.other": "Annað",
   "settings.vizrainbow": "Regnbogasjónræn framsetning",
   "notify.open": "Opna",
-  "settings.glow": "Ljómi"
+  "settings.glow": "Ljómi",
+  "settings.import": "Flytja inn gögn",
+  "btn.import": "Flytja inn"
 }

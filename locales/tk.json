@@ -111,5 +111,7 @@
   "board.other": "Beýleki",
   "settings.vizrainbow": "Gökgurşak wizuallaşdyrmasy",
   "notify.open": "Aç",
-  "settings.glow": "Şöhle"
+  "settings.glow": "Şöhle",
+  "settings.import": "Maglumatlary import et",
+  "btn.import": "Import"
 }

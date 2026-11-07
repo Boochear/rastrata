@@ -111,5 +111,7 @@
   "board.other": "Muu",
   "settings.vizrainbow": "Vikerkaarevisualiseering",
   "notify.open": "Ava",
-  "settings.glow": "Hõõg"
+  "settings.glow": "Hõõg",
+  "settings.import": "Impordi andmed",
+  "btn.import": "Impordi"
 }

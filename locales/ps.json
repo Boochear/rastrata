@@ -111,5 +111,7 @@
   "board.other": "نور",
   "settings.vizrainbow": "د رنګین کمان لید",
   "notify.open": "پرانیستل",
-  "settings.glow": "ځلا"
+  "settings.glow": "ځلا",
+  "settings.import": "ډاټا واردول",
+  "btn.import": "واردول"
 }

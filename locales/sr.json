@@ -111,5 +111,7 @@
   "board.other": "Остало",
   "settings.vizrainbow": "Визуелизација дуге",
   "notify.open": "Отвори",
-  "settings.glow": "Сјај"
+  "settings.glow": "Сјај",
+  "settings.import": "Увези податке",
+  "btn.import": "Увези"
 }

@@ -111,5 +111,7 @@
   "board.other": "Boshqa",
   "settings.vizrainbow": "Kamalak vizualizatsiyasi",
   "notify.open": "Ochish",
-  "settings.glow": "Yaltirash"
+  "settings.glow": "Yaltirash",
+  "settings.import": "Maʼlumotlarni import qilish",
+  "btn.import": "Import"
 }

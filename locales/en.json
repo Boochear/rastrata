@@ -111,5 +111,7 @@
     "board.other": "Other",
     "settings.vizrainbow": "Rainbow visualization",
     "notify.open": "Open",
-    "settings.glow": "Glow"
+    "settings.glow": "Glow",
+    "settings.import": "Import data",
+    "btn.import": "Import"
 }

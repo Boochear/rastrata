@@ -111,5 +111,7 @@
   "board.other": "Overig",
   "settings.vizrainbow": "Regenboogvisualisatie",
   "notify.open": "Openen",
-  "settings.glow": "Gloed"
+  "settings.glow": "Gloed",
+  "settings.import": "Gegevens importeren",
+  "btn.import": "Importeren"
 }

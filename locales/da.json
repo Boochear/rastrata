@@ -111,5 +111,7 @@
   "board.other": "Andet",
   "settings.vizrainbow": "Regnbuevisualisering",
   "notify.open": "Åbn",
-  "settings.glow": "Glød"
+  "settings.glow": "Glød",
+  "settings.import": "Importér data",
+  "btn.import": "Importér"
 }

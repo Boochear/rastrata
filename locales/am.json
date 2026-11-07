@@ -111,5 +111,7 @@
   "board.other": "ሌላ",
   "settings.vizrainbow": "የቀስተ ደመና እይታ",
   "notify.open": "ክፈት",
-  "settings.glow": "ፍካት"
+  "settings.glow": "ፍካት",
+  "settings.import": "ውሂብ አስመጣ",
+  "btn.import": "አስመጣ"
 }

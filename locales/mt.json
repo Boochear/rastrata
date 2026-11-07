@@ -111,5 +111,7 @@
   "board.other": "Oħrajn",
   "settings.vizrainbow": "Viżwalizzazzjoni tal-qawsalla",
   "notify.open": "Iftaħ",
-  "settings.glow": "Tleqqija"
+  "settings.glow": "Tleqqija",
+  "settings.import": "Importa d-data",
+  "btn.import": "Importa"
 }

@@ -111,5 +111,7 @@
   "board.other": "Іншае",
   "settings.vizrainbow": "Вясёлкавая візуалізацыя",
   "notify.open": "Адкрыць",
-  "settings.glow": "Свячэнне"
+  "settings.glow": "Свячэнне",
+  "settings.import": "Загрузіць даныя",
+  "btn.import": "Загрузіць"
 }

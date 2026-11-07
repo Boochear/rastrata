@@ -111,5 +111,7 @@
   "board.other": "هی تر",
   "settings.vizrainbow": "وێنەکێشانی ڕەنگاوڕەنگ",
   "notify.open": "کردنەوە",
-  "settings.glow": "درەوشانەوە"
+  "settings.glow": "درەوشانەوە",
+  "settings.import": "هاوردەکردنی داتا",
+  "btn.import": "هاوردە"
 }

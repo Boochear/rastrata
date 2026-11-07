@@ -54,25 +54,59 @@ function fetchIcon(domain) {
     });
 }
 
+function shrink(dataUrl) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+            try {
+                const c = document.createElement('canvas');
+                c.width = c.height = 32;
+                c.getContext('2d').drawImage(img, 0, 0, 32, 32);
+                const out = c.toDataURL('image/png');
+                resolve(out.length < dataUrl.length ? out : dataUrl);
+            } catch { resolve(dataUrl); }
+        };
+        img.onerror = () => resolve(dataUrl);
+        img.src = dataUrl;
+    });
+}
+
+function saveFile(icons) {
+    const tmp = FILE + '.tmp';
+    try {
+        fs.writeFileSync(tmp, JSON.stringify(icons));
+        fs.renameSync(tmp, FILE);
+    } catch { }
+}
+
 function createSiteIcons(onReady) {
     let icons = {};
     try { icons = JSON.parse(fs.readFileSync(FILE, 'utf-8')); } catch { }
     const tried = new Set();
-
+    (async () => {
+        let changed = false;
+        for (const key of Object.keys(icons)) {
+            const v = icons[key];
+            if (typeof v === 'string' && v.length > 6000) {
+                const small = await shrink(v);
+                if (small !== v) { icons[key] = small; changed = true; }
+            }
+        }
+        if (changed) { saveFile(icons); onReady(); }
+    })();
     async function request(site) {
         if (!site || icons[site] || tried.has(site)) return;
         tried.add(site);
         for (const domain of candidates(site)) {
-            const icon = await fetchIcon(domain);
-            if (icon) {
-                icons[site] = icon;
-                try { fs.writeFileSync(FILE, JSON.stringify(icons)); } catch { }
+            const raw = await fetchIcon(domain);
+            if (raw) {
+                icons[site] = await shrink(raw);
+                saveFile(icons);
                 onReady();
                 return;
             }
         }
     }
-
     return { icons, request };
 }
 

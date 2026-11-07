@@ -26,8 +26,12 @@ function encode(op, data) {
 function openSocket(paths, idx, cb) {
     if (idx >= paths.length) return cb(null);
     const s = net.createConnection(paths[idx]);
-    s.once('connect', () => cb(s));
-    s.once('error', () => openSocket(paths, idx + 1, cb));
+    const onError = () => { s.destroy(); openSocket(paths, idx + 1, cb); };
+    s.once('error', onError);
+    s.once('connect', () => {
+        s.removeListener('error', onError);
+        cb(s);
+    });
 }
 
 function createDiscord() {
@@ -81,8 +85,8 @@ function createDiscord() {
                     const len = buf.readInt32LE(4);
                     if (buf.length < 8 + len) break;
                     let msg = null;
-                    try { msg = JSON.parse(buf.slice(8, 8 + len).toString()); } catch { }
-                    buf = buf.slice(8 + len);
+                    try { msg = JSON.parse(buf.subarray(8, 8 + len).toString()); } catch { }
+                    buf = buf.subarray(8 + len);
                     if (op === 1 && msg && msg.evt === 'READY') { ready = true; flush(); }
                     if (op === 2) return drop();
                 }

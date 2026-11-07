@@ -111,5 +111,7 @@
   "board.other": "Дигар",
   "settings.vizrainbow": "Визуализатсияи рангинкамон",
   "notify.open": "Кушодан",
-  "settings.glow": "Дурахшиш"
+  "settings.glow": "Дурахшиш",
+  "settings.import": "Ворид кардани маълумот",
+  "btn.import": "Ворид кардан"
 }

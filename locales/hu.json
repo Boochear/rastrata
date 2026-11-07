@@ -111,5 +111,7 @@
   "board.other": "Egyéb",
   "settings.vizrainbow": "Szivárvány vizualizáció",
   "notify.open": "Megnyitás",
-  "settings.glow": "Ragyogás"
+  "settings.glow": "Ragyogás",
+  "settings.import": "Adatok importálása",
+  "btn.import": "Importálás"
 }

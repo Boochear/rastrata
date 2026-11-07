@@ -111,5 +111,7 @@
   "board.other": "Eile",
   "settings.vizrainbow": "Léirshamhlú tuar ceatha",
   "notify.open": "Oscail",
-  "settings.glow": "Lonrú"
+  "settings.glow": "Lonrú",
+  "settings.import": "Iompórtáil sonraí",
+  "btn.import": "Iompórtáil"
 }

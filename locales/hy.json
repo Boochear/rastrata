@@ -111,5 +111,7 @@
   "board.other": "Այլ",
   "settings.vizrainbow": "Ծիածանային վիզուալիզացիա",
   "notify.open": "Բացել",
-  "settings.glow": "Փայլ"
+  "settings.glow": "Փայլ",
+  "settings.import": "Ներմուծել տվյալները",
+  "btn.import": "Ներմուծել"
 }

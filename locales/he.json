@@ -111,5 +111,7 @@
   "board.other": "אחר",
   "settings.vizrainbow": "תצוגת קשת בענן",
   "notify.open": "פתח",
-  "settings.glow": "זוהר"
+  "settings.glow": "זוהר",
+  "settings.import": "ייבוא נתונים",
+  "btn.import": "ייבוא"
 }

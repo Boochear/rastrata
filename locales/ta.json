@@ -111,5 +111,7 @@
   "board.other": "மற்றவை",
   "settings.vizrainbow": "வானவில் காட்சிப்படுத்தல்",
   "notify.open": "திற",
-  "settings.glow": "ஒளிர்வு"
+  "settings.glow": "ஒளிர்வு",
+  "settings.import": "தரவை இறக்குமதி செய்",
+  "btn.import": "இறக்குமதி"
 }

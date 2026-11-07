@@ -1,7 +1,7 @@
 const { loadSettings, saveSettings } = require('./js/settings-store');
 const { loadIcons, createIconRequester } = require('./js/icon-store');
 const { loadFriendlyNames, saveFriendlyNames } = require('./js/friendly-names-store');
-const { todayKey, loadStats, saveStats, addTime, getStatsForPeriod, periodIncludesToday } = require('./js/stats-store');
+const { todayKey, loadStats, saveStats, addTime, getStatsForPeriod, periodIncludesToday, resetStatsCache } = require('./js/stats-store');
 const { startWatcher } = require('./js/watcher-client');
 const { setupTray } = require('./js/tray');
 const { checkForUpdates, applyUpdateAndRestart, cleanupUpdateFiles } = require('./js/updater');
@@ -11,7 +11,6 @@ const { resolveTheme } = require('./js/theme-scheduler');
 const { loadSites, saveSites } = require('./js/sites-store');
 const { isBrowser, siteFromTitle, siteFromUrl, siteFromAddressBar } = require('./js/sites');
 const { startUrlReader } = require('./js/url-reader');
-const { createSiteServer } = require('./js/site-server');
 const { createDiscord } = require('./js/discord');
 const { keysOf, previousFull, summarize, rangeLabel } = require('./js/summary');
 const { createSiteIcons } = require('./js/site-icons');
@@ -23,6 +22,10 @@ const pkg = require('./package.json');
 let settings = loadSettings();
 let stats = loadStats();
 let friendlyNames = loadFriendlyNames();
+
+const autoNames = {};
+let editingKey = null;
+
 let icons = loadIcons();
 let sites = loadSites();
 const siteIcons = createSiteIcons(() => renderList());
@@ -36,6 +39,7 @@ let selectedPeriod = 'today';
 let settingsWin = null;
 let vizWin = null;
 let tray = null;
+let trayThemeApplied = null;
 
 const win = nw.Window.get();
 
@@ -44,6 +48,32 @@ const isTrayLaunch = fs.existsSync(TRAY_FLAG_PATH);
 
 const WINDOW_SIZES = { compact: [380, 480], default: [420, 600], large: [520, 760] };
 let lastSizeMode = settings.windowSize;
+
+let dataLocked = false;
+window.lockDataForImport = () => { dataLocked = true; };
+window.unlockData = () => { dataLocked = false; };
+
+function replaceContents(target, source) {
+    Object.keys(target).forEach((k) => delete target[k]);
+    Object.assign(target, source);
+}
+
+window.reloadDataFromDisk = function () {
+    resetStatsCache();
+    replaceContents(stats, loadStats());
+    replaceContents(friendlyNames, loadFriendlyNames());
+    replaceContents(icons, loadIcons());
+    replaceContents(sites, loadSites());
+    try {
+        replaceContents(siteIcons.icons,
+            JSON.parse(fs.readFileSync(path.join(process.cwd(), 'siteicons.json'), 'utf-8')));
+    } catch { }
+    sessionStart = Date.now();
+    siteStart = Date.now();
+    dataLocked = false;
+    renderList();
+    if (vizWin) vizWin.window.onAppearanceChanged();
+};
 
 function applyWindowSize() {
     win.setMinimumSize(340, 400);
@@ -88,6 +118,10 @@ function applyAnimations() {
 function applyTheme(theme) {
     document.body.setAttribute('data-theme', theme);
     applyAnimations();
+    if (tray && trayThemeApplied !== theme) {
+        trayThemeApplied = theme;
+        tray.rebuildMenu();
+    }
 }
 
 let appliedTheme = null;
@@ -116,7 +150,6 @@ function buildEntries() {
     const appStats = getStatsForPeriod(stats, selectedPeriod);
     if (currentApp && today) appStats[currentApp] = (appStats[currentApp] || 0) + (Date.now() - sessionStart);
     const sorted = Object.entries(appStats).sort((a, b) => b[1] - a[1]);
-
     let siteList = [];
     if (settings.trackSites) {
         const siteStats = getStatsForPeriod(sites, selectedPeriod);
@@ -124,7 +157,6 @@ function buildEntries() {
         siteList = Object.entries(siteStats).sort((a, b) => b[1] - a[1]).slice(0, 5);
     }
     const host = sorted.find(([name]) => isBrowser(name));
-
     const entries = [];
     let num = 0;
     sorted.forEach(([name, ms]) => {
@@ -156,19 +188,14 @@ function setText(el, value) {
     if (el.textContent !== value) el.textContent = value;
 }
 
-function renderList() {
-    if (document.hidden) return;
-    const entries = buildEntries();
-    const list = document.getElementById('list');
-    const seen = new Set();
-    entries.forEach((e, index) => {
-        seen.add(e.key);
-        let row = list.querySelector(`[data-key="${CSS.escape(e.key)}"]`);
-        if (!row) {
-            row = document.createElement('div');
-            row.className = 'row row-new';
-            row.dataset.key = e.key;
-            row.innerHTML = `
+const listEl = document.getElementById('list');
+const rows = new Map();
+
+function makeRow(key) {
+    const row = document.createElement('div');
+    row.className = 'row row-new';
+    row.dataset.key = key;
+    row.innerHTML = `
         <div class="row-left">
           <span class="row-number"></span>
           <span class="row-icon-slot"></span>
@@ -176,32 +203,92 @@ function renderList() {
         </div>
         <span class="time"></span>
       `;
-            list.appendChild(row);
-        }
+    row._num = row.querySelector('.row-number');
+    row._name = row.querySelector('.name');
+    row._time = row.querySelector('.time');
+    row._slot = row.querySelector('.row-icon-slot');
+    rows.set(key, row);
+    listEl.appendChild(row);
+    return row;
+}
+
+function renderList() {
+    if (document.hidden) return;
+    const entries = buildEntries();
+    const seen = new Set();
+    entries.forEach((e, index) => {
+        seen.add(e.key);
+        const row = rows.get(e.key) || makeRow(e.key);
         row.classList.toggle('sub', e.sub);
         row.classList.toggle('active', e.active);
-        setText(row.querySelector('.row-number'), e.sub ? '↳' : `${e.num}.`);
-        setText(row.querySelector('.name'), e.label);
-        setText(row.querySelector('.time'), formatMs(e.ms));
-        const iconSlot = row.querySelector('.row-icon-slot');
+        setText(row._num, e.sub ? '↳' : `${e.num}.`);
+        if (editingKey !== e.key) setText(row._name, e.label);
+        setText(row._time, formatMs(e.ms));
         const shouldHaveIcon = settings.showIcons && e.icon;
-        const hasIconNow = iconSlot.querySelector('img') !== null;
+        const hasIconNow = row._slot.firstChild !== null;
         if (shouldHaveIcon && !hasIconNow) {
-            iconSlot.innerHTML = `<img class="row-icon" src="${e.icon}">`;
+            row._slot.innerHTML = `<img class="row-icon" src="${e.icon}">`;
         } else if (!shouldHaveIcon && hasIconNow) {
-            iconSlot.innerHTML = '';
+            row._slot.innerHTML = '';
         }
-        const currentPos = Array.from(list.children).indexOf(row);
-        if (currentPos !== index) {
-            list.insertBefore(row, list.children[index] || null);
+        if (listEl.children[index] !== row) {
+            listEl.insertBefore(row, listEl.children[index] || null);
         }
     });
-    Array.from(list.children).forEach((row) => {
-        if (!seen.has(row.dataset.key)) {
+    rows.forEach((row, key) => {
+        if (!seen.has(key)) {
             row.remove();
+            rows.delete(key);
         }
     });
 }
+
+function startRename(row) {
+    const key = row.dataset.key;
+    if (!key.startsWith('app:') || editingKey) return;
+    const appName = key.slice(4);
+    const nameEl = row.querySelector('.name');
+    editingKey = key;
+    nameEl.contentEditable = 'plaintext-only';
+    nameEl.focus();
+    const range = document.createRange();
+    range.selectNodeContents(nameEl);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    let done = false;
+
+    function finish(save) {
+        if (done) return;
+        done = true;
+        nameEl.removeEventListener('keydown', onKey);
+        nameEl.removeEventListener('blur', onBlur);
+        nameEl.removeAttribute('contenteditable');
+        if (save) {
+            const value = nameEl.textContent.replace(/\s+/g, ' ').trim();
+            friendlyNames[appName] = value || autoNames[appName] || appName;
+            saveFriendlyNames(friendlyNames);
+        }
+        editingKey = null;
+        window.getSelection().removeAllRanges();
+        nameEl.textContent = friendlyNames[appName] || appName;
+        renderList();
+    }
+
+    function onKey(e) {
+        if (e.key === 'Enter') { e.preventDefault(); finish(true); }
+        if (e.key === 'Escape') finish(false);
+    }
+    function onBlur() { finish(true); }
+
+    nameEl.addEventListener('keydown', onKey);
+    nameEl.addEventListener('blur', onBlur);
+}
+
+document.getElementById('list').addEventListener('dblclick', (e) => {
+    const nameEl = e.target.closest('.name');
+    if (nameEl) startRename(nameEl.closest('.row'));
+});
 
 const requestIcon = createIconRequester(icons, renderList);
 
@@ -227,22 +314,12 @@ function switchSite(name) {
 
 let fgApp = null;
 let fgTitle = '';
-let ext = { site: null, focused: false, at: 0 };
-let extSeen = false;
-
-function siteForBrowser(title) {
-    if (extSeen) {
-        return ext.focused && Date.now() - ext.at < 150000 ? ext.site : null;
-    }
-    return siteFromTitle(title);
-}
-
 let urlReader = null;
 
 function ensureUrlReader() {
     if (settings.trackSites && !urlReader) {
         urlReader = startUrlReader((value) => {
-            if (!settings.trackSites || extSeen || !fgApp || !isBrowser(fgApp)) return;
+            if (!settings.trackSites || !fgApp || !isBrowser(fgApp)) return;
             switchSite(siteFromAddressBar(value) || siteFromTitle(fgTitle));
         });
     } else if (!settings.trackSites && urlReader) {
@@ -252,20 +329,10 @@ function ensureUrlReader() {
 }
 
 function resolveBrowserSite(title) {
-    if (extSeen) {
-        switchSite(siteForBrowser(title));
-        return;
-    }
     ensureUrlReader();
     if (urlReader && urlReader.available) urlReader.request();
     else switchSite(siteFromTitle(title));
 }
-
-const siteServer = createSiteServer((tab) => {
-    extSeen = true;
-    ext = { site: siteFromUrl(tab.url), focused: tab.focused, at: Date.now() };
-    if (settings.trackSites && fgApp && isBrowser(fgApp)) switchSite(siteForBrowser(fgTitle));
-});
 
 startWatcher({
     onNone() {
@@ -284,7 +351,11 @@ startWatcher({
         if (settings.trackSites && isBrowser(appName)) resolveBrowserSite(title);
         else switchSite(null);
         if (appName === currentApp) return;
-        friendlyNames[appName] = friendlyName || appName;
+        autoNames[appName] = friendlyName || appName;
+        const auto = friendlyName || appName;
+        const stored = friendlyNames[appName];
+        if (!stored || stored === appName || stored === autoNames[appName]) friendlyNames[appName] = auto;
+        autoNames[appName] = auto;
         requestIcon(appName, exePath);
         switchApp(appName);
     }
@@ -361,11 +432,13 @@ function showSummaryToast(kinds) {
     nw.Window.open('notification/notification.html', {
         width: 340,
         height: 200,
+        min_width: 1,
+        min_height: 1,
         frame: false,
         show: false,
-        resizable: false,
         always_on_top: true,
         show_in_taskbar: false,
+        transparent: true,
         focus: false
     }, (createdWin) => {
         toastWin = createdWin;
@@ -417,6 +490,7 @@ setInterval(() => {
     renderList();
 }, 1000);
 setInterval(() => {
+    if (dataLocked) return;
     saveStats(stats);
     saveSites(sites);
     saveFriendlyNames(friendlyNames);
@@ -424,17 +498,17 @@ setInterval(() => {
 setInterval(refreshTheme, 30000);
 setInterval(updatePresence, 15000);
 setTimeout(configureDiscord, 3000);
-setTimeout(() => { if (!settingsWin) createSettingsWin(true); }, 4000);
-setTimeout(() => { if (!vizWin) createVizWin(true); }, 7000);
+setTimeout(() => { if (!vizWin) createVizWin(true); }, 1200);
+setTimeout(() => { if (!settingsWin) createSettingsWin(true); }, 2500);
 setTimeout(checkSummaryNotifications, 8000);
 
 window.addEventListener('beforeunload', () => {
+    if (dataLocked) return;
     if (currentApp) addTime(stats, currentApp, Date.now() - sessionStart);
     if (currentSite) addTime(sites, currentSite, Date.now() - siteStart);
     saveStats(stats);
     saveSites(sites);
     discord.stop();
-    siteServer.close();
     if (urlReader) urlReader.stop();
 });
 
@@ -462,10 +536,7 @@ win.on('close', function () {
     }
 });
 
-nw.App.on('open', function (cmdline) {
-    win.show();
-    win.focus();
-});
+nw.App.on('open', () => { win.show(); win.focus(); });
 
 function createSettingsWin(prewarm) {
     nw.Window.open('settings/settings.html' + (prewarm ? '#prewarm' : ''), {
@@ -481,7 +552,6 @@ function createSettingsWin(prewarm) {
         settingsWin = createdWin;
         createdWin.window.mainWindowRef = window;
         createdWin.on('closed', () => { settingsWin = null; });
-        if (!prewarm) setTimeout(() => createdWin.show(), 2500);
     });
 }
 
@@ -510,7 +580,6 @@ function createVizWin(prewarm, mode, kind) {
         createdWin.window.mainWindowRef = window;
         createdWin.window.initialMode = mode ? { mode, kind } : null;
         createdWin.on('closed', () => { vizWin = null; });
-        if (!prewarm) setTimeout(() => createdWin.show(), 2500);
     });
 }
 
@@ -569,7 +638,7 @@ window.updateExcludedFromSettings = function (list) {
 window.updateGlowFromSettings = function (px) {
     settings.glow = px;
     setGlow(px);
-    if (vizWin) vizWin.window.document.body.style.setProperty('--glow-size', px + 'px');
+    if (vizWin) vizWin.window.setGlow(px);
 };
 
 window.updateBlurFromSettings = function (px) {
@@ -593,6 +662,7 @@ window.updateLanguageFromSettings = function (language) {
 };
 
 window.flushDataToDisk = function () {
+    if (dataLocked) return;
     if (currentApp) {
         addTime(stats, currentApp, Date.now() - sessionStart);
         sessionStart = Date.now();
@@ -620,7 +690,7 @@ window.updateSettingsFromDisk = function () {
 };
 
 if (isTrayLaunch && settings.minimizeToTrayOnAutostart) {
-    tray = setupTray(win, { iconPath: 'media/icon.png', appName: APP_NAME });
+    tray = setupTray(win, { iconPath: 'media/icon.ico', appName: APP_NAME });
 } else if (isTrayLaunch) {
     win.show();
 }

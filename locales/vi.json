@@ -111,5 +111,7 @@
   "board.other": "Khác",
   "settings.vizrainbow": "Hiển thị cầu vồng",
   "notify.open": "Mở",
-  "settings.glow": "Phát sáng"
+  "settings.glow": "Phát sáng",
+  "settings.import": "Nhập dữ liệu",
+  "btn.import": "Nhập"
 }

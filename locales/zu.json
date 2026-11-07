@@ -111,5 +111,7 @@
   "board.other": "Okunye",
   "settings.vizrainbow": "Isibonisi sothingo",
   "notify.open": "Vula",
-  "settings.glow": "Ukukhazimula"
+  "settings.glow": "Ukukhazimula",
+  "settings.import": "Ngenisa idatha",
+  "btn.import": "Ngenisa"
 }

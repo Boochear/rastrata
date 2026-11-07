@@ -111,5 +111,7 @@
   "board.other": "기타",
   "settings.vizrainbow": "무지개 시각화",
   "notify.open": "열기",
-  "settings.glow": "글로우"
+  "settings.glow": "글로우",
+  "settings.import": "데이터 가져오기",
+  "btn.import": "가져오기"
 }

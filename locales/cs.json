@@ -111,5 +111,7 @@
   "board.other": "Ostatní",
   "settings.vizrainbow": "Duhová vizualizace",
   "notify.open": "Otevřít",
-  "settings.glow": "Záře"
+  "settings.glow": "Záře",
+  "settings.import": "Importovat data",
+  "btn.import": "Importovat"
 }

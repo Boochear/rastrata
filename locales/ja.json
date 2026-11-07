@@ -111,5 +111,7 @@
   "board.other": "その他",
   "settings.vizrainbow": "レインボー表示",
   "notify.open": "開く",
-  "settings.glow": "グロー"
+  "settings.glow": "グロー",
+  "settings.import": "データをインポート",
+  "btn.import": "インポート"
 }

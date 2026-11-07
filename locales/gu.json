@@ -111,5 +111,7 @@
   "board.other": "અન્ય",
   "settings.vizrainbow": "મેઘધનુષ્ય વિઝ્યુલાઇઝેશન",
   "notify.open": "ખોલો",
-  "settings.glow": "ચમક"
+  "settings.glow": "ચમક",
+  "settings.import": "ડેટા ઇમ્પોર્ટ કરો",
+  "btn.import": "ઇમ્પોર્ટ"
 }

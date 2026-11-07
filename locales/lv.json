@@ -111,5 +111,7 @@
   "board.other": "Cits",
   "settings.vizrainbow": "Varavīksnes vizualizācija",
   "notify.open": "Atvērt",
-  "settings.glow": "Mirdzums"
+  "settings.glow": "Mirdzums",
+  "settings.import": "Importēt datus",
+  "btn.import": "Importēt"
 }

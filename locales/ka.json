@@ -111,5 +111,7 @@
   "board.other": "სხვა",
   "settings.vizrainbow": "ცისარტყელას ვიზუალიზაცია",
   "notify.open": "გახსნა",
-  "settings.glow": "ბზინვარება"
+  "settings.glow": "ბზინვარება",
+  "settings.import": "მონაცემების იმპორტი",
+  "btn.import": "იმპორტი"
 }

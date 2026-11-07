@@ -111,5 +111,7 @@
   "board.other": "อื่นๆ",
   "settings.vizrainbow": "การแสดงผลสายรุ้ง",
   "notify.open": "เปิด",
-  "settings.glow": "แสงเรือง"
+  "settings.glow": "แสงเรือง",
+  "settings.import": "นำเข้าข้อมูล",
+  "btn.import": "นำเข้า"
 }

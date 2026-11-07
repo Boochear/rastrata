@@ -111,5 +111,7 @@
   "board.other": "Beste batzuk",
   "settings.vizrainbow": "Ostadar bisualizazioa",
   "notify.open": "Ireki",
-  "settings.glow": "Distira"
+  "settings.glow": "Distira",
+  "settings.import": "Inportatu datuak",
+  "btn.import": "Inportatu"
 }

@@ -111,5 +111,7 @@
   "board.other": "Башка",
   "settings.vizrainbow": "Түстүү визуализация",
   "notify.open": "Ачуу",
-  "settings.glow": "Жаркыроо"
+  "settings.glow": "Жаркыроо",
+  "settings.import": "Маалыматтарды импорттоо",
+  "btn.import": "Импорттоо"
 }

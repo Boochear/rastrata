@@ -111,5 +111,7 @@
   "board.other": "အခြား",
   "settings.vizrainbow": "သက်တန့် မြင်ကွင်း",
   "notify.open": "ဖွင့်ရန်",
-  "settings.glow": "တောက်ပမှု"
+  "settings.glow": "တောက်ပမှု",
+  "settings.import": "ဒေတာ ထည့်သွင်းရန်",
+  "btn.import": "ထည့်သွင်းရန်"
 }

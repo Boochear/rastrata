@@ -111,5 +111,7 @@
   "board.other": "دیگر",
   "settings.vizrainbow": "قوس قزح بصری نمائش",
   "notify.open": "کھولیں",
-  "settings.glow": "چمک"
+  "settings.glow": "چمک",
+  "settings.import": "ڈیٹا درآمد کریں",
+  "btn.import": "درآمد کریں"
 }

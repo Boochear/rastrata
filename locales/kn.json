@@ -111,5 +111,7 @@
   "board.other": "ಇತರೆ",
   "settings.vizrainbow": "ಕಾಮನಬಿಲ್ಲು ದೃಶ್ಯೀಕರಣ",
   "notify.open": "ತೆರೆಯಿರಿ",
-  "settings.glow": "ಹೊಳಪು"
+  "settings.glow": "ಹೊಳಪು",
+  "settings.import": "ಡೇಟಾ ಆಮದು ಮಾಡಿ",
+  "btn.import": "ಆಮದು"
 }

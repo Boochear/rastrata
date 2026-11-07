@@ -111,5 +111,7 @@
   "board.other": "其他",
   "settings.vizrainbow": "彩虹視覺化",
   "notify.open": "開啟",
-  "settings.glow": "發光"
+  "settings.glow": "發光",
+  "settings.import": "匯入資料",
+  "btn.import": "匯入"
 }

@@ -39,16 +39,16 @@ function loadSettings() {
             parsed.holidayThemes = parsed.seasonalThemes;
             parsed.seasonalThemes = false;
         }
-        return { ...DEFAULT_SETTINGS, ...parsed };
+        return { ...structuredClone(DEFAULT_SETTINGS), ...parsed };
     } catch {
-        return { ...DEFAULT_SETTINGS };
+        return structuredClone(DEFAULT_SETTINGS);
     }
 }
 
 function saveSettings(settings) {
     const tmpPath = SETTINGS_FILE + '.tmp';
     try {
-        fs.writeFileSync(tmpPath, JSON.stringify(settings, null, 2));
+        fs.writeFileSync(tmpPath, JSON.stringify(settings));
         fs.renameSync(tmpPath, SETTINGS_FILE);
     } catch (err) {
         console.error('failed to save settings:', err.message);

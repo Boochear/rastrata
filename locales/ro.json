@@ -111,5 +111,7 @@
   "board.other": "Altele",
   "settings.vizrainbow": "Vizualizare curcubeu",
   "notify.open": "Deschide",
-  "settings.glow": "Strălucire"
+  "settings.glow": "Strălucire",
+  "settings.import": "Importă datele",
+  "btn.import": "Importă"
 }

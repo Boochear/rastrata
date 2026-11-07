@@ -111,5 +111,7 @@
   "board.other": "Iba pa",
   "settings.vizrainbow": "Visualization na bahaghari",
   "notify.open": "Buksan",
-  "settings.glow": "Glow"
+  "settings.glow": "Glow",
+  "settings.import": "I-import ang data",
+  "btn.import": "I-import"
 }

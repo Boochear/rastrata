@@ -111,5 +111,7 @@
   "board.other": "Okunye",
   "settings.vizrainbow": "Umbono webhanyabhanya",
   "notify.open": "Vula",
-  "settings.glow": "Ukukhanya"
+  "settings.glow": "Ukukhanya",
+  "settings.import": "Ngenisa idatha",
+  "btn.import": "Ngenisa"
 }

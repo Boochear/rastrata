@@ -111,5 +111,7 @@
   "board.other": "Aner",
   "settings.vizrainbow": "Reebou-Visualiséierung",
   "notify.open": "Opmaachen",
-  "settings.glow": "Glanz"
+  "settings.glow": "Glanz",
+  "settings.import": "Daten importéieren",
+  "btn.import": "Importéieren"
 }

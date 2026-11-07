@@ -1,13 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-
 const { loadSettings } = require('./js/settings-store');
 const { dateKey } = require('./js/stats-store');
 const { applyFont } = require('./js/fonts');
 const { setLanguage, t, applyTranslations } = require('./js/i18n');
 const { resolveTheme } = require('./js/theme-scheduler');
 const { rangeFor, shiftRef, keysOf, summarize, rangeLabel } = require('./js/summary');
-
 new Function('module', 'exports', 'define',
     fs.readFileSync(path.join(process.cwd(), 'lib', 'echarts.min.js'), 'utf-8'))();
 
@@ -144,7 +140,7 @@ function fillDays(keys) {
 }
 
 function getData() {
-    const data = window.mainWindowRef.getVizData();
+    const data = vizData;
     const n = PERIOD_DAYS[state.period];
     let from = '';
     if (n) {
@@ -354,7 +350,9 @@ function draw(view) {
     }
 
     chart.setOption({
-        animationDuration: 300,
+        animation: true,
+        animationDuration: quietRender ? 0 : 500,
+        animationDurationUpdate: quietRender ? 0 : 300,
         textStyle: { fontFamily: getComputedStyle(document.body).fontFamily, color: fg },
         legend: view.values2 ? { top: 0, textStyle: { color: fg } } : { show: false },
         grid: { left: 10, right: 24, top: view.values2 ? 40 : 30, bottom: 10, containLabel: true },
@@ -422,7 +420,7 @@ function summaryRef() {
 }
 
 function renderSummary() {
-    const data = window.mainWindowRef.getVizData();
+    const data = vizData;
     const ref = summaryRef();
     const range = rangeFor(state.sumKind, ref);
     const prevRange = rangeFor(state.sumKind, shiftRef(state.sumKind, ref, -1));
@@ -482,8 +480,15 @@ function renderBoard(view) {
     $('viz-board').classList.toggle('rainbow', rainbow);
     if (!donut) donut = echarts.init($('board-donut'));
     donut.resize();
+    const box = $('board-donut');
+    const room = glowPx * 1.3 + 6;
+    const base = Math.max(120, box.clientWidth - room * 2);
+    const outerR = Math.round(base * 0.48);
+    const innerR = Math.round(base * 0.315);
     donut.setOption({
-        animationDuration: 500,
+        animation: true,
+        animationDuration: quietRender ? 0 : 300,
+        animationDurationUpdate: quietRender ? 0 : 300,
         textStyle: { fontFamily: getComputedStyle(document.body).fontFamily, color: fg },
         tooltip: {
             ...TIP,
@@ -499,15 +504,15 @@ function renderBoard(view) {
             left: 'center',
             top: 'center',
             itemGap: 2,
-            textStyle: { color: fg, fontSize: 15, fontWeight: 800 },
-            subtextStyle: { color: fg, fontSize: 11 }
+            textStyle: { color: fg, fontSize: Math.max(15, Math.round(base * 0.085)), fontWeight: 800 },
+            subtextStyle: { color: fg, fontSize: Math.max(11, Math.round(base * 0.062)) }
         },
         series: [
             ...(glowPx > 0 ? [{
                 type: 'pie',
                 z: 1,
                 silent: true,
-                radius: ['58%', '86%'],
+                radius: [innerR, outerR],
                 label: { show: false },
                 labelLine: { show: false },
                 itemStyle: { borderWidth: 0 },
@@ -520,11 +525,12 @@ function renderBoard(view) {
             {
                 type: 'pie',
                 z: 2,
-                radius: ['58%', '86%'],
+                radius: [innerR, outerR],
                 label: { show: false },
                 labelLine: { show: false },
                 itemStyle: { borderRadius: 6, borderColor: bg, borderWidth: 3 },
                 emphasis: { scaleSize: 6 },
+                stateAnimation: { duration: 220, easing: 'cubicOut' },
                 data: slices
             }
         ]
@@ -561,6 +567,7 @@ function renderBoard(view) {
 function updateUI(view) {
     const m = state.mode;
     $('viz-crumb').textContent = view.crumb;
+    $('viz-crumb-row').classList.toggle('hidden', !state.drill);
     $('viz-back').classList.toggle('hidden', !state.drill);
     $('viz-period-bar').classList.toggle('hidden', m === 'calendar' || m === 'summary');
     $('viz-sum-bar').classList.toggle('hidden', m !== 'summary');
@@ -581,7 +588,23 @@ function updateUI(view) {
     $('sum-next').classList.toggle('hidden', state.sumOffset >= 0);
 }
 
-function render() {
+let vizData = { stats: {}, names: {}, icons: {}, sites: {}, siteIcons: {} };
+let renderSeq = 0;
+
+let quietRender = false;
+
+let iconsSig = '';
+
+function render(quiet) {
+    vizData = window.mainWindowRef.getVizData();   // прямой вызов
+    document.body.classList.toggle('no-anim', !!quiet);
+    quietRender = !!quiet;
+    renderNow();
+    quietRender = false;
+    return Promise.resolve();
+}
+
+function renderNow() {
     if (state.mode === 'summary') {
         currentView = renderSummary();
         updateUI(currentView);
@@ -622,6 +645,7 @@ $('viz-back').addEventListener('click', () => {
 
 document.querySelectorAll('[data-mode]').forEach((btn) => {
     btn.addEventListener('click', () => {
+        if (btn.dataset.mode === state.mode && !state.drill) return;   // та же вкладка: ничего не делаем
         state.mode = btn.dataset.mode;
         state.drill = null;
         render();
@@ -630,6 +654,7 @@ document.querySelectorAll('[data-mode]').forEach((btn) => {
 
 document.querySelectorAll('[data-period]').forEach((btn) => {
     btn.addEventListener('click', () => {
+        if (btn.dataset.period === state.period && !state.drill) return;
         state.period = btn.dataset.period;
         state.drill = null;
         render();
@@ -661,24 +686,36 @@ window.showMode = function (mode, kind) {
         state.sumKind = kind;
         state.sumOffset = -1;
     }
-    render();
-    win.show();
-    win.focus();
+    return render(false).then(() => { win.show(); win.focus(); });
 };
 
 window.onShown = function () {
-    render();
-    win.show();
-    win.focus();
+    return render(false).then(() => { win.show(); win.focus(); });
 };
 
 window.onAppearanceChanged = function () {
     applyAppearance();
-    render();
+    return render(true);
+};
+
+let glowFrame = 0;
+
+window.setGlow = function (px) {
+    glowPx = Number(px) || 0;
+    document.body.style.setProperty('--glow-size', glowPx + 'px');
+
+    if (glowFrame) return;
+    glowFrame = requestAnimationFrame(() => {
+        glowFrame = 0;
+        document.body.classList.add('no-anim');
+        quietRender = true;
+        renderNow();
+        quietRender = false;
+    });
 };
 
 (function init() {
-    if (!window.mainWindowRef) {
+    if (!window.mainWindowRef || window.initialMode === undefined) {
         setTimeout(init, 50);
         return;
     }
@@ -690,6 +727,7 @@ window.onAppearanceChanged = function () {
             state.sumOffset = -1;
         }
     }
-    render();
-    if (location.hash !== '#prewarm') win.show();
+    render().then(() => {
+        if (location.hash !== '#prewarm') win.show();
+    });
 })();

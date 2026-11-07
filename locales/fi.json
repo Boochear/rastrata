@@ -111,5 +111,7 @@
   "board.other": "Muut",
   "settings.vizrainbow": "Sateenkaarivisualisointi",
   "notify.open": "Avaa",
-  "settings.glow": "Hehku"
+  "settings.glow": "Hehku",
+  "settings.import": "Tuo tiedot",
+  "btn.import": "Tuo"
 }

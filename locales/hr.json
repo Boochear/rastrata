@@ -111,5 +111,7 @@
   "board.other": "Ostalo",
   "settings.vizrainbow": "Vizualizacija duge",
   "notify.open": "Otvori",
-  "settings.glow": "Sjaj"
+  "settings.glow": "Sjaj",
+  "settings.import": "Uvezi podatke",
+  "btn.import": "Uvezi"
 }

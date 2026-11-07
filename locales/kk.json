@@ -111,5 +111,7 @@
   "board.other": "Басқа",
   "settings.vizrainbow": "Кемпірқосақ визуализациясы",
   "notify.open": "Ашу",
-  "settings.glow": "Жарқырау"
+  "settings.glow": "Жарқырау",
+  "settings.import": "Деректерді импорттау",
+  "btn.import": "Импорттау"
 }

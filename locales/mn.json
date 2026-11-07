@@ -111,5 +111,7 @@
   "board.other": "Бусад",
   "settings.vizrainbow": "Солонгон дүрслэл",
   "notify.open": "Нээх",
-  "settings.glow": "Гэрэлтэлт"
+  "settings.glow": "Гэрэлтэлт",
+  "settings.import": "Өгөгдөл импортлох",
+  "btn.import": "Импортлох"
 }

@@ -111,5 +111,7 @@
   "board.other": "سایر",
   "settings.vizrainbow": "نمایش رنگین‌کمانی",
   "notify.open": "باز کردن",
-  "settings.glow": "درخشش"
+  "settings.glow": "درخشش",
+  "settings.import": "درون‌ریزی داده‌ها",
+  "btn.import": "درون‌ریزی"
 }

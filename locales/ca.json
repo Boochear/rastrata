@@ -111,5 +111,7 @@
   "board.other": "Altres",
   "settings.vizrainbow": "Visualització arc de Sant Martí",
   "notify.open": "Obre",
-  "settings.glow": "Resplendor"
+  "settings.glow": "Resplendor",
+  "settings.import": "Importa les dades",
+  "btn.import": "Importa"
 }

@@ -4,6 +4,23 @@ const path = require('path');
 const { exec } = require('child_process');
 
 let cache = null;
+const CACHE_FILE = path.join(os.tmpdir(), 'rastrata-fonts.json');
+
+function fontsStamp() {
+    const dirs = [
+        path.join(process.env.WINDIR || 'C:\\Windows', 'Fonts'),
+        path.join(process.env.LOCALAPPDATA || '', 'Microsoft', 'Windows', 'Fonts')
+    ];
+    return dirs.map((d) => { try { return fs.statSync(d).mtimeMs; } catch { return 0; } }).join('|');
+}
+
+function readDiskCache() {
+    try {
+        const c = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf-8'));
+        if (c.stamp === fontsStamp() && Array.isArray(c.list)) return c.list;
+    } catch { }
+    return null;
+}
 
 function getPosixFonts() {
     return new Promise((resolve) => {
@@ -26,7 +43,8 @@ function getPosixFonts() {
 function getSystemFonts() {
     if (cache) return Promise.resolve(cache);
     if (process.platform !== 'win32') return getPosixFonts();
-
+    const disk = readDiskCache();
+    if (disk) { cache = disk; return Promise.resolve(cache); }
     return new Promise((resolve) => {
         const psScript = `
 Add-Type -AssemblyName System.Drawing
@@ -51,6 +69,9 @@ $json = ConvertTo-Json -InputObject @($names) -Compress
                     const json = Buffer.from(stdout.trim(), 'base64').toString('utf8');
                     cache = JSON.parse(json).sort((a, b) => a.localeCompare(b));
                     resolve(cache);
+                    cache = JSON.parse(json).sort((a, b) => a.localeCompare(b));
+                    try { fs.writeFileSync(CACHE_FILE, JSON.stringify({ stamp: fontsStamp(), list: cache })); } catch { }
+                    resolve(cache);
                 } catch (e) {
                     console.error('font list parse error:', e.message);
                     resolve([]);
@@ -67,12 +88,12 @@ function applyFont(fontName, doc) {
         styleEl.id = 'app-font-style';
         doc.head.appendChild(styleEl);
     }
-    if (!fontName) {
-        styleEl.textContent = '';
-        return;
+    let css = '';
+    if (fontName) {
+        const safe = fontName.replace(/["\\]/g, '');
+        css = `body, body *, .btn { font-family: "${safe}", 'Montserrat', sans-serif !important; }`;
     }
-    const safe = fontName.replace(/["\\]/g, '');
-    styleEl.textContent = `body, body *, .btn { font-family: "${safe}", 'Montserrat', sans-serif !important; }`;
+    if (styleEl.textContent !== css) styleEl.textContent = css;
 }
 
 module.exports = { getSystemFonts, applyFont };

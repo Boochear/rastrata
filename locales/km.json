@@ -111,5 +111,7 @@
   "board.other": "ផ្សេងៗ",
   "settings.vizrainbow": "ការបង្ហាញឥន្ទធនូ",
   "notify.open": "បើក",
-  "settings.glow": "ពន្លឺ"
+  "settings.glow": "ពន្លឺ",
+  "settings.import": "នាំចូលទិន្នន័យ",
+  "btn.import": "នាំចូល"
 }

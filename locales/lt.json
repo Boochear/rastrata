@@ -111,5 +111,7 @@
   "board.other": "Kita",
   "settings.vizrainbow": "Vaivorykštės vizualizacija",
   "notify.open": "Atidaryti",
-  "settings.glow": "Švytėjimas"
+  "settings.glow": "Švytėjimas",
+  "settings.import": "Importuoti duomenis",
+  "btn.import": "Importuoti"
 }

@@ -111,5 +111,7 @@
   "board.other": "Ander",
   "settings.vizrainbow": "Reënboogvisualisering",
   "notify.open": "Maak oop",
-  "settings.glow": "Gloed"
+  "settings.glow": "Gloed",
+  "settings.import": "Voer data in",
+  "btn.import": "Voer in"
 }

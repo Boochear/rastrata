@@ -111,5 +111,7 @@
   "board.other": "ਹੋਰ",
   "settings.vizrainbow": "ਸਤਰੰਗੀ ਵਿਜ਼ੂਅਲਾਈਜ਼ੇਸ਼ਨ",
   "notify.open": "ਖੋਲ੍ਹੋ",
-  "settings.glow": "ਚਮਕ"
+  "settings.glow": "ਚਮਕ",
+  "settings.import": "ਡਾਟਾ ਇੰਪੋਰਟ ਕਰੋ",
+  "btn.import": "ਇੰਪੋਰਟ"
 }

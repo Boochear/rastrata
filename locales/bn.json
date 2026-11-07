@@ -111,5 +111,7 @@
   "board.other": "অন্যান্য",
   "settings.vizrainbow": "রংধনু ভিজ্যুয়ালাইজেশন",
   "notify.open": "খুলুন",
-  "settings.glow": "আভা"
+  "settings.glow": "আভা",
+  "settings.import": "ডেটা ইম্পোর্ট করুন",
+  "btn.import": "ইম্পোর্ট"
 }

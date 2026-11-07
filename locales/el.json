@@ -111,5 +111,7 @@
   "board.other": "Άλλα",
   "settings.vizrainbow": "Οπτικοποίηση ουράνιου τόξου",
   "notify.open": "Άνοιγμα",
-  "settings.glow": "Λάμψη"
+  "settings.glow": "Λάμψη",
+  "settings.import": "Εισαγωγή δεδομένων",
+  "btn.import": "Εισαγωγή"
 }

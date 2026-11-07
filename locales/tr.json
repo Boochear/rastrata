@@ -111,5 +111,7 @@
   "board.other": "Diğer",
   "settings.vizrainbow": "Gökkuşağı görselleştirmesi",
   "notify.open": "Aç",
-  "settings.glow": "Parıltı"
+  "settings.glow": "Parıltı",
+  "settings.import": "Verileri içe aktar",
+  "btn.import": "İçe aktar"
 }

@@ -15,23 +15,38 @@ const TITLE_SITES = [
     'Deezer', 'Last.fm', 'Habr', 'Хабр', 'Pikabu', 'Пикабу', 'DTF', 'AliExpress', 'Amazon', 'Gmail'
 ];
 
+const SITE_KEYS = TITLE_SITES.map((name) => {
+    const key = name.toLowerCase();
+    const re = key.length < 3
+        ? new RegExp('(^|[^\\p{L}\\d])' + key + '($|[^\\p{L}\\d])', 'u')
+        : null;
+    return { name, key, re };
+});
+
 function knownSite(text) {
     const low = text.toLowerCase();
     let best = null;
     let bestAt = -1;
-    TITLE_SITES.forEach((name) => {
-        const key = name.toLowerCase();
-        const at = key.length < 3 ? (new RegExp('(^|[^\\p{L}\\d])' + key + '($|[^\\p{L}\\d])', 'u').test(low) ? low.length : -1) : low.lastIndexOf(key);
+    for (const { name, key, re } of SITE_KEYS) {
+        const at = re ? (re.test(low) ? low.length : -1) : low.lastIndexOf(key);
         if (at > bestAt) {
             bestAt = at;
             best = name;
         }
-    });
+    }
     return best;
 }
 
+const browserCache = new Map();
+
 function isBrowser(appName) {
-    return BROWSERS.has(String(appName).toLowerCase().replace(/[\s._-]/g, ''));
+    const key = String(appName);
+    let v = browserCache.get(key);
+    if (v === undefined) {
+        v = BROWSERS.has(key.toLowerCase().replace(/[\s._-]/g, ''));
+        browserCache.set(key, v);
+    }
+    return v;
 }
 
 function siteFromTitle(title) {

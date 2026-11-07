@@ -111,5 +111,7 @@
   "board.other": "Lain-lain",
   "settings.vizrainbow": "Visualisasi pelangi",
   "notify.open": "Buka",
-  "settings.glow": "Pendar"
+  "settings.glow": "Pendar",
+  "settings.import": "Import data",
+  "btn.import": "Import"
 }

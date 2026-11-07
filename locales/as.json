@@ -111,5 +111,7 @@
   "board.other": "অন্যান্য",
   "settings.vizrainbow": "ৰামধেনু ভিজুৱেলাইজেশ্যন",
   "notify.open": "খোলক",
-  "settings.glow": "দীপ্তি"
+  "settings.glow": "দীপ্তি",
+  "settings.import": "ডাটা আমদানি কৰক",
+  "btn.import": "আমদানি"
 }

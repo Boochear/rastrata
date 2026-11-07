@@ -111,5 +111,7 @@
   "board.other": "باشقا",
   "settings.vizrainbow": "رەڭلىك كۆرۈنۈش",
   "notify.open": "ئېچىش",
-  "settings.glow": "پارقىراش"
+  "settings.glow": "پارقىراش",
+  "settings.import": "سانلىق مەلۇمات ئەكىرىش",
+  "btn.import": "ئەكىر"
 }

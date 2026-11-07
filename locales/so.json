@@ -111,5 +111,7 @@
   "board.other": "Kale",
   "settings.vizrainbow": "Muuqaalka qaansoroobaadka",
   "notify.open": "Fur",
-  "settings.glow": "Dhalaal"
+  "settings.glow": "Dhalaal",
+  "settings.import": "Soo dhoofi xogta",
+  "btn.import": "Soo dhoofi"
 }

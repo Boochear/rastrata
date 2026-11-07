@@ -111,5 +111,7 @@
   "board.other": "Arall",
   "settings.vizrainbow": "Delweddu enfys",
   "notify.open": "Agor",
-  "settings.glow": "Disgleirdeb"
+  "settings.glow": "Disgleirdeb",
+  "settings.import": "Mewnforio data",
+  "btn.import": "Mewnforio"
 }

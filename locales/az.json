@@ -111,5 +111,7 @@
   "board.other": "Digər",
   "settings.vizrainbow": "Göy qurşağı vizuallaşdırması",
   "notify.open": "Aç",
-  "settings.glow": "Parıltı"
+  "settings.glow": "Parıltı",
+  "settings.import": "Məlumatları idxal et",
+  "btn.import": "İdxal et"
 }

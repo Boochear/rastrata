@@ -111,5 +111,7 @@
   "board.other": "ఇతరాలు",
   "settings.vizrainbow": "ఇంద్రధనస్సు విజువలైజేషన్",
   "notify.open": "తెరవండి",
-  "settings.glow": "మెరుపు"
+  "settings.glow": "మెరుపు",
+  "settings.import": "డేటాను దిగుమతి చేయి",
+  "btn.import": "దిగుమతి"
 }

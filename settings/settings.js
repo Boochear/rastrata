@@ -5,7 +5,7 @@ const { loadSettings, saveSettings } = require('./js/settings-store');
 const { setAutostart } = require('./js/autostart');
 const { createDesktopShortcut } = require('./js/shortcut');
 const { getSystemFonts, applyFont } = require('./js/fonts');
-const { exportData } = require('./js/export');
+const { exportData, importData } = require('./js/export');
 const { LANGUAGES, setLanguage, t, applyTranslations } = require('./js/i18n');
 const { THEMES, themeLabel, isDark } = require('./js/themes');
 const { resolveTheme } = require('./js/theme-scheduler');
@@ -171,9 +171,9 @@ sizeDropdown.addEventListener('click', (e) => {
 
 const exportBtn = document.getElementById('setting-export');
 
-exportBtn.addEventListener('click', () => {
+exportBtn.addEventListener('click', async () => {
     try {
-        if (window.mainWindowRef) window.mainWindowRef.flushDataToDisk();
+        if (window.mainWindowRef) await window.mainWindowRef.flushDataToDisk();
         const { exportDir, copied } = exportData();
         exportBtn.textContent = copied.length ? t('btn.done') + ' ✓' : t('btn.nodata');
         if (copied.length) nw.Shell.openItem(exportDir);
@@ -182,6 +182,27 @@ exportBtn.addEventListener('click', () => {
         exportBtn.textContent = t('btn.error');
     }
     setTimeout(() => { exportBtn.textContent = t('btn.export'); }, 2000);
+});
+
+const importBtn = document.getElementById('setting-import');
+
+importBtn.addEventListener('click', async () => {
+    try {
+        await window.mainWindowRef.lockDataForImport();
+        const { found } = importData();
+        if (!found.length) {
+            await window.mainWindowRef.unlockData();
+            importBtn.textContent = t('btn.nodata');
+        } else {
+            await window.mainWindowRef.reloadDataFromDisk();
+            importBtn.textContent = '✓';
+        }
+    } catch (err) {
+        console.error('import failed:', err.message);
+        window.mainWindowRef.unlockData();
+        importBtn.textContent = t('btn.error');
+    }
+    setTimeout(() => { importBtn.textContent = t('btn.import'); }, 2000);
 });
 
 document.addEventListener('click', (e) => {
@@ -485,14 +506,19 @@ glowEl.addEventListener('input', () => {
 
 glowEl.addEventListener('change', () => persist());
 
-document.getElementById('contact-telegram').addEventListener('click', (e) => {
+document.getElementById('rastrata').addEventListener('click', (e) => {
     e.preventDefault();
-    nw.Shell.openExternal('https://t.me/boochear');
+    nw.Shell.openExternal('https://rastrata.github.io');
 });
 
-document.getElementById('contact-email').addEventListener('click', (e) => {
+document.getElementById('site').addEventListener('click', (e) => {
     e.preventDefault();
-    nw.Shell.openExternal('mailto:b0ochear2208@gmail.com');
+    nw.Shell.openExternal('https://boochear.github.io');
+});
+
+document.getElementById('telegram').addEventListener('click', (e) => {
+    e.preventDefault();
+    nw.Shell.openExternal('https://t.me/boochear');
 });
 
 const searchEl = document.getElementById('settings-search');

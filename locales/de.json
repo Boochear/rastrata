@@ -111,5 +111,7 @@
   "board.other": "Sonstige",
   "settings.vizrainbow": "Regenbogen-Visualisierung",
   "notify.open": "Öffnen",
-  "settings.glow": "Leuchten"
+  "settings.glow": "Leuchten",
+  "settings.import": "Daten importieren",
+  "btn.import": "Importieren"
 }

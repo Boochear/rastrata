@@ -1,7 +1,7 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { exec } = require('child_process');
+const { execFile } = require('child_process');
 
 const APP_NAME = 'Rastrata';
 const RUN_KEY = 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run';
@@ -37,16 +37,13 @@ function setAutostartPosix(enabled) {
 function setAutostart(enabled) {
   if (process.platform !== 'win32') return Promise.resolve(setAutostartPosix(enabled));
   return new Promise((resolve) => {
-    if (enabled) {
-      const exePath = process.execPath;
-      const cmd = `reg add "${RUN_KEY}" /v "${APP_NAME}" /t REG_SZ /d "\\"${exePath}\\"" /f`;
-      exec(cmd, (err, stdout, stderr) => {
-        if (err) console.error('autostart error:', stderr || err.message);
-        resolve(!err);
-      });
-    } else {
-      exec(`reg delete "${RUN_KEY}" /v "${APP_NAME}" /f`, () => resolve(true));
-    }
+    const args = enabled
+      ? ['add', RUN_KEY, '/v', APP_NAME, '/t', 'REG_SZ', '/d', `"${process.execPath}"`, '/f']
+      : ['delete', RUN_KEY, '/v', APP_NAME, '/f'];
+    execFile('reg', args, { windowsHide: true }, (err, stdout, stderr) => {
+      if (err && enabled) console.error('autostart error:', stderr || err.message);
+      resolve(enabled ? !err : true);
+    });
   });
 }
 

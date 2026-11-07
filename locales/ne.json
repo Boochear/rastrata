@@ -111,5 +111,7 @@
   "board.other": "अन्य",
   "settings.vizrainbow": "इन्द्रेणी भिजुअलाइजेसन",
   "notify.open": "खोल्नुहोस्",
-  "settings.glow": "चमक"
+  "settings.glow": "चमक",
+  "settings.import": "डाटा आयात गर्नुहोस्",
+  "btn.import": "आयात"
 }

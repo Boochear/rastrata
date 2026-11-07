@@ -111,5 +111,7 @@
   "board.other": "Inne",
   "settings.vizrainbow": "Wizualizacja tęczowa",
   "notify.open": "Otwórz",
-  "settings.glow": "Poświata"
+  "settings.glow": "Poświata",
+  "settings.import": "Importuj dane",
+  "btn.import": "Importuj"
 }

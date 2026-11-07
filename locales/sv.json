@@ -111,5 +111,7 @@
   "board.other": "Övrigt",
   "settings.vizrainbow": "Regnbågsvisualisering",
   "notify.open": "Öppna",
-  "settings.glow": "Sken"
+  "settings.glow": "Sken",
+  "settings.import": "Importera data",
+  "btn.import": "Importera"
 }

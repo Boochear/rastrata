@@ -111,5 +111,7 @@
   "board.other": "Altro",
   "settings.vizrainbow": "Visualizzazione arcobaleno",
   "notify.open": "Apri",
-  "settings.glow": "Bagliore"
+  "settings.glow": "Bagliore",
+  "settings.import": "Importa dati",
+  "btn.import": "Importa"
 }

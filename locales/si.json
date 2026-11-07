@@ -111,5 +111,7 @@
   "board.other": "වෙනත්",
   "settings.vizrainbow": "දේදුන්න දෘශ්‍යකරණය",
   "notify.open": "විවෘත කරන්න",
-  "settings.glow": "දීප්තිය"
+  "settings.glow": "දීප්තිය",
+  "settings.import": "දත්ත ආනයනය කරන්න",
+  "btn.import": "ආනයනය"
 }

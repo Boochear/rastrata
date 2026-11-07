@@ -2,13 +2,19 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const { exec } = require('child_process');
+const { exec, execFile } = require('child_process');
 
 const APP_NAME = 'Rastrata';
 const USER_AGENT = `${APP_NAME}-app`;
 
+const IS_DEV =
+    fs.existsSync(path.join(process.cwd(), '..', '.git')) ||
+    fs.existsSync(path.join(process.cwd(), '.git')) ||
+    fs.existsSync(path.join(process.cwd(), 'dev.flag'));
+
 function checkForUpdates(owner, repo, currentVersion) {
     return new Promise((resolve) => {
+        if (IS_DEV) return resolve({ available: false });
         https.get(`https://api.github.com/repos/${owner}/${repo}/releases/latest`, {
             headers: { 'User-Agent': USER_AGENT }
         }, (res) => {
@@ -70,17 +76,23 @@ function downloadFile(url, destPath) {
 }
 
 function applyUpdateAndRestart(downloadUrl) {
+    if (IS_DEV) return Promise.resolve();
     const tmpDir = os.tmpdir();
     const zipPath = path.join(tmpDir, `${APP_NAME}-update.zip`);
     const extractDir = path.join(tmpDir, `${APP_NAME}-update`);
     const packageNwDir = process.cwd();
-
     return downloadFile(downloadUrl, zipPath).then(() => new Promise((resolve, reject) => {
         fs.rmSync(extractDir, { recursive: true, force: true });
-        const cmd = process.platform === 'win32'
-            ? `powershell -NoProfile -Command "Expand-Archive -Path \"${zipPath}\" -DestinationPath \"${extractDir}\" -Force"`
-            : `unzip -o -q "${zipPath}" -d "${extractDir}"`;
-        exec(cmd, { windowsHide: true }, (err) => err ? reject(err) : resolve());
+        fs.mkdirSync(extractDir, { recursive: true });
+        if (process.platform !== 'win32') {
+            return exec(`unzip -o -q "${zipPath}" -d "${extractDir}"`, (err) => err ? reject(err) : resolve());
+        }
+        execFile('tar', ['-xf', zipPath, '-C', extractDir], { windowsHide: true }, (err) => {
+            if (!err) return resolve();
+            execFile('powershell', ['-NoProfile', '-Command',
+                `Expand-Archive -LiteralPath '${zipPath}' -DestinationPath '${extractDir}' -Force`],
+                { windowsHide: true }, (e2) => e2 ? reject(e2) : resolve());
+        });
     })).then(() => {
         fs.cpSync(path.join(extractDir, 'package.nw'), packageNwDir, { recursive: true, force: true });
         fs.rmSync(extractDir, { recursive: true, force: true });
@@ -94,7 +106,6 @@ function cleanupUpdateFiles() {
     const logPath = path.join(tmpDir, `${APP_NAME}-update.log`);
     const errPath = path.join(tmpDir, `${APP_NAME}-update-error.log`);
     const rm = (p, opts) => fs.rm(p, { force: true, ...opts }, () => { });
-
     rm(path.join(tmpDir, `${APP_NAME}-update.zip`));
     rm(path.join(tmpDir, `${APP_NAME}-apply-update.bat`));
     rm(path.join(tmpDir, `${APP_NAME}-update.vbs`));

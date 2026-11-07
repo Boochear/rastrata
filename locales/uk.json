@@ -111,5 +111,7 @@
   "board.other": "Інше",
   "settings.vizrainbow": "Веселкова візуалізація",
   "notify.open": "Відкрити",
-  "settings.glow": "Сяйво"
+  "settings.glow": "Сяйво",
+  "settings.import": "Завантажити дані",
+  "btn.import": "Завантажити"
 }

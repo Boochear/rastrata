@@ -111,5 +111,7 @@
   "board.other": "Autre",
   "settings.vizrainbow": "Visualisation arc-en-ciel",
   "notify.open": "Ouvrir",
-  "settings.glow": "Lueur"
+  "settings.glow": "Lueur",
+  "settings.import": "Importer les données",
+  "btn.import": "Importer"
 }

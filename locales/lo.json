@@ -111,5 +111,7 @@
   "board.other": "ອື່ນໆ",
   "settings.vizrainbow": "ການສະແດງສາຍຮຸ້ງ",
   "notify.open": "ເປີດ",
-  "settings.glow": "ແສງເຮືອງ"
+  "settings.glow": "ແສງເຮືອງ",
+  "settings.import": "ນຳເຂົ້າຂໍ້ມູນ",
+  "btn.import": "ນຳເຂົ້າ"
 }

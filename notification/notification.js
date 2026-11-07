@@ -46,14 +46,32 @@ function render(items) {
             `<div class="toast-meta">${esc(fmt(it.total))} · ${it.share.toFixed(1)}% ${esc(t('day.ofday'))}</div>${top}</div>`;
     }).join('');
 
-    const height = 44 + items.length * 70 + 52;
-    win.resizeTo(WIDTH, height);
-    win.moveTo(
-        (screen.availLeft || 0) + screen.availWidth - WIDTH - MARGIN,
-        (screen.availTop || 0) + screen.availHeight - height - MARGIN
-    );
-    win.show();
-    win.setAlwaysOnTop(true);
+    const dbg = window.toastDebug ? document.createElement('div') : null;
+    if (dbg) {
+        dbg.style.cssText = 'font-size:10px;opacity:.6';
+        $('toast').appendChild(dbg);
+    }
+
+    function fit() {
+        document.body.style.height = 'auto';
+        const maxH = screen.availHeight - MARGIN * 2;
+        const height = Math.min(Math.ceil(document.body.getBoundingClientRect().height), maxH);
+        document.body.style.height = '';
+
+        win.setMinimumSize(1, 1);
+        win.resizeTo(WIDTH, height);
+        win.moveTo(
+            (screen.availLeft || 0) + screen.availWidth - WIDTH - MARGIN,
+            (screen.availTop || 0) + screen.availHeight - height - MARGIN
+        );
+    }
+
+    document.fonts.ready.then(() => {
+        fit();
+        win.show();
+        win.setAlwaysOnTop(true);
+        setTimeout(fit, 150);
+    });
 
     timer = setTimeout(closeToast, 15000);
     document.body.addEventListener('mouseenter', () => clearTimeout(timer));

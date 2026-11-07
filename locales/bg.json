@@ -111,5 +111,7 @@
   "board.other": "Други",
   "settings.vizrainbow": "Дъгова визуализация",
   "notify.open": "Отвори",
-  "settings.glow": "Сияние"
+  "settings.glow": "Сияние",
+  "settings.import": "Импортиране на данни",
+  "btn.import": "Импортиране"
 }

@@ -111,5 +111,7 @@
   "board.other": "Башка",
   "settings.vizrainbow": "Салават күпере визуализациясе",
   "notify.open": "Ачу",
-  "settings.glow": "Балкыш"
+  "settings.glow": "Балкыш",
+  "settings.import": "Мәгълүматны импортлау",
+  "btn.import": "Импортлау"
 }

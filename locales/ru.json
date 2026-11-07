@@ -111,5 +111,7 @@
     "board.other": "Остальные",
     "settings.vizrainbow": "Радужная визуализация",
     "notify.open": "Открыть",
-    "settings.glow": "Свечение"
+    "settings.glow": "Свечение",
+    "settings.import": "Загрузить данные",
+    "btn.import": "Загрузить"
 }

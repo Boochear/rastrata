@@ -111,5 +111,7 @@
   "board.other": "Nyingine",
   "settings.vizrainbow": "Taswira ya upinde wa mvua",
   "notify.open": "Fungua",
-  "settings.glow": "Mwangaza"
+  "settings.glow": "Mwangaza",
+  "settings.import": "Ingiza data",
+  "btn.import": "Ingiza"
 }

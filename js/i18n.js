@@ -6,9 +6,13 @@ const BASE = 'en';
 const RTL = new Set(['ar', 'he', 'fa', 'ur', 'ps', 'ckb', 'ug']);
 
 function scanLanguages() {
+    try {
+        const idx = JSON.parse(fs.readFileSync(path.join(LOCALES_DIR, '_index.json'), 'utf-8'));
+        if (Array.isArray(idx) && idx.length) return idx;
+    } catch { }
     let files = [];
     try {
-        files = fs.readdirSync(LOCALES_DIR).filter((f) => f.endsWith('.json'));
+        files = fs.readdirSync(LOCALES_DIR).filter((f) => f.endsWith('.json') && f[0] !== '_');
     } catch { }
     const list = files.map((f) => {
         const code = f.slice(0, -5);
